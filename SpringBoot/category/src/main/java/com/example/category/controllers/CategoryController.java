@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,6 +27,7 @@ import com.example.category.requests.UpdateCategoryRequest;
 
 import io.micrometer.core.ipc.http.HttpSender.Response;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.UnexpectedTypeException;
 import jakarta.validation.Valid;
 
 @RestController
@@ -104,6 +107,17 @@ public class CategoryController {
         StringBuilder fileNames = new StringBuilder();
         String randomFilename = generateRandomFilename(image.getOriginalFilename());
 
+        System.out.println("file size is ");
+        System.out.println(image.getSize());
+
+        if (image.getSize() > 500 * 1024) {
+            throw new FileSizeLimitExceededException("File size exceeds the allowed limit", 0, 0);
+        }
+
+        if (!isValidFileExtension(getFileExtension(image.getOriginalFilename()))) {
+            throw new UnexpectedTypeException("Unsupported file type");
+        }
+
         Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, randomFilename);
 
         fileNames.append(randomFilename);
@@ -119,5 +133,14 @@ public class CategoryController {
         String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
 
         return randomString + fileExtension;
+    }
+
+    private String getFileExtension(String filename) {
+        return filename.substring(filename.lastIndexOf(".") + 1);
+    }
+
+    private boolean isValidFileExtension(String fileExtension) {
+        List<String> allowedExtensions = Arrays.asList("jpg", "jpeg", "png", "gif");
+        return allowedExtensions.contains(fileExtension.toLowerCase());
     }
 }
