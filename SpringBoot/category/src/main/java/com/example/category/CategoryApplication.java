@@ -18,17 +18,38 @@ public class CategoryApplication {
 	@Bean
 	CommandLineRunner start(CategoryRepository categoryRepository) {
 		return args -> {
-			categoryRepository.save(new Category(null, "Vehicules"));
+			if (categoryRepository.count() == 0) {
+				Category infoEtMultimedia = categoryRepository.save(new Category("Informatique et multimedias", null));
 
-			categoryRepository.save(new Category(null, "Immobilier"));
+				categoryRepository.save(new Category("Ordinateurs Portables", "laptop.png", infoEtMultimedia));
 
-			categoryRepository.save(new Category(null, "Informatique et multimedias"));
+				categoryRepository.save(new Category("Ordinateurs de bureau", "pc bureau.png", infoEtMultimedia));
 
-			categoryRepository.save(new Category(null, "Pour la maison et jardin"));
+				categoryRepository.save(new Category("Console de jeux", "ps-logo-of-games.png", infoEtMultimedia));
 
-			categoryRepository.save(new Category(null, "Habillement et Bien etre"));
+				categoryRepository.save(new Category("Perepheriques et accessoires", null, infoEtMultimedia));
 
-			categoryRepository.save(new Category(null, "Loisirs et Divertissement"));
+				Category telephoneEtTablette = categoryRepository.save(new Category("Telephone & Tablette", null));
+
+				categoryRepository.save(new Category("Telephone", "smartphone-call.png", telephoneEtTablette));
+
+				categoryRepository.save(new Category("Tablette", null, telephoneEtTablette));
+
+				categoryRepository.save(new Category("Aceessoires Telephonie", null, telephoneEtTablette));
+
+				Category mode = categoryRepository.save(new Category("Mode", null));
+
+				categoryRepository.save(new Category("Vetement Homme", null, mode));
+
+				categoryRepository.save(new Category("Vetement Femme", null, mode));
+
+				categoryRepository.save(new Category("Vetement Enfants", null, mode));
+
+				categoryRepository.save(new Category("Accessoires Homme", null, mode));
+
+				categoryRepository.save(new Category("Accessoires Femme", null, mode));
+
+			}
 
 		};
 	}
