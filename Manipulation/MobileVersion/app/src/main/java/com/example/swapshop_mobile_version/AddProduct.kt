@@ -4,7 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
 
 class addProduct : AppCompatActivity() {
@@ -16,7 +18,8 @@ class addProduct : AppCompatActivity() {
         val productNameExtra = intent.getStringExtra("productName")
         val priceExtra = intent.getStringExtra("price")
         val descriptionEdit = intent.getStringExtra("description")
-
+        val button = findViewById<Button>(R.id.addButton)
+        val contentPageName = findViewById<TextView>(R.id.textView)
         val productNameEditText = findViewById<EditText>(R.id.name)
         val priceEditText = findViewById<EditText>(R.id.priceEditText)
         val descriptionEditText = findViewById<EditText>(R.id.descriptionEditText)
@@ -25,6 +28,8 @@ class addProduct : AppCompatActivity() {
             productNameEditText.setText(productNameExtra)
             priceEditText.setText(priceExtra)
             descriptionEditText.setText(descriptionEdit)
+            contentPageName.setText("Edit Product Informations")
+            button.setText("Edit Informations")
         }
     }
     fun saveProduct(view: View) {
@@ -33,9 +38,13 @@ class addProduct : AppCompatActivity() {
         var price = findViewById<EditText>(R.id.priceEditText)
         if (productName.text.toString().isEmpty() || description.text.toString().isEmpty() ||
             price.text.toString().isEmpty()) {
-            val snackbar = Snackbar.make(view, "Erreur! Confirmez les données", Snackbar.LENGTH_LONG)
+            val snackbar = Snackbar.make(view, "Error! please confirm your data", Snackbar.LENGTH_LONG)
             snackbar.show()
         } else {
+            if (productName.text.toString().length > 16){
+                val snackbar = Snackbar.make(view, "Error! please confirm your product name", Snackbar.LENGTH_LONG)
+                snackbar.show()
+            }
             val indexProduct = intent.getStringExtra("index")
             val productList = Intent(this, MainActivity::class.java)
             val bundle = Bundle()

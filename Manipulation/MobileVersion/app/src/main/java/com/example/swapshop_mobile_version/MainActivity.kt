@@ -41,6 +41,12 @@ class MainActivity : AppCompatActivity() , MyAdapter.OnItemClickListener{
         values.add(Products("Pc Toshiba",1500.0,"Pc cv"))
         values.add(Products("Pc Dell",2500.0,"Pc cv"))
         values.add(Products("Pc Asus",1400.0,"Pc cv"))
+        values.add(Products("bycyclette",400.0,"Pc cv"))
+        values.add(Products("casque",350.0,"Pc cv"))
+        values.add(Products("souris",140.0,"Pc cv"))
+        values.add(Products("chargeur",17.0,"Pc cv"))
+        values.add(Products("ecouteur avec fils",401.0,"Pc cv"))
+        values.add(Products("souris sans fils",802.0,"Pc cv"))
         val bundle = intent.extras
         val productName = bundle?.getString("productName")
         val productPrice = bundle?.getString("price")?.toDouble()
