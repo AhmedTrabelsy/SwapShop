@@ -1,24 +1,29 @@
 package com.example.swapshop_mobile_version
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.swapshop_mobile_version.databinding.ActivityMainBinding
+import com.example.swapshop_mobile_version.models.Categories
 import com.example.swapshop_mobile_version.models.Products
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.Locale
 
-class MainActivity : AppCompatActivity() , MyAdapter.OnItemClickListener{
-
+class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var manager: RecyclerView.LayoutManager
-    private lateinit var myAdapter: RecyclerView.Adapter<*>
+    private lateinit var myAdapter: MyAdapter
     private lateinit var addNewProductButton: FloatingActionButton
+    private lateinit var binding: ActivityMainBinding
+
+    private var values = ArrayList<Products>()
+    private var filteredValues = ArrayList<Products>()
 
     private fun setupAddNewProductButton() {
         addNewProductButton = findViewById(R.id.addNewProduct)
@@ -27,7 +32,6 @@ class MainActivity : AppCompatActivity() , MyAdapter.OnItemClickListener{
             startActivity(sharePage)
         }
     }
-    val values = arrayListOf<Products>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,38 +41,79 @@ class MainActivity : AppCompatActivity() , MyAdapter.OnItemClickListener{
         recyclerView = findViewById<RecyclerView>(R.id.productList).apply {
             layoutManager = manager
             adapter = myAdapter
+            (myAdapter as MyAdapter).setOnItemClickListener(this@MainActivity)
         }
-        values.add(Products("Pc Toshiba",1500.0,"Pc cv"))
-        values.add(Products("Pc Dell",2500.0,"Pc cv"))
-        values.add(Products("Pc Asus",1400.0,"Pc cv"))
-        values.add(Products("bycyclette",400.0,"Pc cv"))
-        values.add(Products("casque",350.0,"Pc cv"))
-        values.add(Products("souris",140.0,"Pc cv"))
-        values.add(Products("chargeur",17.0,"Pc cv"))
-        values.add(Products("ecouteur avec fils",401.0,"Pc cv"))
-        values.add(Products("souris sans fils",802.0,"Pc cv"))
+        binding = ActivityMainBinding.inflate(layoutInflater)
+
+     /*   binding.search.isIconified = false
+
+        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterList(newText)
+                return true
+            }
+        })*/
+        
+        val pc = Categories("Pc's")
+        val accessories = Categories("Accessories")
+        values.add(Products("Pc Toshiba", "1500.0", "Pc cv", pc))
+        values.add(Products("Pc Dell", "2500.0", "Pc cv", pc))
+        values.add(Products("Pc Asus", "1400.0", "Pc cv", pc))
+        values.add(Products("bicycle", "400.0", "Pc cv", pc))
+        values.add(Products("headset", "350.0", "Pc cv", accessories))
+        values.add(Products("mouse", "140.0", "Pc cv", accessories))
+        values.add(Products("charger", "17.0", "Pc cv", accessories))
+        values.add(Products("wired earphones", "401.0", "Pc cv", accessories))
+        values.add(Products("wireless mouse", "802.0", "Pc cv", accessories))
+
+        filteredValues.addAll(values) // Add all products to filteredValues initially
+
         val bundle = intent.extras
         val productName = bundle?.getString("productName")
-        val productPrice = bundle?.getString("price")?.toDouble()
+        val productPrice = bundle?.getString("price")
         val productDescription = bundle?.getString("description")
+        val category = bundle?.getString("category")
         val indexString = bundle?.getString("index")
         val index = indexString?.toIntOrNull()
 
         if (index != null) {
             if (productName != null && productPrice != null && productDescription != null && (index >= 0 && index < values.size)) {
-                //  if (index >= 0 && index < values.size) {
-                values[index].price = productPrice
+                values[index].price = productPrice.toString()
                 values[index].productName = productName
                 values[index].description = productDescription
-                //  } else {
-
-                //}
+                values[index].category = Categories(category)
             }
         }
         if (productName != null && productPrice != null && productDescription != null && index == null) {
-            values.add(Products(productName,productPrice, productDescription.toString()))
+            values.add(Products(productName, productPrice, productDescription.toString(), Categories(category)))
         }
         setupAddNewProductButton()
+    }
+
+    fun filterList(query: String?) {
+        if (query != null) {
+            val filteredList = ArrayList<Products>()
+            if (query.isEmpty()) {
+                filteredList.addAll(filteredValues) // When query is empty, show all products
+            } else {
+                val searchText = query.lowercase(Locale.ROOT)
+                for (product in filteredValues) {
+                    if (product.productName.lowercase(Locale.ROOT).contains(searchText)) {
+                        filteredList.add(product)
+                    }
+                }
+            }
+
+            if (filteredList.isEmpty()) {
+                Toast.makeText(this, "No Data found", Toast.LENGTH_SHORT).show()
+            }
+
+            (myAdapter as MyAdapter).setFilteredList(filteredList)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -80,15 +125,15 @@ class MainActivity : AppCompatActivity() , MyAdapter.OnItemClickListener{
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.profile -> {
-                Toast.makeText(this, "Profile sélectionnée", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Profile selected", Toast.LENGTH_SHORT).show()
                 true
             }
             R.id.settings -> {
-                Toast.makeText(this, "settings sélectionnée", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Settings selected", Toast.LENGTH_SHORT).show()
                 true
             }
             R.id.logOut -> {
-                Toast.makeText(this, "Logout sélectionnée", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Logout selected", Toast.LENGTH_SHORT).show()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -96,7 +141,15 @@ class MainActivity : AppCompatActivity() , MyAdapter.OnItemClickListener{
     }
 
     override fun onItemClick(position: Int) {
-        TODO("Not yet implemented")
-    }
+        val selectedProduct = filteredValues[position]
 
+        val intent = Intent(this, ProductsDetails::class.java)
+
+        intent.putExtra("categoryName", selectedProduct.category.categoryName)
+        intent.putExtra("productName", selectedProduct.productName)
+        intent.putExtra("priceProduct", selectedProduct.price)
+        intent.putExtra("description", selectedProduct.description)
+
+        startActivity(intent)
+    }
 }
