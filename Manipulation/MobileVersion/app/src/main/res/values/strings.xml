@@ -3,4 +3,6 @@
     <string name="add_new_product">Add New Product</string>
     <string name="price">Price</string>
     <string name="name">Name</string>
+    <string name="enter_a_product_name">Enter a product name ..</string>
+
 </resources>
