@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  discovery:
+    build:
+      context: ./backEnd/SpringBoot/discovery
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+  gateway:
+    build:
+      context: ./backEnd/SpringBoot/gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    depends_on:
+      - discovery
+  mysql:
+    image: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_USER: root
+  category:
+    build:
+      context: ./backEnd/SpringBoot/category
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - gateway
+      - mysql
