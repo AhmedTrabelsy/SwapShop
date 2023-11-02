@@ -6,7 +6,7 @@ RUN mvn clean package
 
 FROM openjdk:17-alpine
 WORKDIR /app
-COPY --from=build /app/target/product-0.0.1-SNAPSHOT.jar  app.jar
+COPY --from=build /app/target/Products-service-0.0.1-SNAPSHOT.jar  app.jar
 
 EXPOSE 8081
 CMD ["java", "-jar", "app.jar"]
