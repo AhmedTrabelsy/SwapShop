@@ -30,3 +30,11 @@ services:
       - "8082:8082"
     depends_on:
       - category
+  angular:
+    build:
+      context: ./FrontEnd/WebVersion
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - product
