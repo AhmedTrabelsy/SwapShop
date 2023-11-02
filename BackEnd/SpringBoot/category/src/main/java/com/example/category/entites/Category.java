@@ -59,8 +59,8 @@ public class Category {
 
     public String getIcon() {
         if (icon != null) {
-            return icon;
+            return "uploads/" + icon;
         }
-        return "default.png";
+        return "uploads/default.png";
     }
 }
