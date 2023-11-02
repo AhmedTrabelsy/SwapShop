@@ -1,0 +1,27 @@
+name: cicd
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Send files to server
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        with:
+          server: 34.199.239.78
+          username: haythem
+          password: haythem
+      - name: run ssh commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: 34.199.239.78
+          username: ubuntu
+          key_path: id_rsa
+          script: |
+            cd /home/haythem
+            sudo docker compose down
+            sudo docker compose up --build -d
