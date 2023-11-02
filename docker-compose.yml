@@ -20,6 +20,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8081:8081"
+    volumes:
+      - category_uploads:/app/uploads
     depends_on:
       - gateway
   product:
@@ -38,3 +40,5 @@ services:
       - "80:80"
     depends_on:
       - product
+volumes:
+  category_uploads:

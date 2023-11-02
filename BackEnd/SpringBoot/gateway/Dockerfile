@@ -1,8 +1,11 @@
 FROM maven:3.8.4-openjdk-17-slim AS build
 WORKDIR /app
-COPY . .
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+RUN mvn dependency:go-offline
+COPY ./src ./src
 COPY src/main/resources/application.properties.prod src/main/resources/application.properties
-RUN mvn clean package
+RUN mvn clean install
 
 FROM openjdk:17-alpine
 WORKDIR /app
