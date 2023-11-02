@@ -22,3 +22,11 @@ services:
       - "8081:8081"
     depends_on:
       - gateway
+  product:
+    build:
+      context: ./BackEnd/SpringBoot/product
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    depends_on:
+      - category
