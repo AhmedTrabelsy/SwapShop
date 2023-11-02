@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  discovery:
+    build:
+      context: ./BackEnd/SpringBoot/discovery
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+  gateway:
+    build:
+      context: ./BackEnd/SpringBoot/gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    depends_on:
+      - discovery
+  category:
+    build:
+      context: ./BackEnd/SpringBoot/category
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - gateway
+  product:
+    build:
+      context: ./BackEnd/SpringBoot/product
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    depends_on:
+      - category
