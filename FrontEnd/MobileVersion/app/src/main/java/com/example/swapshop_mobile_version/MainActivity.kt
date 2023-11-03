@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
     private lateinit var binding: ActivityMainBinding
 
     private var values = ArrayList<Products>()
-    private var filteredValues = ArrayList<Products>()
 
     private fun setupAddNewProductButton() {
         addNewProductButton = findViewById(R.id.addNewProduct)
@@ -44,19 +43,6 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
             (myAdapter as MyAdapter).setOnItemClickListener(this@MainActivity)
         }
         binding = ActivityMainBinding.inflate(layoutInflater)
-
-     /*   binding.search.isIconified = false
-
-        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                filterList(newText)
-                return true
-            }
-        })*/
         
         val pc = Categories("Pc's")
         val accessories = Categories("Accessories")
@@ -69,8 +55,6 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
         values.add(Products("charger", "17.0", "Pc cv", accessories))
         values.add(Products("wired earphones", "401.0", "Pc cv", accessories))
         values.add(Products("wireless mouse", "802.0", "Pc cv", accessories))
-
-        filteredValues.addAll(values) // Add all products to filteredValues initially
 
         val bundle = intent.extras
         val productName = bundle?.getString("productName")
@@ -92,28 +76,6 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
             values.add(Products(productName, productPrice, productDescription.toString(), Categories(category)))
         }
         setupAddNewProductButton()
-    }
-
-    fun filterList(query: String?) {
-        if (query != null) {
-            val filteredList = ArrayList<Products>()
-            if (query.isEmpty()) {
-                filteredList.addAll(filteredValues) // When query is empty, show all products
-            } else {
-                val searchText = query.lowercase(Locale.ROOT)
-                for (product in filteredValues) {
-                    if (product.productName.lowercase(Locale.ROOT).contains(searchText)) {
-                        filteredList.add(product)
-                    }
-                }
-            }
-
-            if (filteredList.isEmpty()) {
-                Toast.makeText(this, "No Data found", Toast.LENGTH_SHORT).show()
-            }
-
-            (myAdapter as MyAdapter).setFilteredList(filteredList)
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -141,7 +103,7 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(position: Int) {
-        val selectedProduct = filteredValues[position]
+        val selectedProduct = values[position]
 
         val intent = Intent(this, ProductsDetails::class.java)
 
