@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
     private lateinit var binding: ActivityMainBinding
 
     private var values = ArrayList<Products>()
-    private var filteredValues = ArrayList<Products>()
 
     private fun setupAddNewProductButton() {
         addNewProductButton = findViewById(R.id.addNewProduct)
@@ -104,7 +103,7 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(position: Int) {
-        val selectedProduct = filteredValues[position]
+        val selectedProduct = values[position]
 
         val intent = Intent(this, ProductsDetails::class.java)
 
