@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">SwapShop_mobile_version</string>
-    <string name="add_new_product">Add New Product</string>
+        <string name="add_new_product">ADD NEW PRODUCT</string>
     <string name="price">Price</string>
     <string name="name">Name</string>
     <string name="enter_a_product_name">Enter a product name ..</string>

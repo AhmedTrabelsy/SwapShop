@@ -94,26 +94,5 @@ class MyAdapter(private var myDataSet: ArrayList<Products>): RecyclerView.Adapte
         fun onItemClick(position: Int)
     }
 
-    fun filter(text: String): ArrayList<Products> {
-        filteredDataSet.clear()
-        if (text.isEmpty()) {
-            filteredDataSet.addAll(myDataSet)
-        } else {
-            val searchText = text.lowercase()
-            for (product in myDataSet) {
-                if (product.productName.lowercase().contains(searchText)) {
-                    filteredDataSet.add(product)
-                }
-            }
-        }
-        notifyDataSetChanged()
-        return filteredDataSet
-
-    }
-
-    fun setFilteredList(mList: ArrayList<Products>){
-        this.myDataSet = mList
-        notifyDataSetChanged()
-    }
 
 }
