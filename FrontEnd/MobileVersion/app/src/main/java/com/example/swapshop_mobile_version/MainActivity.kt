@@ -9,11 +9,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.example.swapshop_mobile_version.databinding.ActivityMainBinding
 import com.example.swapshop_mobile_version.models.Categories
 import com.example.swapshop_mobile_version.models.Products
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import java.util.Locale
+import org.json.JSONException
 
 class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
     private lateinit var recyclerView: RecyclerView
@@ -21,6 +25,7 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
     private lateinit var myAdapter: MyAdapter
     private lateinit var addNewProductButton: FloatingActionButton
     private lateinit var binding: ActivityMainBinding
+    private var requestQueue: RequestQueue? = null
 
     private var values = ArrayList<Products>()
 
@@ -43,19 +48,12 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
             (myAdapter as MyAdapter).setOnItemClickListener(this@MainActivity)
         }
         binding = ActivityMainBinding.inflate(layoutInflater)
-        
+
         val pc = Categories("Pc's")
         val accessories = Categories("Accessories")
         values.add(Products("Pc Toshiba", "1500.0", "Pc cv", pc))
-        values.add(Products("Pc Dell", "2500.0", "Pc cv", pc))
-        values.add(Products("Pc Asus", "1400.0", "Pc cv", pc))
-        values.add(Products("bicycle", "400.0", "Pc cv", pc))
-        values.add(Products("headset", "350.0", "Pc cv", accessories))
-        values.add(Products("mouse", "140.0", "Pc cv", accessories))
-        values.add(Products("charger", "17.0", "Pc cv", accessories))
-        values.add(Products("wired earphones", "401.0", "Pc cv", accessories))
-        values.add(Products("wireless mouse", "802.0", "Pc cv", accessories))
-
+        requestQueue = Volley.newRequestQueue(this)
+        jsonParse()
         val bundle = intent.extras
         val productName = bundle?.getString("productName")
         val productPrice = bundle?.getString("price")
@@ -82,6 +80,33 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.app_menu, menu)
         return true
+    }
+
+    private fun jsonParse() {
+        val url = "http://34.199.239.78:8888/PRODUCT-SERVICE/products"
+        val request = JsonObjectRequest(Request.Method.GET, url, null, { response ->
+            try {
+                if (response.has("_embedded")) {
+                    val embedded = response.getJSONObject("_embedded")
+                    val productsArray = embedded.getJSONArray("products")
+
+                    for (i in 0 until productsArray.length()) {
+                        val product = productsArray.getJSONObject(i)
+                        val productName = product.getString("name")
+                        val price = product.getDouble("price")
+                        val description = product.getString("description")
+                        val pc = Categories("Pc's")
+                        val newUser = Products(productName, price.toString(), description, pc)
+                        values.add(newUser)
+                    }
+                    myAdapter.notifyDataSetChanged()
+                }
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+        }, { error -> error.printStackTrace() })
+
+        requestQueue?.add(request)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

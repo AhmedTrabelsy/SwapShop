@@ -126,7 +126,7 @@
                 android:layout_marginBottom="16dp"
                 android:background="@color/skyblue"
                 android:onClick="saveProduct"
-                android:text="Add New Product"
+                android:text="ADD NEW PRODUCT"
                 android:textColor="@color/blue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

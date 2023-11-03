@@ -65,7 +65,7 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             }
             categorySpinner.setSelection(index)
 
-            contentPageName.setText("Edit Product Informations")
+            contentPageName.setText("EDIT EXISTING PRODUCT")
             button.setText("Edit Informations")
         }
     }
@@ -107,4 +107,5 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
     }
+
 }
