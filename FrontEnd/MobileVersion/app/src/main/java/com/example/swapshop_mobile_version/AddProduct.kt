@@ -19,6 +19,8 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_product)
         getSupportActionBar()!!.setTitle("Add Product")
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
         val categories = ArrayList<Categories>()
 
         val pc = Categories("Pc's")

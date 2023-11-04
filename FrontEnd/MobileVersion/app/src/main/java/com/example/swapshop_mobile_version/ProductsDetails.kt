@@ -8,7 +8,7 @@ class ProductsDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_products_details)
-
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         val productName = intent.getStringExtra("productName")
         val categoryName = intent.getStringExtra("categoryName")
