@@ -18,6 +18,8 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_product)
+        getSupportActionBar()!!.setTitle("Add Product")
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         val categories = ArrayList<Categories>()
 
@@ -67,6 +69,7 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
             contentPageName.setText("EDIT EXISTING PRODUCT")
             button.setText("Edit Informations")
+            getSupportActionBar()!!.setTitle("Edit Product")
         }
     }
 
@@ -96,7 +99,12 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             bundle.putString("index", indexProduct.toString())
             productList.putExtras(bundle)
             startActivity(productList)
+            overridePendingTransition(R.anim.in_left_anim, R.anim.out_right_anim)
         }
+    }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.in_left_anim, R.anim.out_right_anim)
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

@@ -8,13 +8,13 @@ class ProductsDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_products_details)
-
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         val productName = intent.getStringExtra("productName")
         val categoryName = intent.getStringExtra("categoryName")
         val priceString = intent.getStringExtra("priceProduct")
         val description = intent.getStringExtra("description")
-
+        getSupportActionBar()!!.title = productName
         val productTextView = findViewById<TextView>(R.id.productsName)
         val categoryTextView = findViewById<TextView>(R.id.category)
         val priceTextView = findViewById<TextView>(R.id.priceSelectedProducts)
@@ -30,5 +30,9 @@ class ProductsDetails : AppCompatActivity() {
         }
 
         descriptionTextView.text = "Decription: " + description
+    }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.in_left_anim, R.anim.out_right_anim)
     }
 }
