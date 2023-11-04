@@ -40,5 +40,11 @@ services:
       - "80:80"
     depends_on:
       - product
+  apk_web_server:
+    image: nginx:1.17.1-alpine
+    ports:
+      - "1000:80"
+    volumes:
+      - ./APK:/usr/share/nginx/html
 volumes:
   category_uploads:
