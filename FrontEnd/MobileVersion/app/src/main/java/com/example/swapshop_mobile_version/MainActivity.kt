@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        getSupportActionBar()!!.setTitle("Products List")
         manager = LinearLayoutManager(this)
         myAdapter = MyAdapter(values)
         recyclerView = findViewById<RecyclerView>(R.id.productList).apply {

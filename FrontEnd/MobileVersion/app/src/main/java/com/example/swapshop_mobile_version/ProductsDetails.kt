@@ -14,7 +14,7 @@ class ProductsDetails : AppCompatActivity() {
         val categoryName = intent.getStringExtra("categoryName")
         val priceString = intent.getStringExtra("priceProduct")
         val description = intent.getStringExtra("description")
-
+        getSupportActionBar()!!.title = productName
         val productTextView = findViewById<TextView>(R.id.productsName)
         val categoryTextView = findViewById<TextView>(R.id.category)
         val priceTextView = findViewById<TextView>(R.id.priceSelectedProducts)

@@ -18,7 +18,7 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_product)
-
+        getSupportActionBar()!!.setTitle("Add Product")
         val categories = ArrayList<Categories>()
 
         val pc = Categories("Pc's")
@@ -67,6 +67,7 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
             contentPageName.setText("EDIT EXISTING PRODUCT")
             button.setText("Edit Informations")
+            getSupportActionBar()!!.setTitle("Edit Product")
         }
     }
 
