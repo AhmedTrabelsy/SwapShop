@@ -34,12 +34,14 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
         addNewProductButton.setOnClickListener {
             val sharePage = Intent(this, addProduct::class.java)
             startActivity(sharePage)
+            overridePendingTransition(R.anim.in_right_anim, R.anim.out_left_anim)
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        getSupportActionBar()!!.setTitle("Products List")
         manager = LinearLayoutManager(this)
         myAdapter = MyAdapter(values)
         recyclerView = findViewById<RecyclerView>(R.id.productList).apply {
@@ -138,5 +140,11 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
         intent.putExtra("description", selectedProduct.description)
 
         startActivity(intent)
+        overridePendingTransition()
     }
+
+    private fun overridePendingTransition() {
+        overridePendingTransition(R.anim.in_right_anim, R.anim.out_left_anim)
+    }
+
 }
