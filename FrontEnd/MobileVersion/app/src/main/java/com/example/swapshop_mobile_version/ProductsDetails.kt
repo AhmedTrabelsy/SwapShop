@@ -20,8 +20,8 @@ class ProductsDetails : AppCompatActivity() {
         val priceTextView = findViewById<TextView>(R.id.priceSelectedProducts)
         val descriptionTextView = findViewById<TextView>(R.id.Description)
 
-        productTextView.text = "name: "+productName
-        categoryTextView.text = "category: "+categoryName
+        productTextView.text = "Name: "+productName
+        categoryTextView.text = "Category: "+categoryName
 
         if (priceString != null) {
             val price = priceString.toDouble()
@@ -29,6 +29,6 @@ class ProductsDetails : AppCompatActivity() {
             priceTextView.text = formattedPrice
         }
 
-        descriptionTextView.text = "decription: " + description
+        descriptionTextView.text = "Decription: " + description
     }
 }
