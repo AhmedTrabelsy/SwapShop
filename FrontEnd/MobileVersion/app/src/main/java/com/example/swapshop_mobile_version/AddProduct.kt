@@ -107,4 +107,5 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
     }
+
 }

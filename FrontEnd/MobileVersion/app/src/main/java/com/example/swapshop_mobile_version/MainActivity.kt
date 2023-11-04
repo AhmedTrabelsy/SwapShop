@@ -54,6 +54,25 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
         values.add(Products("Pc Toshiba", "1500.0", "Pc cv", pc))
         requestQueue = Volley.newRequestQueue(this)
         jsonParse()
+        val bundle = intent.extras
+        val productName = bundle?.getString("productName")
+        val productPrice = bundle?.getString("price")
+        val productDescription = bundle?.getString("description")
+        val category = bundle?.getString("category")
+        val indexString = bundle?.getString("index")
+        val index = indexString?.toIntOrNull()
+
+        if (index != null) {
+            if (productName != null && productPrice != null && productDescription != null && (index >= 0 && index < values.size)) {
+                values[index].price = productPrice.toString()
+                values[index].productName = productName
+                values[index].description = productDescription
+                values[index].category = Categories(category)
+            }
+        }
+        if (productName != null && productPrice != null && productDescription != null && index == null) {
+            values.add(Products(productName, productPrice, productDescription.toString(), Categories(category)))
+        }
         setupAddNewProductButton()
     }
 
