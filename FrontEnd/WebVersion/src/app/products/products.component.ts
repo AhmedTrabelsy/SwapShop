@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent {
+  userMenuOpen = false;
 
+  toggleUserMenu(): void {
+    this.userMenuOpen = !this.userMenuOpen;
+  }
 }
+
+
