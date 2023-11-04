@@ -99,7 +99,12 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             bundle.putString("index", indexProduct.toString())
             productList.putExtras(bundle)
             startActivity(productList)
+            overridePendingTransition(R.anim.in_left_anim, R.anim.out_right_anim)
         }
+    }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.in_left_anim, R.anim.out_right_anim)
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

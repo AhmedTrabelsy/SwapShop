@@ -31,4 +31,8 @@ class ProductsDetails : AppCompatActivity() {
 
         descriptionTextView.text = "Decription: " + description
     }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.in_left_anim, R.anim.out_right_anim)
+    }
 }
