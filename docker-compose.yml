@@ -30,6 +30,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8082:8082"
+    volumes:
+      - product_uploads:/app/uploads
     depends_on:
       - category
   angular:
@@ -48,3 +50,4 @@ services:
       - ./APK:/usr/share/nginx/html
 volumes:
   category_uploads:
+  product_uploads:

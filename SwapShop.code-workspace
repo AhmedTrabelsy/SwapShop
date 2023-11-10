@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "BackEnd/SpringBoot/category"
+		},
+		{
+			"path": "BackEnd/SpringBoot/discovery"
+		},
+		{
+			"path": "BackEnd/SpringBoot/gateway"
+		},
+		{
+			"path": "BackEnd/SpringBoot/product"
+		},
+		{
+			"path": "FrontEnd/WebVersion"
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "interactive"
+	}
+}
