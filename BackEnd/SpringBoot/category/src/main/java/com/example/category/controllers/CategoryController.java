@@ -43,6 +43,11 @@ public class CategoryController {
         return categoryRepository.findAll();
     }
 
+    @GetMapping("/categories/{id}")
+    public Category findById(@PathVariable Long id) {
+        return categoryRepository.findById(id).get();
+    }
+
     @PostMapping("/categories")
     public Category create(@Valid CreateCategoryRequest request) throws IOException {
 
