@@ -45,6 +45,14 @@ services:
       - product_uploads:/app/uploads
     depends_on:
       - category
+  wishlist:
+    build:
+      context: ./BackEnd/NodeJs/wishlist-service
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8084"
+    depends_on:
+      - product
   angular:
     build:
       context: ./FrontEnd/WebVersion
