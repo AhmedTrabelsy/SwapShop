@@ -4,7 +4,7 @@ const createEurekaClient = () => {
 	return new Eureka({
 		instance: {
 			app: 'WISHLIST-SERVICE',
-			hostName: 'localhost',
+			hostName: 'wishlist',
 			ipAddr: '127.0.0.1',
 			vipAddress: 'WISHLIST-SERVICE',
 			port: {
