@@ -19,6 +19,7 @@ public class CreateProductRequest {
     @NotBlank
     private String description;
 
+    @NotNull
     private List<MultipartFile> images;
 
     @NotNull
