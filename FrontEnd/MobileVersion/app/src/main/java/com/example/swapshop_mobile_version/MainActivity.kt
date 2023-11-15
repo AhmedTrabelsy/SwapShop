@@ -8,6 +8,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
@@ -20,6 +21,7 @@ import com.example.swapshop_mobile_version.models.Categories
 import com.example.swapshop_mobile_version.models.Products
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.json.JSONException
+import java.util.Locale
 
 class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
     private lateinit var recyclerView: RecyclerView
@@ -45,9 +47,10 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        var filterList = ArrayList<Products>()
         getSupportActionBar()!!.setTitle("Products List")
         manager = LinearLayoutManager(this)
-        myAdapter = MyAdapter(values, this)
+        myAdapter = MyAdapter(filterList, this)
         recyclerView = findViewById<RecyclerView>(R.id.productList).apply {
             layoutManager = manager
             adapter = myAdapter
@@ -60,6 +63,31 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
         values.add(Products(5,"Pc Toshiba", "1500.0", "Pc cv", pc, imageUrls))
         requestQueue = Volley.newRequestQueue(this)
         jsonParse()
+        filterList.addAll(values)
+        val searchItem = findViewById<SearchView>(R.id.searchBar)
+        searchItem.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterList.clear()
+                val searchText = newText!!.toLowerCase(Locale.getDefault())
+                if (searchText.isNotEmpty()){
+                    values.forEach {
+                        if (it.productName.toLowerCase(Locale.getDefault()).contains(searchText)){
+                            filterList.add(it)
+                        }
+                    }
+                    myAdapter.notifyDataSetChanged()
+                } else {
+                    filterList.addAll(values)
+                }
+                return false
+            }
+
+        })
+
         val bundle = intent.extras
         val productName = bundle?.getString("productName")
         val productPrice = bundle?.getString("price")
@@ -127,6 +155,7 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
         }, { error -> error.printStackTrace() })
         requestQueue?.add(request)
     }
+
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
