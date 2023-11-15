@@ -1,9 +1,15 @@
 package com.example.productsservice;
 
+import com.example.productsservice.entity.Image;
 import com.example.productsservice.entity.product;
+import com.example.productsservice.repository.ImageRepository;
+import com.example.productsservice.repository.productRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 
@@ -12,24 +18,49 @@ import java.util.Date;
 import java.util.List;
 
 @SpringBootApplication
+@EnableFeignClients
 public class ProductsServiceApplication {
+
+    @Autowired
+    private productRepository productRepository;
+
+    @Autowired
+    private ImageRepository imageRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(ProductsServiceApplication.class, args);
     }
+
     @Bean
-    CommandLineRunner start(com.example.productsservice.repository.productRepository productRepository,
-                            RepositoryRestConfiguration restConfiguration){
-        List<String> list = new ArrayList<>();
-        list.add("image1.jpg");
-        list.add("Image2.jpg");
-        list.add("image3.jpg");
-       product pc = new com.example.productsservice.entity.product("PC Gamer", "16GB RAM / GTX 1660 / I5 10006F", list, 3000.0, new Date(), new Date());
-        product pants = new com.example.productsservice.entity.product("Jean Blue", "Jean Blue Size 38", list, 70.0, new Date(), new Date());
-        return args->{
-            restConfiguration.exposeIdsFor(com.example.productsservice.entity.product.class);
-            productRepository.save(pc);
-            productRepository.save(pants);
+    CommandLineRunner start(RepositoryRestConfiguration restConfiguration) {
+        return args -> {
+
+            if (productRepository.count() == 0) {
+
+                product p = new product();
+                p.setName("PC HP");
+                p.setDescription("PC HP 2021");
+                p.setPrice(1700);
+                p.setCreated_at(new Date());
+                p.setUpdated_at(new Date());
+                p.setCategoryID(1L);
+
+                p = productRepository.save(p);
+
+                Image m = new Image();
+                m.setName("pc1.jpg");
+                m.setProduct(p);
+
+                imageRepository.save(m);
+
+                Image m2 = new Image();
+                m2.setName("pc2.jpg");
+                m2.setProduct(p);
+
+                imageRepository.save(m2);
+
+            }
+
         };
     }
 }

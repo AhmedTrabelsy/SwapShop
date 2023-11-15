@@ -1,46 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_list_products"
+    android:background="#4c4e52"
+    android:orientation="vertical"
     tools:context=".addProduct">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/add_new_product"
+        android:textColor="@color/white"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:textSize="29sp"
+        android:textStyle="bold" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginTop="50dp"
-        android:scrollbars="vertical"
+        android:layout_margin="14dp"
+        android:layout_marginTop="10dp"
         app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:cardElevation="4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="573dp"
+            android:padding="16dp">
 
+            <!-- Name TextInputLayout -->
+
+            <!-- Price TextInputLayout -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/nameTextInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/edit_text_border"
-                android:elevation="@dimen/cardview_compat_inset_shadow"
-                android:hint="Name"
-                android:padding="10dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/input_backgound"
+                android:padding="7dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -48,10 +53,10 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/name"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Product name"
                     android:lines="1"
                     android:scrollbars="horizontal"
-                    android:scrollHorizontally="true"
-                    android:layout_height="wrap_content"
                     android:textColor="@color/blue"
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -60,12 +65,9 @@
                 android:id="@+id/priceTextInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/edit_text_border"
-                android:hint="Price"
-                android:padding="10dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/input_backgound"
+                android:padding="7dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/nameTextInputLayout">
@@ -74,35 +76,32 @@
                     android:id="@+id/priceEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="Product Price"
                     android:inputType="numberDecimal"
                     android:textColor="@color/blue"
                     android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Categories Spinner -->
             <Spinner
                 android:id="@+id/categories"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/edit_text_border"
-                android:hint="Category"
-                android:padding="10dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/input_backgound"
+                android:padding="7dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/priceTextInputLayout" />
 
+            <!-- Description TextInputLayout -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/descriptionTextInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/edit_text_border"
-                android:hint="Description"
-                android:padding="10dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/input_backgound"
+                android:padding="7dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/categories">
@@ -112,6 +111,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top"
+                    android:hint="Description"
                     android:lines="4"
                     android:scrollbars="vertical"
                     android:textColor="@color/blue"
@@ -121,31 +121,44 @@
             <Button
                 android:id="@+id/addButton"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@color/skyblue"
-                android:onClick="saveProduct"
-                android:text="ADD NEW PRODUCT"
-                android:textColor="@color/blue"
+                android:layout_height="73dp"
+                android:layout_marginTop="115dp"
+                android:backgroundTint="@color/black"
+                android:text="Add to Shop"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/descriptionTextInputLayout" />
+
+            <ImageView
+                android:id="@+id/picture"
+                android:layout_width="80dp"
+                android:layout_height="85dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="42dp"
+                android:layout_marginBottom="4dp"
+                app:layout_constraintBottom_toTopOf="@+id/addButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/addImage"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionTextInputLayout"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_launcher_foreground" />
+
+            <Button
+                android:id="@+id/addImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="72dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="75dp"
+                android:layout_marginBottom="25dp"
+                android:text="Add Image"
+                app:layout_constraintBottom_toTopOf="@+id/addButton"
+                app:layout_constraintEnd_toStartOf="@+id/picture"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionTextInputLayout" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="32dp"
-        android:text="@string/add_new_product"
-        android:textColor="@color/blue"
-        android:textSize="29dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/cardView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

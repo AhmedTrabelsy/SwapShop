@@ -1,0 +1,3 @@
+uploads/*
+!uploads/pc1.jpg
+!uploads/pc2.jpg

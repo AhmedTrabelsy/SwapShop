@@ -1,11 +1,22 @@
 version: '3.8'
 services:
+  keycloak:
+    build: 
+      dockerfile: keycloak.Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=dsi31
+    command: ["start-dev"]
   discovery:
     build:
       context: ./BackEnd/SpringBoot/discovery
       dockerfile: Dockerfile
     ports:
       - "8761:8761"
+    depends_on:
+      - keycloak
   gateway:
     build:
       context: ./BackEnd/SpringBoot/gateway
@@ -30,8 +41,18 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8082:8082"
+    volumes:
+      - product_uploads:/app/uploads
     depends_on:
       - category
+  wishlist:
+    build:
+      context: ./BackEnd/NodeJs/wishlist-service
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8084"
+    depends_on:
+      - product
   angular:
     build:
       context: ./FrontEnd/WebVersion
@@ -40,5 +61,12 @@ services:
       - "80:80"
     depends_on:
       - product
+  apk_web_server:
+    image: nginx:1.17.1-alpine
+    ports:
+      - "1000:80"
+    volumes:
+      - ./APK:/usr/share/nginx/html
 volumes:
   category_uploads:
+  product_uploads:
