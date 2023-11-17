@@ -1,0 +1,33 @@
+{
+	"name": "admin-panel-e2e",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"projectType": "application",
+	"sourceRoot": "apps/admin-panel-e2e/src",
+	"targets": {
+		"e2e": {
+			"executor": "@nx/cypress:cypress",
+			"options": {
+				"cypressConfig": "apps/admin-panel-e2e/cypress.config.ts",
+				"testingType": "e2e",
+				"devServerTarget": "admin-panel:serve:development"
+			},
+			"configurations": {
+				"production": {
+					"devServerTarget": "admin-panel:serve:production"
+				},
+				"ci": {
+					"devServerTarget": "admin-panel:serve-static"
+				}
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": ["apps/admin-panel-e2e/**/*.{js,ts}"]
+			}
+		}
+	},
+	"tags": [],
+	"implicitDependencies": ["admin-panel"]
+}
