@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@swap-shop/products": ["libs/products/src/index.ts"],
       "@swap-shop/ui": ["libs/ui/src/index.ts"]
     }
   },
