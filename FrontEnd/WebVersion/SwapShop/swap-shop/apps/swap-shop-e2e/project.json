@@ -1,0 +1,33 @@
+{
+  "name": "swap-shop-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/swap-shop-e2e/src",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/swap-shop-e2e/cypress.config.ts",
+        "testingType": "e2e",
+        "devServerTarget": "swap-shop:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "swap-shop:serve:production"
+        },
+        "ci": {
+          "devServerTarget": "swap-shop:serve-static"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/swap-shop-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["swap-shop"]
+}
