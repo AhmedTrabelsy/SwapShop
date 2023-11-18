@@ -10,6 +10,7 @@ import { FooterComponent } from './shared/default-layout/footer/footer.component
 import { SideBarComponent } from './shared/default-layout/side-bar/side-bar.component';
 import { CreateCategoryComponent } from './admin/pages/Categroy/create-category/create-category.component';
 import { FormsModule } from '@angular/forms';
+import { EditCategoryComponent } from './admin/pages/categroy/edit-category/edit-category.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     NavbarComponent,
     FooterComponent,
     SideBarComponent,
-    CreateCategoryComponent
+    CreateCategoryComponent,
+    EditCategoryComponent
   ],
   imports: [
     BrowserModule,

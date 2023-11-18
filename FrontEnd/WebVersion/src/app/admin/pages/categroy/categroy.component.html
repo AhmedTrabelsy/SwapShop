@@ -24,9 +24,9 @@
             {{ category.name }}
           </td>
           <td>
-            <button class="btn btn-warning btn-sm mx-2">
+            <a [routerLink]="['/admin/categories/'+category.id+'/edit']" class="btn btn-warning btn-sm mx-2">
               <i class="fa-solid fa-edit"></i>
-            </button>
+            </a>
             <button (click)="onDeleteCategory(category.id)" class="btn btn-danger btn-sm">
               <i class="fa-solid fa-trash"></i>
             </button>

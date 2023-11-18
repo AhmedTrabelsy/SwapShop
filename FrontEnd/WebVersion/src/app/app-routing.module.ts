@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component';
 import { CreateCategoryComponent } from './admin/pages/Categroy/create-category/create-category.component';
+import { EditCategoryComponent } from './admin/pages/categroy/edit-category/edit-category.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
     children:[
       { path: 'categories/create', component: CreateCategoryComponent},
       { path: 'categories', component: CategroyComponent},
+      { path: 'categories/:id/edit', component: EditCategoryComponent}
     ],
   }
 
