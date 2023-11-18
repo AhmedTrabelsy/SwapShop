@@ -1,1 +1,39 @@
-<p>categroy works!</p>
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">Liste des catégorie</h4>
+  </div>
+  <div class="card-body">
+
+    <a [routerLink]="['/admin/categories/create']" class="btn btn-success mb-2">
+      <i class="fa-solid fa-plus"></i> Ajouter une Categorie
+    </a>
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th style="width: 10px">#</th>
+          <th>Nom</th>
+          <th>?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of categories">
+          <td>{{ category.id }}</td>
+          <td>
+            <img width="70" height="70" [src]="'http://34.199.239.78:8888/CATEGORY-SERVICE/'+category.icon" />
+            {{ category.name }}
+          </td>
+          <td>
+            <button class="btn btn-warning btn-sm mx-2">
+              <i class="fa-solid fa-edit"></i>
+            </button>
+            <button class="btn btn-danger btn-sm">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
