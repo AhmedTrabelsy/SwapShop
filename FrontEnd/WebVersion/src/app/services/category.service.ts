@@ -16,4 +16,8 @@ export class CategoryService {
   createCategory(formData:FormData){
       return this.http.post("http://34.199.239.78:8888/CATEGORY-SERVICE/categories",formData);
   }
+
+  delete(id:number){
+    return this.http.delete("http://34.199.239.78:8888/CATEGORY-SERVICE/categories/"+id);
+  }
 }
