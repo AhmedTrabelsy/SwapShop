@@ -1,5 +1,5 @@
 import { Category } from 'src/app/models/category';
-import { CategoryService } from './../../../../services/category.service';
+import { CategoryService } from '../../../services/category.service';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
