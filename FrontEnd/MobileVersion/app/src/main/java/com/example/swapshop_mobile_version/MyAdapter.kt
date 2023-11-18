@@ -60,6 +60,30 @@ class MyAdapter(private var myDataSet: ArrayList<Products>, private val context:
         requestQueue?.add(request)
     }
 
+    private fun deleteProductForUpdate(productId: Long, product: Products) {
+        val url = "http://34.199.239.78:8888/PRODUCT-SERVICE/products/$productId"
+
+        val request = JsonObjectRequest(
+            Request.Method.DELETE,
+            url,
+            null,
+            { response ->
+                val position = myDataSet.indexOf(product)
+                if (position != -1) {
+                    myDataSet.removeAt(position)
+                    notifyItemRemoved(position)
+                    Toast.makeText(context, "Product deleted successfully", Toast.LENGTH_LONG)
+                        .show()
+                }
+            },
+            { error ->
+                //Toast.makeText(context, "Error deleting product: ${error.message}", Toast.LENGTH_LONG).show()
+            }
+        )
+        requestQueue?.add(request)
+    }
+
+
     override fun onBindViewHolder(holder: MyAdapter.ViewHolder, position: Int) {
         holder.itemView.setOnClickListener {
             itemClickListener?.onItemClick(position)
@@ -110,7 +134,12 @@ class MyAdapter(private var myDataSet: ArrayList<Products>, private val context:
                 intent.putExtra("price", product.price.toString())
                 intent.putExtra("description",product.description.toString())
                 intent.putExtra("category",product.category.categoryName)
+                intent.putExtra("catId",product.category.id)
+                intent.putExtra("picPath",product.picturePath)
+                intent.putExtra("idProd",product.id)
                 intent.putExtra("index", position.toString())
+                //requestQueue = Volley.newRequestQueue(context)
+                //deleteProductForUpdate(product.id,product)
                 holder.itemView.context.startActivity(intent)
             }
             builder.setNegativeButton("No") { dialog, which ->

@@ -20,6 +20,7 @@ import com.example.swapshop_mobile_version.databinding.ActivityMainBinding
 import com.example.swapshop_mobile_version.models.Categories
 import com.example.swapshop_mobile_version.models.Products
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.squareup.picasso.Picasso
 import org.json.JSONException
 import java.util.Locale
 
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
     private lateinit var imageUrl: String
 
     private var values = ArrayList<Products>()
+    private var filterList = ArrayList<Products>()
     private var imageUrls :String = "@drawable/shopping_cart_833314.png"
 
     private fun setupAddNewProductButton() {
@@ -47,7 +49,8 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var filterList = ArrayList<Products>()
+        //var filterList = ArrayList<Products>()
+        //filterList.addAll(values)
         getSupportActionBar()!!.setTitle("Products List")
         manager = LinearLayoutManager(this)
         myAdapter = MyAdapter(filterList, this)
@@ -58,14 +61,14 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
         }
         binding = ActivityMainBinding.inflate(layoutInflater)
 
-        val pc = Categories(60,"Pc's")
-        val accessories = Categories(80,"Accessories")
-        values.add(Products(5,"Pc Toshiba", "1500.0", "Pc cv", pc, imageUrls))
+        val pc = Categories(60, "Pc's")
+        val accessories = Categories(80, "Accessories")
+        values.add(Products(5, "Pc Toshiba", "1500.0", "Pc cv", pc, imageUrls))
         requestQueue = Volley.newRequestQueue(this)
         jsonParse()
         filterList.addAll(values)
         val searchItem = findViewById<SearchView>(R.id.searchBar)
-        searchItem.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+        searchItem.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
@@ -73,9 +76,9 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
             override fun onQueryTextChange(newText: String?): Boolean {
                 filterList.clear()
                 val searchText = newText!!.toLowerCase(Locale.getDefault())
-                if (searchText.isNotEmpty()){
+                if (searchText.isNotEmpty()) {
                     values.forEach {
-                        if (it.productName.toLowerCase(Locale.getDefault()).contains(searchText)){
+                        if (it.productName.toLowerCase(Locale.getDefault()).contains(searchText)) {
                             filterList.add(it)
                         }
                     }
@@ -83,6 +86,7 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
                 } else {
                     filterList.addAll(values)
                 }
+                //myAdapter.submitList(filterList)
                 return false
             }
 
@@ -90,11 +94,12 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
 
         val bundle = intent.extras
         val productName = bundle?.getString("productName")
-        val productPrice = bundle?.getString("price")
+        val productPrice = bundle?.getString("priceProduct")
         val productId = bundle?.getLong("id")
         val productDescription = bundle?.getString("description")
-        val category = bundle?.getString("category")
-        val catId = bundle?.getLong("catId")
+        val category = bundle?.getString("categoryName")
+        val catId = bundle?.getLong("idCat")
+        val image = bundle?.getString("imagePath")
         val indexString = bundle?.getString("index")
         val index = indexString?.toIntOrNull()
 
@@ -106,13 +111,28 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
                 values[index].price = productPrice.toString()
                 values[index].productName = productName
                 values[index].description = productDescription
-                values[index].category = Categories(catId,category)
+                values[index].category = Categories(catId, category)
+                if (image != null) {
+                    values[index].picturePath = image
+                }
+                //filterList.addAll(values)
             }
+        } else {
+           /* if (catId != null && productId != null && productName != null && productPrice != null && productDescription != null && index == null && image != null) {
+                values.add(
+                    Products(
+                        productId,
+                        productName,
+                        productPrice,
+                        productDescription.toString(),
+                        Categories(catId, category),
+                        image
+                    )
+                )
+                filterList.addAll(values)
+            }*/
+            setupAddNewProductButton()
         }
-        if (catId != null && productId !=null && productName != null && productPrice != null && productDescription != null && index == null) {
-            values.add(Products(productId,productName, productPrice, productDescription.toString(), Categories(catId,category), imageUrls))
-        }
-        setupAddNewProductButton()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -147,6 +167,7 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
 
                     val newUser = Products(id,productName, price.toString(), description, Categories(catId,categoryName), imageUrl)
                     values.add(newUser)
+                    filterList.add(newUser)
                 }
                 myAdapter.notifyDataSetChanged()
             } catch (e: JSONException) {
