@@ -2,6 +2,7 @@ package com.example.swapshop_mobile_version
 
 import android.app.Activity
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -29,7 +30,9 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.swapshop_mobile_version.models.Categories
+import com.example.swapshop_mobile_version.models.Products
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -40,16 +43,19 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private val nameCategories = ArrayList<String>()
     private var requestQueue: RequestQueue? = null
+    private var requestQueueUpdate: RequestQueue? = null
     private var categories = ArrayList<Categories>()
     private val PICK_IMAGE_REQUEST = 1
     private var imageUri: Uri? = null
     private var imageArray: ArrayList<String> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_product)
         supportActionBar!!.setTitle("Add Product")
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-
+       // requestQueue = Volley.newRequestQueue(this@addProduct)
+        var button = findViewById<Button>(R.id.addButton)
         val addImageButton = findViewById<Button>(R.id.addImage)
         addImageButton.setOnClickListener {
             requestStoragePermission()
@@ -79,31 +85,68 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         val priceExtra = intent.getStringExtra("price")
         val descriptionEdit = intent.getStringExtra("description")
         val category = intent.getStringExtra("category")
+        val id = intent.getLongExtra("idProd",0L)
+        val picturePath = intent.getStringExtra("picPath")
+        val idCat = intent.getLongExtra("catId",0L)
+        val pos = intent.getStringExtra("index")
 
-        val button = findViewById<Button>(R.id.addButton)
-        button.setOnClickListener {
-            saveProduct()
-        }
+            if (productNameExtra == null && priceExtra == null) {
+                button.setOnClickListener {
+                    //requestQueue = Volley.newRequestQueue(this)
+                    saveProduct()
+                }
+            }
 
         val contentPageName = findViewById<TextView>(R.id.textView)
         val productNameEditText = findViewById<EditText>(R.id.name)
         val priceEditText = findViewById<EditText>(R.id.priceEditText)
         val descriptionEditText = findViewById<EditText>(R.id.descriptionEditText)
         val categorySpinner = findViewById<Spinner>(R.id.categories)
+        val picture = findViewById<ImageView>(R.id.picture)
 
         if (productNameExtra != null && priceExtra != null) {
             productNameEditText.setText(productNameExtra)
             priceEditText.setText(priceExtra)
             descriptionEditText.setText(descriptionEdit)
+            val imageUrl = "http://34.199.239.78:8888/PRODUCT-SERVICE/${picturePath}"
+            //Log.d("MyAdapter", "Image URL: $imageUrl")
+            Picasso.get().load(imageUrl).into(picture)
+            if (category != null) {
+                val index = nameCategories.indexOf(category)
+                if (index != -1) {
+                    categorySpinner.setSelection(index)
+                }
+            }
 
-            var index = 0
+            button.setOnClickListener {
+                //requestQueue = Volley.newRequestQueue(this)
+                //saveProduct()
+                val productName = findViewById<EditText>(R.id.name).text.toString()
+                val description = findViewById<EditText>(R.id.descriptionEditText).text.toString()
+                val price = findViewById<EditText>(R.id.priceEditText).text.toString()
+                val category = findViewById<Spinner>(R.id.categories).selectedItem.toString()
+                val intent = Intent(this, MainActivity::class.java)
+
+                intent.putExtra("categoryName", category)
+                intent.putExtra("productName", productName)
+                intent.putExtra("priceProduct", price)
+                intent.putExtra("description", description)
+                intent.putExtra("imagePath",picturePath)
+                intent.putExtra("id",id)
+                intent.putExtra("idCat",idCat)
+                intent.putExtra("index",pos)
+                startActivity(intent)
+            }
+
+
+           /* var index = 0
             for (i in 0 until nameCategories.size) {
                 if (nameCategories[i] == category) {
                     index = i
                     break
                 }
-            }
-            categorySpinner.setSelection(index)
+            }*/
+            //categorySpinner.setSelection(index)
 
             contentPageName.text = "EDIT PRODUCT"
             button.text = "Edit Information"
@@ -157,6 +200,7 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         }
     }
 
+
     private fun getImageData(): ByteArray {
         val inputStream = contentResolver.openInputStream(imageUri!!)
         val bitmap = BitmapFactory.decodeStream(inputStream)
@@ -164,8 +208,6 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
         return byteArrayOutputStream.toByteArray()
     }
-
-
 
 
     private fun jsonParse() {
@@ -267,7 +309,93 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         }
     }
 
-        private fun getCategoryIDByName(categoryName: String): Long? {
+    private fun deleteProduct(productId: Long, product: Products) {
+        val url = "http://34.199.239.78:8888/PRODUCT-SERVICE/products/$productId"
+
+        val request = JsonObjectRequest(
+            Request.Method.DELETE,
+            url,
+            null,
+            { response ->
+                // Handle response upon successful deletion
+            },
+            { error ->
+                // Handle error in case deletion fails
+            }
+        )
+        requestQueue?.add(request)
+    }
+
+
+
+    private fun updateProduct(productId: Long) {
+        val productName = findViewById<EditText>(R.id.name).text.toString()
+        val description = findViewById<EditText>(R.id.descriptionEditText).text.toString()
+        val price = findViewById<EditText>(R.id.priceEditText).text.toString()
+        val category = findViewById<Spinner>(R.id.categories).selectedItem.toString()
+
+        //val imageData = getImageData()
+
+        try {
+            val url = "http://34.199.239.78:8888/PRODUCT-SERVICE/products/$productId"
+            val request = object : VolleyFormData(
+                Method.PUT, url,
+                Response.Listener { response ->
+                    // Handle successful update
+                    val productListIntent = Intent(this, MainActivity::class.java)
+                    startActivity(productListIntent)
+                    overridePendingTransition(R.anim.in_left_anim, R.anim.out_right_anim)
+                },
+                Response.ErrorListener { error ->
+                    val snackbar = Snackbar.make(
+                        findViewById<View>(android.R.id.content),
+                        "Error adding product: ${error.message}",
+                        Snackbar.LENGTH_LONG
+                    )
+                    snackbar.show()
+                }) {
+
+                override fun getParams(): Map<String, String> {
+                    val params = HashMap<String, String>()
+                    params["name"] = productName
+                    params["description"] = description
+                    params["price"] = price
+                    val categoryId = getCategoryIDByName(category)
+                    params["categoryID"] = categoryId.toString()
+                    return params
+                }
+                override fun getByteData(): Map<String, ByteArray>? {
+                    val params = HashMap<String, ByteArray>()
+                for ((index, imageData) in imageArray.withIndex())
+                {
+                    Log.d("image : ", "${imageData}")
+                    try {
+                        params["images[$index]"] = Base64.decode(imageData, Base64.DEFAULT)
+                    } catch (e: IllegalArgumentException) {
+                        Toast.makeText(this@addProduct, "${e.printStackTrace()}", Toast.LENGTH_LONG).show()
+                       // e.printStackTrace()
+                    }
+                }
+
+                return params
+            }
+        }
+
+            requestQueue = Volley.newRequestQueue(this)
+            requestQueue?.add(request)
+
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+
+        } catch (e: NumberFormatException) {
+            // Handle NumberFormatException
+            // Show error message
+            // ...
+        }
+    }
+
+
+    private fun getCategoryIDByName(categoryName: String): Long? {
         val foundCategory = categories.find { it.categoryName == categoryName }
         return foundCategory?.id ?: null
     }
