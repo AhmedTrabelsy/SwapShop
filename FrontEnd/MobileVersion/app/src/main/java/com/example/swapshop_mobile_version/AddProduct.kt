@@ -2,7 +2,6 @@ package com.example.swapshop_mobile_version
 
 import android.app.Activity
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -88,13 +87,8 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         val id = intent.getLongExtra("idProd",0L)
         val picturePath = intent.getStringExtra("picPath")
         val idCat = intent.getLongExtra("catId",0L)
-        val pos = intent.getStringExtra("index")
+        var pos = intent.getStringExtra("index")
 
-        
-                button.setOnClickListener {
-                    //requestQueue = Volley.newRequestQueue(this)
-                    saveProduct()
-                }
 
         val contentPageName = findViewById<TextView>(R.id.textView)
         val productNameEditText = findViewById<EditText>(R.id.name)
@@ -150,6 +144,11 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             contentPageName.text = "EDIT PRODUCT"
             button.text = "Edit Information"
             supportActionBar!!.title = "Edit Product"
+        } else {
+            button.setOnClickListener {
+                //requestQueue = Volley.newRequestQueue(this)
+                saveProduct()
+            }
         }
     }
     private fun requestStoragePermission() {
