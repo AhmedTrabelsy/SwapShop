@@ -90,12 +90,11 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         val idCat = intent.getLongExtra("catId",0L)
         val pos = intent.getStringExtra("index")
 
-            if (productNameExtra == null && priceExtra == null) {
+        
                 button.setOnClickListener {
                     //requestQueue = Volley.newRequestQueue(this)
                     saveProduct()
                 }
-            }
 
         val contentPageName = findViewById<TextView>(R.id.textView)
         val productNameEditText = findViewById<EditText>(R.id.name)
