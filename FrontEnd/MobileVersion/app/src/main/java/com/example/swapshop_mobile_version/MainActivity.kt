@@ -131,8 +131,9 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
                 )
                 filterList.addAll(values)
             }*/
-            setupAddNewProductButton()
+            
         }
+        setupAddNewProductButton()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
