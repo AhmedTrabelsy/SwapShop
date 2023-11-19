@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AnimationOptions } from 'ngx-lottie';
 
 @Component({
   selector: 'swap-shop-ui-banner',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styles: ``
 })
 export class BannerComponent {
+  isHovered: boolean = false;
+  options: AnimationOptions = {
+    path: '../assets/images/Animation - 1700407276106.json',
+  };
 
+  toggleHover(bool: boolean) {
+    this.isHovered = bool;
+  }
 }

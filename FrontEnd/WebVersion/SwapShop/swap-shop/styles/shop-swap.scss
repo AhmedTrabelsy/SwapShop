@@ -24,7 +24,7 @@
 @import "./libs/ui/ui.scss";
 
 .container {
-  width: 1200px;
+  max-width: 1200px;
   padding: 15px;
   margin: 0 auto;
   background-color: var(--surface-100);
