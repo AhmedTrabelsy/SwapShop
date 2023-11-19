@@ -3,7 +3,15 @@
 @import "./base/configuration.scss";
 
 // Libraries
+@import "~normalize.css/normalize.css";
 @import "~primeicons/primeicons.css";
 @import "~primeng/resources/themes/saga-blue/theme.css";
 @import "~primeng/resources/primeng.min.css";
 @import "~primeflex/primeflex.css";
+
+
+.container{
+  padding: 15px;
+  margin: 0 auto;
+  background-color: var(--surface-100);
+}
