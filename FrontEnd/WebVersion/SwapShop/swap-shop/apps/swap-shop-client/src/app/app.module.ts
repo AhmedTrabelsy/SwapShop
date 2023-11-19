@@ -10,8 +10,8 @@ import { HeaderComponent } from './shared/header/header.component';
 import { AccordionModule } from 'primeng/accordion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './shared/nav/nav.component';
-import { ProductsSearchComponent } from 'libs/products/src/lib/components/products-search/products-search.component';
 import { UiModule } from '@swap-shop/ui';
+import { ProductsModule } from '@swap-shop/products';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,6 @@ import { UiModule } from '@swap-shop/ui';
     FooterComponent,
     HeaderComponent,
     NavComponent,
-    ProductsSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +28,7 @@ import { UiModule } from '@swap-shop/ui';
     AccordionModule,
     BrowserAnimationsModule,
     UiModule,
+    ProductsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
