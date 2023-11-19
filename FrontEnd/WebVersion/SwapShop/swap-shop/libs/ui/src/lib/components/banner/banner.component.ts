@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'ui-banner',
+  selector: 'swap-shop-ui-banner',
   templateUrl: './banner.component.html',
   styles: ``
 })
