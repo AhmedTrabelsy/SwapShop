@@ -10,9 +10,10 @@ import { HeaderComponent } from './shared/header/header.component';
 import { AccordionModule } from 'primeng/accordion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './shared/nav/nav.component';
+import { ProductsSearchComponent } from 'libs/products/src/lib/components/products-search/products-search.component';
 
 @NgModule({
-  declarations: [AppComponent, HomePageComponent, ProductListComponent, FooterComponent, HeaderComponent ,NavComponent],
+  declarations: [AppComponent, HomePageComponent, ProductListComponent, FooterComponent, HeaderComponent ,NavComponent, ProductsSearchComponent],
   imports: [BrowserModule, RouterModule.forRoot(appRoutes), AccordionModule, BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent],
