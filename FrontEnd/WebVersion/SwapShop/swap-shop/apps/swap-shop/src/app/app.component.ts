@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { ProductListComponent } from './pages/product-list/product-list.component';
 import { UiModule } from '@swap-shop/ui';
 import { ProductsModule } from '@swap-shop/products';
-import { ProductsComponent } from 'libs/products/src/lib/products/products.component';
 
 @Component({
   standalone: true,
