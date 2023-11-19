@@ -9,9 +9,10 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { AccordionModule } from 'primeng/accordion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavComponent } from './shared/nav/nav.component';
 
 @NgModule({
-  declarations: [AppComponent, HomePageComponent, ProductListComponent, FooterComponent, HeaderComponent],
+  declarations: [AppComponent, HomePageComponent, ProductListComponent, FooterComponent, HeaderComponent ,NavComponent],
   imports: [BrowserModule, RouterModule.forRoot(appRoutes), AccordionModule, BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent],
@@ -19,7 +20,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomePageComponent,
     ProductListComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    NavComponent,
   ]
 })
 export class AppModule { }
