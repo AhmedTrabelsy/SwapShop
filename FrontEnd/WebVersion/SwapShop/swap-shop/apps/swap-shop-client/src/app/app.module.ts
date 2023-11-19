@@ -11,10 +11,25 @@ import { AccordionModule } from 'primeng/accordion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './shared/nav/nav.component';
 import { ProductsSearchComponent } from 'libs/products/src/lib/components/products-search/products-search.component';
+import { UiModule } from '@swap-shop/ui';
 
 @NgModule({
-  declarations: [AppComponent, HomePageComponent, ProductListComponent, FooterComponent, HeaderComponent ,NavComponent, ProductsSearchComponent],
-  imports: [BrowserModule, RouterModule.forRoot(appRoutes), AccordionModule, BrowserAnimationsModule],
+  declarations: [
+    AppComponent,
+    HomePageComponent,
+    ProductListComponent,
+    FooterComponent,
+    HeaderComponent,
+    NavComponent,
+    ProductsSearchComponent
+  ],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(appRoutes),
+    AccordionModule,
+    BrowserAnimationsModule,
+    UiModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
   exports: [

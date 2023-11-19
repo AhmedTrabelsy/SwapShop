@@ -1,11 +1,11 @@
-// Libraries
+//Libraries
 @import "~normalize.css/normalize.css";
 @import "~primeicons/primeicons.css";
 @import "~primeng/resources/themes/saga-blue/theme.css";
 @import "~primeng/resources/primeng.min.css";
 @import "~primeflex/primeflex.css";
 
-// Base Config
+//Base Config
 @import "./base/colors.scss";
 @import "./base/fonts.scss";
 @import "./base/configuration.scss";
@@ -15,9 +15,16 @@
 @import "./apps/shop-swap-client/shared/nav.scss";
 
 //Libs
-@import './libs/products/products.scss';
+@import "./libs/products/products.scss";
+
+//Pages
+
+//Libs
+@import "./libs/ui/ui.scss";
+
 
 .container {
+  width: 1200px;
   padding: 15px;
   margin: 0 auto;
   background-color: var(--surface-100);
