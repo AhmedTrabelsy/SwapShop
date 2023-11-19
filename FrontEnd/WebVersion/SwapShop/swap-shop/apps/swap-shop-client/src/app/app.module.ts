@@ -18,10 +18,6 @@ import { NavComponent } from './shared/nav/nav.component';
   bootstrap: [AppComponent],
   exports: [
     HomePageComponent,
-    ProductListComponent,
-    FooterComponent,
-    HeaderComponent,
-    NavComponent,
   ]
 })
 export class AppModule { }

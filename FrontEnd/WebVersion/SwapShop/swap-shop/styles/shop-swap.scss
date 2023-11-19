@@ -1,6 +1,3 @@
-@import "./base/colors.scss";
-@import "./base/fonts.scss";
-@import "./base/configuration.scss";
 
 // Libraries
 @import "~normalize.css/normalize.css";
@@ -9,6 +6,9 @@
 @import "~primeng/resources/primeng.min.css";
 @import "~primeflex/primeflex.css";
 
+@import "./base/colors.scss";
+@import "./base/fonts.scss";
+@import "./base/configuration.scss";
 
 .container{
   padding: 15px;
