@@ -54,12 +54,13 @@
         .pi {
           font-size: 2em;
           margin-bottom: 10px;
+          color: var(--surface-700);
         }
       }
 
       &-name {
         font-size: 1em;
-        color: var(--surface-200);
+        color: var(--surface-800);
       }
     }
   }
