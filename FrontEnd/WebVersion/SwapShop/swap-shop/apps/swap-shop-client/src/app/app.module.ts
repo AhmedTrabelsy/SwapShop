@@ -12,6 +12,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './shared/nav/nav.component';
 import { UiModule } from '@swap-shop/ui';
 import { ProductsModule } from '@swap-shop/products';
+import { HttpClientModule } from '@angular/common/http';
+import { CategoriesService } from 'libs/products/src/lib/services/categories.service';
 
 @NgModule({
   declarations: [
@@ -28,9 +30,10 @@ import { ProductsModule } from '@swap-shop/products';
     AccordionModule,
     BrowserAnimationsModule,
     UiModule,
-    ProductsModule
+    ProductsModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [CategoriesService],
   bootstrap: [AppComponent],
   exports: [
     HomePageComponent,
