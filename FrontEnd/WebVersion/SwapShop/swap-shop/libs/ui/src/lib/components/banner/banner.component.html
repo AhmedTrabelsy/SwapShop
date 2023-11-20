@@ -1,6 +1,6 @@
 <div class="banner">
   <div class="grid">
-    <div class="col-5 offset-1 banner-text">
+    <div class="col-9 sm:col-8 md:col-6 lg:col-7 offset-1 banner-text">
       <h1 class="animate__animated animate__slideInLeft">The Best Deals</h1>
       <h2 class="animate__animated animate__slideInLeft animation-delay-1000">in Every Category</h2>
       <div [ngClass]="{'animate__animated animate__shakeX': isHovered}" (mouseover)="toggleHover(true)" (mouseout)="toggleHover(false)">
@@ -8,7 +8,7 @@
           iconPos="right"></p-button>
       </div>
     </div>
-    <div class="col-6 banner-image animate__animated animate__slideInLeft">
+    <div class="col-3 sm:col-4 md:col-6 lg:col-5 banner-image animate__animated animate__slideInLeft">
       <!-- <img src="assets/images/banner-image.svg" alt="swap shop banner " /> -->
       <ng-lottie height="267px" [options]="options"></ng-lottie>
     </div>
