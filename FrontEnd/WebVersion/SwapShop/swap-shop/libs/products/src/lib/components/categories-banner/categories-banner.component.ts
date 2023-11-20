@@ -28,4 +28,17 @@ export class CategoriesBannerComponent implements OnInit, OnDestroy {
       this.categoriesSubscription.unsubscribe();
     }
   }
+
+  isHovered = false;
+  hoveredCategory?: Category;
+
+  onMouseEnter(category: Category) {
+    this.isHovered = true;
+    this.hoveredCategory = category;
+  }
+
+  onMouseLeave() {
+    this.isHovered = false;
+    this.hoveredCategory = null!;
+  }
 }
