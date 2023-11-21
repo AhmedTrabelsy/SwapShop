@@ -5,7 +5,7 @@ import { ProductsSearchComponent } from './components/products-search/products-s
 import { CategoriesBannerComponent } from './components/categories-banner/categories-banner.component';
 import { ProductItemComponent } from './components/product-item/product-item.component';
 import { FeaturedProductsComponent } from './components/featured-products/featured-products.component';
-
+import {ButtonModule} from 'primeng/button'
 
 
 @NgModule({
@@ -17,7 +17,8 @@ import { FeaturedProductsComponent } from './components/featured-products/featur
         FeaturedProductsComponent
     ],
     imports: [
-        CommonModule
+        CommonModule,
+        ButtonModule,
     ],
     exports: [
         ProductsComponent,
