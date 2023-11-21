@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4c4e52"
-    android:orientation="vertical"
-    tools:context=".MainActivity"
-    android:id="@+id/drawer_layout_main_activity">
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,19 +15,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#4c4e52"
+            android:background="#0059FF"
             android:paddingBottom="16dp">
-
-            <ImageButton
-                android:id="@+id/menuButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="19dp"
-                android:backgroundTint="#4c4e52"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="#FFFFFF" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -50,70 +36,64 @@
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchBar"
-                android:layout_width="367dp"
-                android:layout_height="54dp"
-                android:layout_marginTop="24dp"
-                android:background="@android:color/white"
+                android:layout_width="351dp"
+                android:layout_height="46dp"
                 android:orientation="horizontal"
                 android:queryHint="Search for consoles, games etc."
+                android:textColor="@android:color/black"
+                android:background="#89CFF3"
+                android:textColorHint="#8EACCD"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:actionViewClass="androidx.appcompat.widget.SearchView"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/menuButton"
-                app:actionViewClass="androidx.appcompat.widget.SearchView">
-            </androidx.appcompat.widget.SearchView>
+                app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="38dp"
                 android:layout_height="28sp"
-                android:layout_marginStart="15dp"
                 android:layout_marginEnd="6dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView6"
                 app:layout_constraintEnd_toStartOf="@+id/textView6"
-                app:layout_constraintStart_toEndOf="@+id/menuButton"
                 app:layout_constraintTop_toTopOf="@+id/textView6"
-                app:srcCompat="@android:drawable/checkbox_on_background" />
+                app:srcCompat="@drawable/ic_list_white" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <RelativeLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/productList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="60dp"
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/productList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
-                android:background="#FFFfFf" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/addNewProduct"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@color/blue"
-                android:clickable="true"
-                android:color="#FFFFFF"
-                android:src="@android:drawable/ic_input_add"
-                app:backgroundTint="#4C4E52" />
-
-        </RelativeLayout>
-
+            />
 
     </LinearLayout>
 
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="0dp"
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/navigationView"
-        android:fitsSystemWindows="true"
-        android:layout_gravity="start">
-    </com.google.android.material.navigation.NavigationView>
+        android:layout_gravity="bottom"
+        app:fabCradleMargin="10dp"
+        app:fabCradleVerticalOffset="10dp"
+        app:fabCradleRoundedCornerRadius="20dp">
 
-</androidx.drawerlayout.widget.DrawerLayout>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:menu="@menu/bottom_navigation_links" />
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <!-- Floating Action Button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addNewProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_plus"
+        app:layout_anchor="@id/bottomAppBar" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
