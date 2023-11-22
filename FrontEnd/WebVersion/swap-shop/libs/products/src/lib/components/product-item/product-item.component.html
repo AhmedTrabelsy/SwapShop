@@ -1,13 +1,26 @@
 <div class="product-item" *ngIf="product">
-    <div class="product-item-wrapper">
-      <!-- <img [src]="product.image" class="image" alt="" /> -->
-      <h4 class="name">{{ product.name }}</h4>
-      <h5 class="price">{{ product.price | currency }}</h5>
-      <p-button
-        styleClass="p-mt-3 add-to-cart"
-        label="Add to cart"
-        icon="pi pi-shopping-cart"
-      ></p-button>
+  <div class="product-item-wrapper">
+    <div class="product-item-wrapper-image-container" *ngIf="product.images && product.images.length > 0">
+      <img src="http://34.199.239.78:8888/PRODUCT-SERVICE/{{ product.images[0].name}}" class="image"
+        alt="swap shop product-image" />
     </div>
+    <h4 class="name">{{ product.name }}</h4>
+    <h5 class="price">{{ formatCurrency(product.price)}}</h5>
+    <hr class="w-6 mt-3">
+    <div class="grid product-category">
+      <div class="col-2 icon">
+        <i class="pi pi-tags"></i>
+      </div>
+      <div class="col-10 m-0">
+        <h6 class="m-0">{{ product.category?.name}}</h6>
+      </div>
+      <div class="col-2 icon">
+        <i class="pi pi-clock"></i>
+      </div>
+      <div class="col-10 m-0">
+        <h6 class="m-0">{{ getTimeAgo(product.created_at)}}</h6>
+      </div>
+    </div>
+    <p-button styleClass="mt-3 see-more" label="See more" icon="pi pi-arrow-right" iconPos="right"></p-button>
   </div>
-  
+</div>
