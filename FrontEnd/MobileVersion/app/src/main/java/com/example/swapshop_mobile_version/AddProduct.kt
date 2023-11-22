@@ -84,9 +84,7 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         val picturePath = intent.getStringExtra("picPath")
         val idCat = intent.getLongExtra("catId",0L)
         var pos = intent.getStringExtra("index")
-
-
-        val contentPageName = findViewById<Toolbar>(R.id.toolbar)
+        
         val productNameEditText = findViewById<EditText>(R.id.name)
         val priceEditText = findViewById<EditText>(R.id.priceEditText)
         val descriptionEditText = findViewById<EditText>(R.id.descriptionEditText)
@@ -149,8 +147,6 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 }
             }*/
             //categorySpinner.setSelection(index)
-
-            contentPageName.title = "EDIT PRODUCT"
             button.text = "Edit Information"
             supportActionBar!!.title = "Edit Product"
         } else {

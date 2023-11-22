@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.squareup.picasso.Picasso
 
 class ProductsDetails : AppCompatActivity() {
@@ -37,6 +38,7 @@ class ProductsDetails : AppCompatActivity() {
             "http://34.199.239.78:8888/PRODUCT-SERVICE/${imagePath}"
         }
         getSupportActionBar()!!.title = productName
+
         val productTextView = findViewById<TextView>(R.id.productsName)
         val categoryTextView = findViewById<TextView>(R.id.category)
         val priceTextView = findViewById<TextView>(R.id.priceSelectedProducts)
