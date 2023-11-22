@@ -1,7 +1,8 @@
 <div class="featured-products">
-    <h3>Featured Products</h3>
-    <div class="grid">
-        <div class="col-3"*ngFor="let product of products">
+    <h3 class="featured-products-title">Fresh Finds</h3>
+    <hr class="featured-products-ceparator">
+    <div class="featured-products-container grid">
+        <div class="col-6 sm:col-4 md:col-3 lg:col-2"*ngFor="let product of products">
             <swap-shop-product-item [product]="product"></swap-shop-product-item>
         </div>
     </div>
