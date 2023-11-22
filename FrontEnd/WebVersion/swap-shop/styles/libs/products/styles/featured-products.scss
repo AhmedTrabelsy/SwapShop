@@ -1,0 +1,13 @@
+.featured-products {
+  &-title {
+    text-align: center;
+    font-size: 2em;
+    color: var(--surface-700);
+  }
+  &-ceparator {
+    width: 20rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 100px;
+  }
+}

@@ -1,0 +1,31 @@
+<div class="categories-banner">
+  <h3 class="categories-title">Categories</h3>
+  <hr class="categories-banner-ceparator">
+  <div class="grid">
+    <div class="col-6 sm:col-4 md:col-3 lg:col-2" *ngFor="let category of categories">
+      <div class="category-container" [ngClass]="{'category-container-hover': isHovered && category.subcategories?.length !== 0 && category === hoveredCategory }"(mouseenter)="onMouseEnter(category)" (mouseleave)="onMouseLeave()" >
+        <div *ngIf="!isHovered || category !== hoveredCategory || category.subcategories?.length === 0">
+          <div class="category-container-icon">
+            <!-- <i class="pi pi-{{ category.icon }}"></i> -->
+            <i class="pi pi-circle-off"></i>
+          </div>
+          <div class="category-container-name">{{ category.name }}</div>
+        </div>
+        <div class="subcategory"
+          *ngIf="isHovered && category === hoveredCategory && category.subcategories?.length !== 0">
+          <div *ngFor="let subcategory of category.subcategories; let last = last">
+            <div class="flex align-items-center">
+              <span class="col-2">
+                <i class="pi pi-sitemap"></i>
+              </span>
+              <span class="col-10 subcategory-name">
+                {{ subcategory.name }}
+              </span>
+            </div>
+            <hr class="w-9" *ngIf="!last">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
