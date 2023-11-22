@@ -1,9 +1,10 @@
 <div class="categories-banner">
-  <h3 class="categories-title">Categories</h3>
-  <hr class="categories-banner-ceparator">
+  <h3 class="categories-title animate__animated animate__backInLeft">Categories</h3>
+  <hr class="categories-banner-ceparator animate__animated animate__backInLeft">
   <div class="grid">
-    <div class="col-6 sm:col-4 md:col-3 lg:col-2" *ngFor="let category of categories">
-      <div class="category-container" [ngClass]="{'category-container-hover': isHovered && category.subcategories?.length !== 0 && category === hoveredCategory }"(mouseenter)="onMouseEnter(category)" (mouseleave)="onMouseLeave()" >
+    <div class="col-6 sm:col-4 md:col-3 lg:col-2" *ngFor="let category of categories;index as i">
+      <div [style.animation-delay]="calculateAnimationDelay(i)"
+      class="category-container animate__animated animate__backInLeft" [ngClass]="{'category-container-hover': isHovered && category.subcategories?.length !== 0 && category === hoveredCategory }"(mouseenter)="onMouseEnter(category)" (mouseleave)="onMouseLeave()" >
         <div *ngIf="!isHovered || category !== hoveredCategory || category.subcategories?.length === 0">
           <div class="category-container-icon">
             <!-- <i class="pi pi-{{ category.icon }}"></i> -->
