@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { DEFAULT_CURRENCY_CODE, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
@@ -33,7 +33,13 @@ import { CategoriesService } from 'libs/products/src/lib/services/categories.ser
     ProductsModule,
     HttpClientModule,
   ],
-  providers: [CategoriesService],
+  providers: [
+    CategoriesService,
+    {
+      provide: DEFAULT_CURRENCY_CODE,
+      useValue: 'TND '
+    },
+  ],
   bootstrap: [AppComponent],
   exports: [
     HomePageComponent,
