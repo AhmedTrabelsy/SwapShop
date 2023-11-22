@@ -15,6 +15,7 @@
     "@angular/router": "~17.0.0",
     "@nx/angular": "17.1.2",
     "animate.css": "^4.1.1",
+    "date-fns": "^2.30.0",
     "lottie-web": "^5.12.2",
     "ngx-lottie": "^10.0.0",
     "normalize.css": "^8.0.1",
