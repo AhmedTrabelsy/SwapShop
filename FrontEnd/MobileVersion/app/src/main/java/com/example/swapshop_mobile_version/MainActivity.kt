@@ -110,6 +110,7 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
 
         })
 
+
         val bundle = intent.extras
         val productName = bundle?.getString("productName")
         val productPrice = bundle?.getString("priceProduct")
