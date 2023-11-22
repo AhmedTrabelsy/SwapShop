@@ -4,5 +4,8 @@
     <string name="price">Price</string>
     <string name="name">Name</string>
     <string name="enter_a_product_name">Enter a product name ..</string>
-
+    <string name="home">Home</string>
+    <string name="product">Products\n</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="settings">Settings</string>
 </resources>

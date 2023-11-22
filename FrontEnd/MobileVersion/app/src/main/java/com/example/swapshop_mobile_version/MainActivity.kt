@@ -1,11 +1,13 @@
 package com.example.swapshop_mobile_version
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -19,9 +21,16 @@ import com.android.volley.toolbox.Volley
 import com.example.swapshop_mobile_version.databinding.ActivityMainBinding
 import com.example.swapshop_mobile_version.models.Categories
 import com.example.swapshop_mobile_version.models.Products
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
 import org.json.JSONException
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
+import java.util.Date
 import java.util.Locale
 
 class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
@@ -32,6 +41,7 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
     private lateinit var binding: ActivityMainBinding
     private var requestQueue: RequestQueue? = null
     private lateinit var imageUrl: String
+    private var imagesArrays = ArrayList<String>()
 
     private var values = ArrayList<Products>()
     private var filterList = ArrayList<Products>()
@@ -50,7 +60,11 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //var filterList = ArrayList<Products>()
-        //filterList.addAll(values)
+        //filterList.addAll
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNavigationView.background = null
+        //bottomNavigationView.menu.getItem(2).isEnabled = false
+
         getSupportActionBar()!!.setTitle("Products List")
         manager = LinearLayoutManager(this)
         myAdapter = MyAdapter(filterList, this)
@@ -61,6 +75,8 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
         }
         binding = ActivityMainBinding.inflate(layoutInflater)
 
+
+
         val pc = Categories(60, "Pc's")
         val accessories = Categories(80, "Accessories")
         values.add(Products(5, "Pc Toshiba", "1500.0", "Pc cv", pc, imageUrls))
@@ -68,6 +84,7 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
         jsonParse()
         filterList.addAll(values)
         val searchItem = findViewById<SearchView>(R.id.searchBar)
+        val editText = searchItem.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
         searchItem.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -75,6 +92,7 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 filterList.clear()
+                editText.setTextColor(Color.BLACK);
                 val searchText = newText!!.toLowerCase(Locale.getDefault())
                 if (searchText.isNotEmpty()) {
                     values.forEach {
@@ -131,8 +149,8 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
                 )
                 filterList.addAll(values)
             }*/
-            setupAddNewProductButton()
         }
+        setupAddNewProductButton()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -145,6 +163,8 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
         val url = "http://34.199.239.78:8888/PRODUCT-SERVICE/products"
         val request = JsonArrayRequest(Request.Method.GET, url, null, { response ->
             try {
+                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+
                 for (i in 0 until response.length()) {
                     val product = response.getJSONObject(i)
                     val id = product.getLong("id")
@@ -155,19 +175,30 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
                     val categoryName = category.getString("name")
                     val catId = category.getLong("id")
                     val imagesArray = product.getJSONArray("images")
+                    for (i in 0 until imagesArray.length()) {
+                        val imageUrl = imagesArray.getString(i)
+                        imagesArrays.add(imageUrl)
+                    }
                     var imageUrl = "@drawable/app_background.png"
                     if (imagesArray.length() > 0) {
                         val firstImage = imagesArray.getJSONObject(0)
                         val imageName = firstImage.getString("name")
                         imageUrl = imageName
-                        Log.d("uri's","$imageUrl")
+                        Log.d("uri's", "$imageUrl")
                     } else {
                         Log.e("MainActivity", "JSONArray is empty")
                     }
 
-                    val newUser = Products(id,productName, price.toString(), description, Categories(catId,categoryName), imageUrl)
-                    values.add(newUser)
-                    filterList.add(newUser)
+                        val newUser = Products(
+                            id,
+                            productName,
+                            price.toString(),
+                            description,
+                            Categories(catId, categoryName),
+                            imageUrl,
+                        )
+                        values.add(newUser)
+                        filterList.add(newUser)
                 }
                 myAdapter.notifyDataSetChanged()
             } catch (e: JSONException) {
@@ -176,6 +207,9 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
         }, { error -> error.printStackTrace() })
         requestQueue?.add(request)
     }
+
+
+
 
 
 
@@ -207,6 +241,8 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
         intent.putExtra("priceProduct", selectedProduct.price)
         intent.putExtra("description", selectedProduct.description)
         intent.putExtra("imagePath",selectedProduct.picturePath)
+        intent.putStringArrayListExtra("imageList", imagesArrays)
+
         startActivity(intent)
         overridePendingTransition()
     }
