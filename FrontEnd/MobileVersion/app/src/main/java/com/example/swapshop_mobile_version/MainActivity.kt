@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var myAdapter: MyAdapter
     private var requestQueue: RequestQueue? = null
     private var imagesArrays = ArrayList<String>()
+    private var productsList = ArrayList<Products>()
     private fun setupAddNewProductButton() {
         addNewProductButton = findViewById(R.id.addNewProduct)
         addNewProductButton.setOnClickListener {
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         navigationBetweenFragments(HomeFragment())
+        productsList = ArrayList<Products>()
         //var filterList = ArrayList<Products>()
         //filterList.addAll
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
@@ -60,24 +62,33 @@ class MainActivity : AppCompatActivity() {
         val catId = bundle?.getLong("idCat")
         val image = bundle?.getString("imagePath")
         val indexString = bundle?.getString("index")
+        bundle.putParcelableArrayList("productsList", productsList)
         val index = indexString?.toIntOrNull()
         fragment.arguments = bundle
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_fragment, fragment)
             .commit()
 
-
         getSupportActionBar()!!.setTitle("Products List")
 
         setupAddNewProductButton()
 
+        requestQueue = Volley.newRequestQueue(this)
+        jsonParse()
+        val bundleProducts = Bundle()
+        bundleProducts.putParcelableArrayList("productsList", productsList)
+
         binding.bottomNavigationView.setOnItemReselectedListener {
             when (it.itemId){
-                R.id.home -> navigationBetweenFragments(HomeFragment())
+                R.id.home -> {
+                    val fragmentHome = HomeFragment()
+                    fragmentHome.arguments = bundleProducts
+                    navigationBetweenFragments(fragmentHome)
+                }
                 R.id.products -> {
-                    requestQueue = Volley.newRequestQueue(this)
-                    jsonParse()
-                    navigationBetweenFragments(ProductsFragment())
+                    val fragment = ProductsFragment()
+                    fragment.arguments = bundleProducts
+                    navigationBetweenFragments(fragment)
                 }
                 else -> {
 
@@ -92,7 +103,6 @@ class MainActivity : AppCompatActivity() {
         val request = JsonArrayRequest(Request.Method.GET, url, null, { response ->
             try {
                 val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-                val productsList = ArrayList<Products>()
                 for (i in 0 until response.length()) {
                     val product = response.getJSONObject(i)
                     val id = product.getLong("id")
@@ -131,23 +141,7 @@ class MainActivity : AppCompatActivity() {
                      filterList.add(newUser)*/
 
                 }
-
                // Log.d("from main","$newUser")
-                val fragment = ProductsFragment()
-                val bundle = Bundle()
-                /*bundle.putLong("idProduct",id)
-                bundle.putString("productNameExtra",productName)
-                bundle.putString("priceProduct",price.toString())
-                bundle.putString("descriptionProduct",description)
-                bundle.putLong("catId",catId)
-                bundle.putString("catName",categoryName)
-                bundle.putStringArrayList("imagesArray",imagesArrays)
-                Log.d("this is the bundle","$bundle")*/
-                bundle.putParcelableArrayList("productsList", productsList)
-                fragment.arguments = bundle
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.main_fragment, fragment)
-                    .commit()
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
@@ -186,10 +180,10 @@ class MainActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.in_right_anim, R.anim.out_left_anim)
     }
 
-    private fun navigationBetweenFragments(fragment: Fragment){
+    private fun navigationBetweenFragments(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.main_fragment,fragment)
+        fragmentTransaction.replace(R.id.main_fragment, fragment)
         fragmentTransaction.commit()
     }
 

@@ -5,11 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.swapshop_mobile_version.models.Products
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+
 
 /**
  * A simple [Fragment] subclass.
@@ -20,6 +25,10 @@ class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var manager: RecyclerView.LayoutManager
+    private lateinit var myAdapter: ProductsListCardsAdapter
+    private var values = ArrayList<Products>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,9 +42,22 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
         (activity as? MainActivity)?.setActionBarTitle("Home")
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        recyclerView = view.findViewById(R.id.products_for_shop)
+        manager = GridLayoutManager(requireContext(),1)
+        myAdapter = ProductsListCardsAdapter(values, requireContext())
+
+        recyclerView.layoutManager = manager
+        recyclerView.adapter = myAdapter
+
+        val productsList = arguments?.getParcelableArrayList<Products>("productsList")
+        productsList?.let {
+            values.addAll(it) // Add the received data to your values list
+            myAdapter.notifyDataSetChanged() // Notify adapter after adding data
+        }
+        return view
     }
 
     companion object {
