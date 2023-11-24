@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Wishlist_fragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="hello_blank_fragment" />
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchBar"
+        android:layout_width="351dp"
+        android:layout_height="46dp"
+        android:orientation="horizontal"
+        android:queryHint="Search for consoles, games etc."
+        android:textColor="@android:color/black"
+        android:background="#F0F0F0"
+        android:textColorHint="#8EACCD"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="38dp"
+        android:layout_height="28sp"
+        android:layout_marginEnd="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView6"
+        app:layout_constraintEnd_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toTopOf="@+id/textView6"
+        app:srcCompat="@drawable/ic_list_white" />
+
+
+
+<androidx.recyclerview.widget.RecyclerView
+android:id="@+id/wishlist"
+android:layout_width="match_parent"
+android:layout_height="524dp"
+android:layout_marginTop="130dp"
+android:layout_marginBottom="60dp"
+    />
+</FrameLayout>

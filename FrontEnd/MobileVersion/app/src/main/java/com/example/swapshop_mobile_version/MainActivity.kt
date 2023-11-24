@@ -90,6 +90,12 @@ class MainActivity : AppCompatActivity() {
                     fragment.arguments = bundleProducts
                     navigationBetweenFragments(fragment)
                 }
+                R.id.wishlist-> {
+                    val fragment = Wishlist_fragment()
+                    navigationBetweenFragments(fragment)
+
+
+            }
                 else -> {
 
                 }
