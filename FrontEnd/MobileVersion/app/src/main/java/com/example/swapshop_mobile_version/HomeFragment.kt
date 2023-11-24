@@ -44,6 +44,7 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         (activity as? MainActivity)?.setActionBarTitle("Home")
+
         // Inflate the layout for this fragment
         recyclerView = view.findViewById(R.id.products_for_shop)
         manager = GridLayoutManager(requireContext(),2)
