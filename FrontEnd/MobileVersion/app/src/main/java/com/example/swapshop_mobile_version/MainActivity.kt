@@ -1,42 +1,34 @@
 package com.example.swapshop_mobile_version
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonArrayRequest
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.swapshop_mobile_version.databinding.ActivityMainBinding
 import com.example.swapshop_mobile_version.models.Categories
 import com.example.swapshop_mobile_version.models.Products
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.squareup.picasso.Picasso
 import org.json.JSONException
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import java.time.format.DateTimeParseException
-import java.util.Date
-import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     private lateinit var addNewProductButton: FloatingActionButton
     private lateinit var binding: ActivityMainBinding
+    private lateinit var manager: RecyclerView.LayoutManager
+    private lateinit var myAdapter: MyAdapter
+    private var requestQueue: RequestQueue? = null
+    private var imagesArrays = ArrayList<String>()
     private fun setupAddNewProductButton() {
         addNewProductButton = findViewById(R.id.addNewProduct)
         addNewProductButton.setOnClickListener {
@@ -56,9 +48,10 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView.background = null
         //bottomNavigationView.menu.getItem(2).isEnabled = false
-
+        requestQueue = Volley.newRequestQueue(this)
+        jsonParse()
         val fragment = ProductsFragment()
-        val bundle = intent.extras
+        val bundle = Bundle()
         val productName = bundle?.getString("productName")
         val productPrice = bundle?.getString("priceProduct")
         val productId = bundle?.getLong("id")
@@ -81,7 +74,11 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemReselectedListener {
             when (it.itemId){
                 R.id.home -> navigationBetweenFragments(HomeFragment())
-                R.id.products -> navigationBetweenFragments(ProductsFragment())
+                R.id.products -> {
+                    requestQueue = Volley.newRequestQueue(this)
+                    jsonParse()
+                    navigationBetweenFragments(ProductsFragment())
+                }
                 else -> {
 
                 }
@@ -90,6 +87,77 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun jsonParse() {
+        val url = "http://34.199.239.78:8888/PRODUCT-SERVICE/products"
+        val request = JsonArrayRequest(Request.Method.GET, url, null, { response ->
+            try {
+                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+                val productsList = ArrayList<Products>()
+                for (i in 0 until response.length()) {
+                    val product = response.getJSONObject(i)
+                    val id = product.getLong("id")
+                    val productName = product.getString("name")
+                    val price = product.getDouble("price")
+                    val description = product.getString("description")
+                    val category = product.getJSONObject("category")
+                    val categoryName = category.getString("name")
+                    val catId = category.getLong("id")
+                    val imagesArray = product.getJSONArray("images")
+                    for (i in 0 until imagesArray.length()) {
+                        val imageUrl = imagesArray.getString(i)
+                        imagesArrays.add(imageUrl)
+                    }
+                    var imageUrl = "@drawable/app_background.png"
+                    if (imagesArray.length() > 0) {
+                        val firstImage = imagesArray.getJSONObject(0)
+                        val imageName = firstImage.getString("name")
+                        imageUrl = imageName
+                        Log.d("uri's", "$imageUrl")
+                    } else {
+                        Log.e("MainActivity", "JSONArray is empty")
+                    }
+
+                    val newUser = Products(
+                        id,
+                        productName,
+                        price.toString(),
+                        description,
+                        Categories(catId, categoryName),
+                        imageUrl,
+                    )
+                    productsList.add(newUser)
+
+                    /* values.add(newUser)
+                     filterList.add(newUser)*/
+
+                }
+
+               // Log.d("from main","$newUser")
+                val fragment = ProductsFragment()
+                val bundle = Bundle()
+                /*bundle.putLong("idProduct",id)
+                bundle.putString("productNameExtra",productName)
+                bundle.putString("priceProduct",price.toString())
+                bundle.putString("descriptionProduct",description)
+                bundle.putLong("catId",catId)
+                bundle.putString("catName",categoryName)
+                bundle.putStringArrayList("imagesArray",imagesArrays)
+                Log.d("this is the bundle","$bundle")*/
+                bundle.putParcelableArrayList("productsList", productsList)
+                fragment.arguments = bundle
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_fragment, fragment)
+                    .commit()
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+        }, { error -> error.printStackTrace() })
+        requestQueue?.add(request)
+    }
+
+    fun setActionBarTitle(title: String) {
+        supportActionBar?.title = title
+    }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.app_menu, menu)
