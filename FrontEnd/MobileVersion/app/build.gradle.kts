@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.swapshop_mobile_version"
-        minSdk = 27
+        minSdk = 25// 27
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"

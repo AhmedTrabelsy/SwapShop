@@ -1,5 +1,6 @@
 package com.example.swapshop_mobile_version
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -21,6 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.json.JSONException
 import java.time.format.DateTimeFormatter
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var addNewProductButton: FloatingActionButton
@@ -104,6 +106,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("NewApi")
     private fun jsonParse() {
         val url = "http://34.199.239.78:8888/PRODUCT-SERVICE/products"
         val request = JsonArrayRequest(Request.Method.GET, url, null, { response ->
@@ -192,5 +195,9 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.main_fragment, fragment)
         fragmentTransaction.commit()
     }
+
+}
+
+class Wishlist_fragment : Fragment() {
 
 }

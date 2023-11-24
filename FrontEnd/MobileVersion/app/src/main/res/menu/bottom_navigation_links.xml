@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/home"
         android:title="@string/home"
         android:icon="@drawable/ic_home" />
@@ -15,8 +16,12 @@
         android:title="@string/product"
         android:icon="@drawable/ic_products" />
 
-    <item android:id="@+id/wishlist"
-        android:title="wishlist"
-        android:icon="@drawable/ic_settings" />
+    <!-- Other menu items -->
+
+    <item
+        android:id="@+id/wishlist"
+        android:title="Wishlist"
+        android:icon="@drawable/ic_wishlist_foreground"
+        app:showAsAction="always" />
 
 </menu>
