@@ -11,21 +11,23 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.swapshop_mobile_version.models.Products
+import com.example.swapshop_mobile_version.models.WishItems
 import com.squareup.picasso.Picasso
 
-class ProductsListCardsAdapter(private var myDataSet: ArrayList<Products>, private val context: Context) : RecyclerView.Adapter<ProductsListCardsAdapter.ViewHolder>() {
+class WhishListAdapter(private var myDataSet: ArrayList<WishItems>, private val context: Context) :
+    RecyclerView.Adapter<WhishListAdapter.ViewHolder>() {
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val productName = itemView.findViewById(R.id.productNameList) as TextView
         val price = itemView.findViewById(R.id.priceProductList) as TextView
         val productPic = itemView.findViewById(R.id.productPictureList) as ImageView
         val addToWishList = itemView.findViewById(R.id.AddToFavourite) as ImageButton
         val productCard = itemView.findViewById(R.id.listCard) as CardView
+        val cancelCheckout = itemView.findViewById(R.id.cancel) as ImageButton
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.products_cards,parent,false)
+        val view = LayoutInflater.from(context).inflate(R.layout.products_cards, parent, false)
         return ViewHolder(view)
     }
 
@@ -34,24 +36,15 @@ class ProductsListCardsAdapter(private var myDataSet: ArrayList<Products>, priva
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.productName.text = myDataSet[position].productName
-        holder.price.text = myDataSet[position].price
-        val imageUrl = "http://34.199.239.78:8888/PRODUCT-SERVICE/${myDataSet[position].picturePath}"
-        Log.d("MyAdapter", "Image URL: $imageUrl")
+        holder.productName.text = myDataSet[position].product?.productName
+        holder.price.text = myDataSet[position].product?.price
+        val imageUrl = "http://34.199.239.78:8888/PRODUCT-SERVICE/${myDataSet[position].product?.picturePath}"
+        Log.d("MyAdapter WishList", "Image URL: $imageUrl")
         Picasso.get().load(imageUrl).into(holder.productPic)
         holder.productCard.setOnClickListener{
-            Toast.makeText(context,"productsDetails",Toast.LENGTH_LONG).show()
+            Toast.makeText(context,"productsDetails", Toast.LENGTH_LONG).show()
         }
-        var isWished = false
-        holder.addToWishList.setOnClickListener {
-            if (isWished) {
-                holder.addToWishList.setImageResource(R.drawable.ic_no_wished)
-            } else {
-                holder.addToWishList.setImageResource(R.drawable.ic_wished)
-            }
-            isWished = !isWished
-        }
-
-
+        holder.addToWishList.setImageResource(R.drawable.ic_checkout)
+        holder.cancelCheckout.setImageResource(R.drawable.ic_cancel)
     }
 }

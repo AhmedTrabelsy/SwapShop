@@ -15,8 +15,8 @@
         android:title="@string/product"
         android:icon="@drawable/ic_products" />
 
-    <item android:id="@+id/settings"
-        android:title="@string/settings"
-        android:icon="@drawable/ic_settings" />
+    <item android:id="@+id/wishlist"
+        android:title="WishItems"
+        android:icon="@drawable/ic_wishlist" />
 
 </menu>
