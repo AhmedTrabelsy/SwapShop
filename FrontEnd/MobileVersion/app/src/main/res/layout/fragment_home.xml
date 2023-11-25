@@ -189,12 +189,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
+                    android:layout_marginBottom="1dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:text="Free delivery above $300"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView4" />
+                    app:layout_constraintBottom_toTopOf="@+id/imageView9"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/imageView9"
