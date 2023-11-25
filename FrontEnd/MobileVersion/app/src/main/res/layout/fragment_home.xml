@@ -49,37 +49,36 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="142dp">
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="146dp"
-                android:layout_height="108dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                android:src="@drawable/ecommerce_8020908"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+            android:layout_height="131dp">
 
             <ImageView
                 android:id="@+id/imageView5"
-                android:layout_width="147dp"
-                android:layout_height="106dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="150dp"
-                android:src="@drawable/shopping_cart_833314"
+                android:layout_width="199dp"
+                android:layout_height="128dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="22dp"
+                android:layout_marginBottom="2dp"
+                android:src="@mipmap/ic_best"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageView11"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="167dp"
+                android:layout_height="114dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="21dp"
+                android:layout_marginBottom="8dp"
+                android:src="@mipmap/ic_launcher_foreground"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.401"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
@@ -196,6 +195,21 @@
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     app:layout_constraintEnd_toEndOf="@+id/imageView4" />
+
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="12dp"
+                    android:src="@mipmap/ic_discount"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView38"
+                    app:layout_constraintVertical_bias="0.2" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
@@ -206,19 +220,16 @@
             android:background="#E2E2E2">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="366dp"
-                android:layout_height="268dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="42dp"
-                android:layout_marginBottom="16dp"
                 android:id="@+id/products_for_shop"
+                android:layout_width="405dp"
+                android:layout_height="305dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="45dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.344"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>

@@ -46,7 +46,7 @@ class HomeFragment : Fragment() {
         (activity as? MainActivity)?.setActionBarTitle("Home")
         // Inflate the layout for this fragment
         recyclerView = view.findViewById(R.id.products_for_shop)
-        manager = GridLayoutManager(requireContext(),1)
+        manager = GridLayoutManager(requireContext(),2)
         myAdapter = ProductsListCardsAdapter(values, requireContext())
 
         recyclerView.layoutManager = manager
