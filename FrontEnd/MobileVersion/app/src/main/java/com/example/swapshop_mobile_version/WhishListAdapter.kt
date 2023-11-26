@@ -1,6 +1,8 @@
 package com.example.swapshop_mobile_version
 
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -45,6 +47,13 @@ class WhishListAdapter(private var myDataSet: ArrayList<WishItems>, private val 
             Toast.makeText(context,"productsDetails", Toast.LENGTH_LONG).show()
         }
         holder.addToWishList.setImageResource(R.drawable.ic_checkout)
+        holder.addToWishList.setOnClickListener {
+            val sharePage = Intent(context, PaimantPage::class.java)
+            val bundle = Bundle()
+            bundle.putString("price",myDataSet[position].product?.price)
+            sharePage.putExtras(bundle)
+            context.startActivity(sharePage)
+        }
         holder.cancelCheckout.setImageResource(R.drawable.ic_cancel)
     }
 }

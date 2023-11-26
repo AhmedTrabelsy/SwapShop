@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.swapshop_mobile_version.models.Products
 import com.example.swapshop_mobile_version.models.WishItems
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,6 +61,13 @@ class WhishlistFragment : Fragment() {
             myAdapter.notifyDataSetChanged()
         }
         wishedNumber.text = "My Favourite ( ${values.size} )"
+        val goingToMap = view.findViewById<FloatingActionButton>(R.id.floatingActionButtonForMap)
+        goingToMap.setOnClickListener {
+            val fragmentManager = requireActivity().supportFragmentManager
+            fragmentManager.beginTransaction()
+                .replace(R.id.main_fragment, MapsFragment())
+                .commit()
+        }
 
         return view
     }
