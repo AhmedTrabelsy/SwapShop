@@ -246,11 +246,13 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.profile -> {
-                Toast.makeText(this, "Profile selected", Toast.LENGTH_SHORT).show()
+                    val fragment = ProfileFragment()
+                    navigationBetweenFragments(fragment)
                 true
             }
             R.id.settings -> {
-                Toast.makeText(this, "Settings selected", Toast.LENGTH_SHORT).show()
+                val fragment = SettingsFragment()
+                navigationBetweenFragments(fragment)
                 true
             }
             R.id.logOut -> {
