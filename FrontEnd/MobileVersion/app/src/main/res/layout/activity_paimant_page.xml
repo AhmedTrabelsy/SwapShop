@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:text="Order Details"
             android:textSize="23dp"
+            android:layout_marginBottom="25dp"
             android:textStyle="bold"
             android:layout_marginTop="15dp"
             android:layout_marginStart="15dp"
