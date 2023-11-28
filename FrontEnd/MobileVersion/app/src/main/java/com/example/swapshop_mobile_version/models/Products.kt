@@ -1,17 +1,18 @@
 package com.example.swapshop_mobile_version.models
-
 import android.os.Parcel
 import android.os.Parcelable
+import com.example.swapshop_mobile_version.models.Categories
 
 data class Products(
     var id: Long, var productName: String?, var price: String?, var description: String?,
-    var category: Categories, var picturePath: String?): Parcelable {
+    var category: Categories, var picturePath: String?
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readLong(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        TODO("category"),
+        parcel.readParcelable(Categories::class.java.classLoader)!!,
         parcel.readString()
     ) {
     }
@@ -21,6 +22,7 @@ data class Products(
         parcel.writeString(productName)
         parcel.writeString(price)
         parcel.writeString(description)
+        parcel.writeParcelable(category, flags) // Write Categories object
         parcel.writeString(picturePath)
     }
 

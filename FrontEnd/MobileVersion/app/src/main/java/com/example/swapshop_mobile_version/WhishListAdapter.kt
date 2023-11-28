@@ -13,12 +13,17 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.example.swapshop_mobile_version.models.WishItems
 import com.squareup.picasso.Picasso
 
 class WhishListAdapter(private var myDataSet: ArrayList<WishItems>, private val context: Context) :
     RecyclerView.Adapter<WhishListAdapter.ViewHolder>() {
-
+    private var requestQueue: RequestQueue? = null
+    var size = myDataSet.size
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val productName = itemView.findViewById(R.id.productNameList) as TextView
         val price = itemView.findViewById(R.id.priceProductList) as TextView
@@ -37,6 +42,21 @@ class WhishListAdapter(private var myDataSet: ArrayList<WishItems>, private val 
         return myDataSet.size
     }
 
+    fun deleteFromWishlist(user_id: Long, product_id: Long) {
+        val url = "http://34.199.239.78:8888/WISHLIST-SERVICE/$user_id/$product_id"
+
+        val request = JsonObjectRequest(
+            Request.Method.DELETE,
+            url,
+            null,
+            { response ->
+            },
+            { error ->
+
+            }
+        )
+        requestQueue?.add(request)
+    }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.productName.text = myDataSet[position].product?.productName
         holder.price.text = myDataSet[position].product?.price
@@ -55,5 +75,23 @@ class WhishListAdapter(private var myDataSet: ArrayList<WishItems>, private val 
             context.startActivity(sharePage)
         }
         holder.cancelCheckout.setImageResource(R.drawable.ic_cancel)
+        holder.cancelCheckout.setOnClickListener {
+            requestQueue = Volley.newRequestQueue(context)
+            val productToRemove = myDataSet[position].product?.id
+            productToRemove?.let { productIdToRemove ->
+                deleteFromWishlist(1L, productIdToRemove)
+                val positionToDelete = myDataSet.indexOfFirst { product ->
+                    product.product?.id == productIdToRemove
+                }
+                if (positionToDelete != -1) {
+                    myDataSet.removeAt(positionToDelete)
+                    notifyItemRemoved(positionToDelete)
+                    Toast.makeText(context, "Wish Item deleted successfully", Toast.LENGTH_LONG).show()
+                    val newSize = myDataSet.size
+                    notifyItemRangeChanged(positionToDelete, newSize)
+                    size = myDataSet.size -1
+                }
+            }
+        }
     }
 }
