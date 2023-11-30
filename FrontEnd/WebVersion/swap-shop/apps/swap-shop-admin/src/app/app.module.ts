@@ -11,9 +11,10 @@ import { ProductsFormComponent } from './pages/products/products-form/products-f
 import { ProductsListComponent } from './pages/products/products-list/products-list.component';
 import { CategoriesListComponent } from './pages/categories/categories-list/categories-list.component';
 import { CategoriesFormComponent } from './pages/categories/categories-form/categories-form.component';
+import { OrdersListComponent } from './pages/orders/orders-list/orders-list.component';
 
 @NgModule({
-	declarations: [AppComponent, NxWelcomeComponent, SidebarComponent, ShellComponent, DashboardComponent, ProductsFormComponent, ProductsListComponent, CategoriesListComponent, CategoriesFormComponent],
+	declarations: [AppComponent, NxWelcomeComponent, SidebarComponent, ShellComponent, DashboardComponent, ProductsFormComponent, ProductsListComponent, CategoriesListComponent, CategoriesFormComponent, OrdersListComponent],
 	imports: [BrowserModule, RouterModule.forRoot(appRoutes)],
 	providers: [],
 	bootstrap: [AppComponent],
@@ -24,7 +25,8 @@ import { CategoriesFormComponent } from './pages/categories/categories-form/cate
    ProductsFormComponent,
    ProductsListComponent,
    CategoriesListComponent,
-   CategoriesFormComponent
+   CategoriesFormComponent,
+   OrdersListComponent
 	]
 })
 export class AppModule {}
