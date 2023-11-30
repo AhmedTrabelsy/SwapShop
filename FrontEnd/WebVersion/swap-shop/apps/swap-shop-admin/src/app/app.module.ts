@@ -14,6 +14,15 @@ import { OrdersDetailComponent } from './pages/orders/orders-detail/orders-detai
 import { UsersListComponent } from './pages/users/users-list/users-list.component';
 import { UsersFormComponent } from './pages/users/users-form/users-form.component';
 import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
+import { TableModule } from 'primeng/table';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { HttpClientModule } from '@angular/common/http';
+import { CategoriesService } from 'libs/products/src/lib/services/categories.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
+
 
 @NgModule({
   declarations: [AppComponent, SidebarComponent, DashboardComponent, ProductsFormComponent, ProductsListComponent, CategoriesListComponent, CategoriesFormComponent, OrdersListComponent, OrdersDetailComponent, UsersListComponent, UsersFormComponent],
@@ -21,9 +30,18 @@ import { CardModule } from 'primeng/card';
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     CardModule,
-
+    ButtonModule,
+    ToastModule,
+    ToolbarModule,
+    TableModule,
+    ConfirmDialogModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    CategoriesService,
+    MessageService,
+    ConfirmationService,
+  ],
   bootstrap: [AppComponent],
   exports: [
     SidebarComponent,
