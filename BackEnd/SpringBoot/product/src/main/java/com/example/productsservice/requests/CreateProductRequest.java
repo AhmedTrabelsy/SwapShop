@@ -20,13 +20,6 @@ public class CreateProductRequest {
     private String description;
 
     @NotNull
-    private List<MultipartFile> images;
-
-    @NotNull
     @Min(1)
     private Long price;
-
-    @NotNull
-    @Min(1)
-    private Long categoryID;
 }
