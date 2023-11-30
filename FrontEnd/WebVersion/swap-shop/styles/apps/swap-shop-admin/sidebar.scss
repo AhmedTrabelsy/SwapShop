@@ -18,11 +18,30 @@
     top: 0;
 
     .logo {
-      padding: 20px;
+      padding: 15px 15px 10px;
       width: 100%;
 
       img {
         max-width: 100%;
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.271);
+        border-radius: 10px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: 0.25s ease-in-out;
+
+        cursor: pointer;
+        &:hover{
+          transform: scale(1.1);
+          transition: 0.25s ease-in-out;
+          border-radius: 5px;
+        }
+        &:active{
+          transform: translate(20px);
+          transition: 0.05s ease-in-out;
+        }
       }
     }
 
@@ -41,9 +60,20 @@
             padding: 10px 15px;
             display: block;
             width: 100%;
+            transition: 0.25s ease-in-out;
 
             &:hover {
-              background-color: var(--blue-700);
+              background: rgba(255, 255, 255, 0.271);
+              box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+              backdrop-filter: blur(10px);
+              -webkit-backdrop-filter: blur(10px);
+              border-radius: 7px;
+              transform: translate(20px);
+              transition: 0.25s ease-in-out;
+            }
+            &:active{
+              transform: translate(70px);
+              transition: 0.05s ease-in-out;
             }
 
             i {
@@ -54,6 +84,7 @@
 
             &.logout {
               color: var(--blue-500);
+              cursor: pointer;
             }
           }
         }
