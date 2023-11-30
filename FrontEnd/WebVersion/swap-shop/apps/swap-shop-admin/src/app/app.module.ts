@@ -9,9 +9,10 @@ import { ShellComponent } from './shared/shell/shell.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ProductsFormComponent } from './pages/products/products-form/products-form.component';
 import { ProductsListComponent } from './pages/products/products-list/products-list.component';
+import { CategoriesListComponent } from './pages/categories/categories-list/categories-list.component';
 
 @NgModule({
-	declarations: [AppComponent, NxWelcomeComponent, SidebarComponent, ShellComponent, DashboardComponent, ProductsFormComponent, ProductsListComponent],
+	declarations: [AppComponent, NxWelcomeComponent, SidebarComponent, ShellComponent, DashboardComponent, ProductsFormComponent, ProductsListComponent, CategoriesListComponent],
 	imports: [BrowserModule, RouterModule.forRoot(appRoutes)],
 	providers: [],
 	bootstrap: [AppComponent],
@@ -20,7 +21,8 @@ import { ProductsListComponent } from './pages/products/products-list/products-l
    ShellComponent,
    DashboardComponent,
    ProductsFormComponent,
-   ProductsListComponent
+   ProductsListComponent,
+   CategoriesListComponent
 	]
 })
 export class AppModule {}
