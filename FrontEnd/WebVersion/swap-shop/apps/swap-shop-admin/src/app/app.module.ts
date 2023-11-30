@@ -13,23 +13,29 @@ import { OrdersListComponent } from './pages/orders/orders-list/orders-list.comp
 import { OrdersDetailComponent } from './pages/orders/orders-detail/orders-detail.component';
 import { UsersListComponent } from './pages/users/users-list/users-list.component';
 import { UsersFormComponent } from './pages/users/users-form/users-form.component';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
-	declarations: [AppComponent, SidebarComponent, DashboardComponent, ProductsFormComponent, ProductsListComponent, CategoriesListComponent, CategoriesFormComponent, OrdersListComponent, OrdersDetailComponent, UsersListComponent, UsersFormComponent],
-	imports: [BrowserModule, RouterModule.forRoot(appRoutes)],
-	providers: [],
-	bootstrap: [AppComponent],
-	exports: [
-   SidebarComponent,
-   DashboardComponent,
-   ProductsFormComponent,
-   ProductsListComponent,
-   CategoriesListComponent,
-   CategoriesFormComponent,
-   OrdersListComponent,
-   OrdersDetailComponent,
-   UsersListComponent,
-   UsersFormComponent
-	]
+  declarations: [AppComponent, SidebarComponent, DashboardComponent, ProductsFormComponent, ProductsListComponent, CategoriesListComponent, CategoriesFormComponent, OrdersListComponent, OrdersDetailComponent, UsersListComponent, UsersFormComponent],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(appRoutes),
+    CardModule,
+
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+  exports: [
+    SidebarComponent,
+    DashboardComponent,
+    ProductsFormComponent,
+    ProductsListComponent,
+    CategoriesListComponent,
+    CategoriesFormComponent,
+    OrdersListComponent,
+    OrdersDetailComponent,
+    UsersListComponent,
+    UsersFormComponent
+  ]
 })
-export class AppModule {}
+export class AppModule { }
