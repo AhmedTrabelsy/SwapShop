@@ -22,6 +22,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoriesService } from 'libs/products/src/lib/services/categories.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {InputTextModule} from 'primeng/inputtext'
+import { FileUploadModule } from 'primeng/fileupload';
 
 
 @NgModule({
@@ -36,6 +39,10 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     TableModule,
     ConfirmDialogModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    FileUploadModule
   ],
   providers: [
     CategoriesService,
