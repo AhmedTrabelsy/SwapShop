@@ -10,9 +10,10 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ProductsFormComponent } from './pages/products/products-form/products-form.component';
 import { ProductsListComponent } from './pages/products/products-list/products-list.component';
 import { CategoriesListComponent } from './pages/categories/categories-list/categories-list.component';
+import { CategoriesFormComponent } from './pages/categories/categories-form/categories-form.component';
 
 @NgModule({
-	declarations: [AppComponent, NxWelcomeComponent, SidebarComponent, ShellComponent, DashboardComponent, ProductsFormComponent, ProductsListComponent, CategoriesListComponent],
+	declarations: [AppComponent, NxWelcomeComponent, SidebarComponent, ShellComponent, DashboardComponent, ProductsFormComponent, ProductsListComponent, CategoriesListComponent, CategoriesFormComponent],
 	imports: [BrowserModule, RouterModule.forRoot(appRoutes)],
 	providers: [],
 	bootstrap: [AppComponent],
@@ -22,7 +23,8 @@ import { CategoriesListComponent } from './pages/categories/categories-list/cate
    DashboardComponent,
    ProductsFormComponent,
    ProductsListComponent,
-   CategoriesListComponent
+   CategoriesListComponent,
+   CategoriesFormComponent
 	]
 })
 export class AppModule {}
