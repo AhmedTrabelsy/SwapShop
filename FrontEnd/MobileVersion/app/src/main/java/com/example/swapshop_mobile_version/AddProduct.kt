@@ -21,6 +21,7 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -44,7 +45,9 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private var requestQueue: RequestQueue? = null
     private var requestQueueUpdate: RequestQueue? = null
     private var categories = ArrayList<Categories>()
-    private val PICK_IMAGE_REQUEST = 1
+    private val PICK_IMAGE_REQUEST_1 = 1
+    private val PICK_IMAGE_REQUEST_2 = 2
+    private val PICK_IMAGE_REQUEST_3 = 3
     private var imageUri: Uri? = null
     private var imageArray: ArrayList<String> = ArrayList()
 
@@ -53,13 +56,6 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         setContentView(R.layout.activity_add_product)
         supportActionBar!!.setTitle("Add Product")
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-       // requestQueue = Volley.newRequestQueue(this@addProduct)
-        var button = findViewById<Button>(R.id.addButton)
-        val addImageButton = findViewById<Button>(R.id.addImage)
-        addImageButton.setOnClickListener {
-            requestStoragePermission()
-        }
-
         val categories = ArrayList<Categories>()
 
         val pc = Categories(60,"Pc's")
@@ -88,14 +84,25 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         val picturePath = intent.getStringExtra("picPath")
         val idCat = intent.getLongExtra("catId",0L)
         var pos = intent.getStringExtra("index")
-
-
-        val contentPageName = findViewById<TextView>(R.id.textView)
+        
         val productNameEditText = findViewById<EditText>(R.id.name)
         val priceEditText = findViewById<EditText>(R.id.priceEditText)
         val descriptionEditText = findViewById<EditText>(R.id.descriptionEditText)
         val categorySpinner = findViewById<Spinner>(R.id.categories)
         val picture = findViewById<ImageView>(R.id.picture)
+        val picture1 = findViewById<ImageView>(R.id.secondpicture)
+        val picture2 = findViewById<ImageView>(R.id.picture3)
+        // requestQueue = Volley.newRequestQueue(this@addProduct)
+        var button = findViewById<Button>(R.id.addButton)
+        picture.setOnClickListener {
+            requestStoragePermission(PICK_IMAGE_REQUEST_1)
+        }
+        picture1.setOnClickListener {
+            requestStoragePermission(PICK_IMAGE_REQUEST_2)
+        }
+        picture2.setOnClickListener {
+            requestStoragePermission(PICK_IMAGE_REQUEST_3)
+        }
 
         if (productNameExtra != null && priceExtra != null) {
             productNameEditText.setText(productNameExtra)
@@ -140,8 +147,6 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 }
             }*/
             //categorySpinner.setSelection(index)
-
-            contentPageName.text = "EDIT PRODUCT"
             button.text = "Edit Information"
             supportActionBar!!.title = "Edit Product"
         } else {
@@ -151,11 +156,11 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             }
         }
     }
-    private fun requestStoragePermission() {
+    private fun requestStoragePermission(requestCode: Int) {
         ActivityCompat.requestPermissions(
             this,
             arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-            PICK_IMAGE_REQUEST
+            requestCode
         )
     }
     override fun onRequestPermissionsResult(
@@ -166,9 +171,11 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         when (requestCode) {
-            PICK_IMAGE_REQUEST -> {
+            PICK_IMAGE_REQUEST_1,
+            PICK_IMAGE_REQUEST_2,
+            PICK_IMAGE_REQUEST_3 -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    openGallery()
+                    openGallery(requestCode)
                 } else {
                     Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
                 }
@@ -176,36 +183,56 @@ class addProduct : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         }
     }
 
-    private fun openGallery() {
+
+    private fun openGallery(requestCode: Int) {
         val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST)
+        startActivityForResult(galleryIntent, requestCode)
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-            imageUri = data.data
-            try {
-                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
-                val imageView = findViewById<ImageView>(R.id.picture)
-                imageView.setImageBitmap(bitmap)
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            when (requestCode) {
+                PICK_IMAGE_REQUEST_1,
+                PICK_IMAGE_REQUEST_2,
+                PICK_IMAGE_REQUEST_3 -> {
+                    val imageUri = data.data
+                    try {
+                        val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
+                        val imageView: ImageView = when (requestCode) {
+                            PICK_IMAGE_REQUEST_1 -> findViewById(R.id.picture)
+                            PICK_IMAGE_REQUEST_2 -> findViewById(R.id.secondpicture)
+                            PICK_IMAGE_REQUEST_3 -> findViewById(R.id.picture3)
+                            else -> findViewById(R.id.picture)
+                        }
+                        imageView.setImageBitmap(bitmap)
 
-                val imageData = getImageData()
-                imageArray.add(Base64.encodeToString(imageData, Base64.DEFAULT))
-            } catch (e: IOException) {
-                e.printStackTrace()
+                        val imageData = getImageData(imageUri)
+                        // Store imageData (String) in imageArray based on requestCode or handle as needed
+                        when (requestCode) {
+                            PICK_IMAGE_REQUEST_1 -> imageArray.add(0, imageData)
+                            PICK_IMAGE_REQUEST_2 -> imageArray.add(1, imageData)
+                            PICK_IMAGE_REQUEST_3 -> imageArray.add(2, imageData)
+                        }
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+                }
             }
         }
     }
 
 
-    private fun getImageData(): ByteArray {
+    private fun getImageData(imageUri: Uri?): String {
         val inputStream = contentResolver.openInputStream(imageUri!!)
         val bitmap = BitmapFactory.decodeStream(inputStream)
         val byteArrayOutputStream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
-        return byteArrayOutputStream.toByteArray()
+        val byteArray = byteArrayOutputStream.toByteArray()
+        return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }
+
 
 
     private fun jsonParse() {

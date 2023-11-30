@@ -4,5 +4,10 @@
     <string name="price">Price</string>
     <string name="name">Name</string>
     <string name="enter_a_product_name">Enter a product name ..</string>
-
+    <string name="home">Home</string>
+    <string name="product">Products\n</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="settings">Settings</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

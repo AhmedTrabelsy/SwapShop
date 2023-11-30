@@ -8,35 +8,28 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonArrayRequest
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.swapshop_mobile_version.databinding.ActivityMainBinding
 import com.example.swapshop_mobile_version.models.Categories
 import com.example.swapshop_mobile_version.models.Products
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.squareup.picasso.Picasso
 import org.json.JSONException
-import java.util.Locale
+import java.time.format.DateTimeFormatter
 
-class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var manager: RecyclerView.LayoutManager
-    private lateinit var myAdapter: MyAdapter
+class MainActivity : AppCompatActivity() {
     private lateinit var addNewProductButton: FloatingActionButton
     private lateinit var binding: ActivityMainBinding
+    private lateinit var manager: RecyclerView.LayoutManager
+    private lateinit var myAdapter: MyAdapter
     private var requestQueue: RequestQueue? = null
-    private lateinit var imageUrl: String
-
-    private var values = ArrayList<Products>()
-    private var filterList = ArrayList<Products>()
-    private var imageUrls :String = "@drawable/shopping_cart_833314.png"
-
+    private var imagesArrays = ArrayList<String>()
+    private var productsList = ArrayList<Products>()
     private fun setupAddNewProductButton() {
         addNewProductButton = findViewById(R.id.addNewProduct)
         addNewProductButton.setOnClickListener {
@@ -48,51 +41,19 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        //var filterList = ArrayList<Products>()
-        //filterList.addAll(values)
-        getSupportActionBar()!!.setTitle("Products List")
-        manager = LinearLayoutManager(this)
-        myAdapter = MyAdapter(filterList, this)
-        recyclerView = findViewById<RecyclerView>(R.id.productList).apply {
-            layoutManager = manager
-            adapter = myAdapter
-            (myAdapter as MyAdapter).setOnItemClickListener(this@MainActivity)
-        }
         binding = ActivityMainBinding.inflate(layoutInflater)
-
-        val pc = Categories(60, "Pc's")
-        val accessories = Categories(80, "Accessories")
-        values.add(Products(5, "Pc Toshiba", "1500.0", "Pc cv", pc, imageUrls))
+        setContentView(binding.root)
+        navigationBetweenFragments(HomeFragment())
+        productsList = ArrayList<Products>()
+        //var filterList = ArrayList<Products>()
+        //filterList.addAll
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNavigationView.background = null
+        //bottomNavigationView.menu.getItem(2).isEnabled = false
         requestQueue = Volley.newRequestQueue(this)
         jsonParse()
-        filterList.addAll(values)
-        val searchItem = findViewById<SearchView>(R.id.searchBar)
-        searchItem.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                filterList.clear()
-                val searchText = newText!!.toLowerCase(Locale.getDefault())
-                if (searchText.isNotEmpty()) {
-                    values.forEach {
-                        if (it.productName.toLowerCase(Locale.getDefault()).contains(searchText)) {
-                            filterList.add(it)
-                        }
-                    }
-                    myAdapter.notifyDataSetChanged()
-                } else {
-                    filterList.addAll(values)
-                }
-                //myAdapter.submitList(filterList)
-                return false
-            }
-
-        })
-
-        val bundle = intent.extras
+        val fragment = ProductsFragment()
+        val bundle = Bundle()
         val productName = bundle?.getString("productName")
         val productPrice = bundle?.getString("priceProduct")
         val productId = bundle?.getLong("id")
@@ -101,50 +62,47 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
         val catId = bundle?.getLong("idCat")
         val image = bundle?.getString("imagePath")
         val indexString = bundle?.getString("index")
+        bundle.putParcelableArrayList("productsList", productsList)
         val index = indexString?.toIntOrNull()
+        fragment.arguments = bundle
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_fragment, fragment)
+            .commit()
 
-        if (index != null) {
-            if (catId != null && productName != null && productPrice != null && productDescription != null && (index >= 0 && index < values.size)) {
-                if (productId != null) {
-                    values[index].id = productId
+        getSupportActionBar()!!.setTitle("Products List")
+
+        setupAddNewProductButton()
+
+        requestQueue = Volley.newRequestQueue(this)
+        jsonParse()
+        val bundleProducts = Bundle()
+        bundleProducts.putParcelableArrayList("productsList", productsList)
+
+        binding.bottomNavigationView.setOnItemReselectedListener {
+            when (it.itemId){
+                R.id.home -> {
+                    val fragmentHome = HomeFragment()
+                    fragmentHome.arguments = bundleProducts
+                    navigationBetweenFragments(fragmentHome)
                 }
-                values[index].price = productPrice.toString()
-                values[index].productName = productName
-                values[index].description = productDescription
-                values[index].category = Categories(catId, category)
-                if (image != null) {
-                    values[index].picturePath = image
+                R.id.products -> {
+                    val fragment = ProductsFragment()
+                    fragment.arguments = bundleProducts
+                    navigationBetweenFragments(fragment)
                 }
-                //filterList.addAll(values)
+                else -> {
+
+                }
             }
-        } else {
-           /* if (catId != null && productId != null && productName != null && productPrice != null && productDescription != null && index == null && image != null) {
-                values.add(
-                    Products(
-                        productId,
-                        productName,
-                        productPrice,
-                        productDescription.toString(),
-                        Categories(catId, category),
-                        image
-                    )
-                )
-                filterList.addAll(values)
-            }*/
-            setupAddNewProductButton()
+            true
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.app_menu, menu)
-        return true
     }
 
     private fun jsonParse() {
         val url = "http://34.199.239.78:8888/PRODUCT-SERVICE/products"
         val request = JsonArrayRequest(Request.Method.GET, url, null, { response ->
             try {
+                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
                 for (i in 0 until response.length()) {
                     val product = response.getJSONObject(i)
                     val id = product.getLong("id")
@@ -155,21 +113,35 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
                     val categoryName = category.getString("name")
                     val catId = category.getLong("id")
                     val imagesArray = product.getJSONArray("images")
+                    for (i in 0 until imagesArray.length()) {
+                        val imageUrl = imagesArray.getString(i)
+                        imagesArrays.add(imageUrl)
+                    }
                     var imageUrl = "@drawable/app_background.png"
                     if (imagesArray.length() > 0) {
                         val firstImage = imagesArray.getJSONObject(0)
                         val imageName = firstImage.getString("name")
                         imageUrl = imageName
-                        Log.d("uri's","$imageUrl")
+                        Log.d("uri's", "$imageUrl")
                     } else {
                         Log.e("MainActivity", "JSONArray is empty")
                     }
 
-                    val newUser = Products(id,productName, price.toString(), description, Categories(catId,categoryName), imageUrl)
-                    values.add(newUser)
-                    filterList.add(newUser)
+                    val newUser = Products(
+                        id,
+                        productName,
+                        price.toString(),
+                        description,
+                        Categories(catId, categoryName),
+                        imageUrl,
+                    )
+                    productsList.add(newUser)
+
+                    /* values.add(newUser)
+                     filterList.add(newUser)*/
+
                 }
-                myAdapter.notifyDataSetChanged()
+               // Log.d("from main","$newUser")
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
@@ -177,7 +149,14 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
         requestQueue?.add(request)
     }
 
-
+    fun setActionBarTitle(title: String) {
+        supportActionBar?.title = title
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.app_menu, menu)
+        return true
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
@@ -197,22 +176,15 @@ class MainActivity : AppCompatActivity(), MyAdapter.OnItemClickListener {
         }
     }
 
-    override fun onItemClick(position: Int) {
-        val selectedProduct = values[position]
-
-        val intent = Intent(this, ProductsDetails::class.java)
-
-        intent.putExtra("categoryName", selectedProduct.category.categoryName)
-        intent.putExtra("productName", selectedProduct.productName)
-        intent.putExtra("priceProduct", selectedProduct.price)
-        intent.putExtra("description", selectedProduct.description)
-        intent.putExtra("imagePath",selectedProduct.picturePath)
-        startActivity(intent)
-        overridePendingTransition()
-    }
-
     private fun overridePendingTransition() {
         overridePendingTransition(R.anim.in_right_anim, R.anim.out_left_anim)
+    }
+
+    private fun navigationBetweenFragments(fragment: Fragment) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.main_fragment, fragment)
+        fragmentTransaction.commit()
     }
 
 }
