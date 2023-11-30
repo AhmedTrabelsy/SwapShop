@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.SwapShop_mobile_version" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="Base.Theme.SwapShop_mobile_version" parent="Theme.MaterialComponents.Light">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">#89CFF3</item>
     </style>
 
-    <style name="Theme.AppCompat.CompactMenu." parent="Base.Theme.SwapShop_mobile_version" />
+    <style name="Theme.SwapShop_mobile_version" parent="Base.Theme.SwapShop_mobile_version" />
 </resources>

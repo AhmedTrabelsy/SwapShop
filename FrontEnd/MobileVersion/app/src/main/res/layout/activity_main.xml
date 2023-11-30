@@ -1,119 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4c4e52"
-    android:orientation="vertical"
-    tools:context=".MainActivity"
-    android:id="@+id/drawer_layout_main_activity">
+    tools:context=".MainActivity">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/main_fragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+    </FrameLayout>
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:fabCradleMargin="10dp"
+        app:fabCradleVerticalOffset="10dp"
+        app:fabCradleRoundedCornerRadius="20dp">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#4c4e52"
-            android:paddingBottom="16dp">
+            app:menu="@menu/bottom_navigation_links" />
 
-            <ImageButton
-                android:id="@+id/menuButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="19dp"
-                android:backgroundTint="#4c4e52"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="#FFFFFF" />
+    </com.google.android.material.bottomappbar.BottomAppBar>
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="16dp"
-                android:text="Products List"
-                android:textColor="@android:color/white"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/searchBar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/searchBar"
-                android:layout_width="367dp"
-                android:layout_height="54dp"
-                android:layout_marginTop="24dp"
-                android:background="@android:color/white"
-                android:orientation="horizontal"
-                android:queryHint="Search for consoles, games etc."
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/menuButton"
-                app:actionViewClass="androidx.appcompat.widget.SearchView">
-            </androidx.appcompat.widget.SearchView>
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="38dp"
-                android:layout_height="28sp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="6dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView6"
-                app:layout_constraintEnd_toStartOf="@+id/textView6"
-                app:layout_constraintStart_toEndOf="@+id/menuButton"
-                app:layout_constraintTop_toTopOf="@+id/textView6"
-                app:srcCompat="@android:drawable/checkbox_on_background" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/productList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
-                android:background="#FFFfFf" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/addNewProduct"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@color/blue"
-                android:clickable="true"
-                android:color="#FFFFFF"
-                android:src="@android:drawable/ic_input_add"
-                app:backgroundTint="#4C4E52" />
-
-        </RelativeLayout>
-
-
-    </LinearLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="0dp"
+    <!-- Floating Action Button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addNewProduct"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/navigationView"
-        android:fitsSystemWindows="true"
-        android:layout_gravity="start">
-    </com.google.android.material.navigation.NavigationView>
+        android:src="@drawable/ic_plus"
+        app:layout_anchor="@id/bottomAppBar" />
 
-</androidx.drawerlayout.widget.DrawerLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
