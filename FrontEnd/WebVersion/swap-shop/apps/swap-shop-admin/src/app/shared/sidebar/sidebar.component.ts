@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styles: ``
 })
 export class SidebarComponent {
+logoutUser() {
+throw new Error('Method not implemented.');
+}
 
 }

@@ -11,10 +11,8 @@ import { OrdersDetailComponent } from './pages/orders/orders-detail/orders-detai
 
 export const appRoutes: Route[] = [
   { path: '', component: DashboardComponent },
-
   { path: 'categories', component: CategoriesListComponent },
   { path: 'categories/form', component: CategoriesFormComponent },
-
   { path: 'categories/form/:id', component: CategoriesFormComponent },
   { path: 'products', component: ProductsListComponent },
   { path: 'products/form', component: ProductsFormComponent },
