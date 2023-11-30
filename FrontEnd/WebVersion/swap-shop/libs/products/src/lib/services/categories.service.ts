@@ -17,12 +17,12 @@ export class CategoriesService {
     return this.http.get<Category>("http://34.199.239.78:8888/CATEGORY-SERVICE/categories/" + id);
   }
 
-  createCategory(formData: FormData) {
-    return this.http.post("http://34.199.239.78:8888/CATEGORY-SERVICE/categories", formData);
+  createCategory(category: Category) {
+    return this.http.post("http://34.199.239.78:8888/CATEGORY-SERVICE/categories", category);
   }
 
-  editCategoryById(id: number, formData: FormData) {
-    return this.http.put("http://34.199.239.78:8888/CATEGORY-SERVICE/categories/" + id, formData);
+  editCategoryById(id: number, category: Category) {
+    return this.http.put("http://34.199.239.78:8888/CATEGORY-SERVICE/categories/" + id, category);
   }
 
   deleteCategoryById(id: number) {
