@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { appRoutes } from './app.routes';
-import { NxWelcomeComponent } from './nx-welcome.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { ShellComponent } from './shared/shell/shell.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -17,7 +16,7 @@ import { UsersListComponent } from './pages/users/users-list/users-list.componen
 import { UsersFormComponent } from './pages/users/users-form/users-form.component';
 
 @NgModule({
-	declarations: [AppComponent, NxWelcomeComponent, SidebarComponent, ShellComponent, DashboardComponent, ProductsFormComponent, ProductsListComponent, CategoriesListComponent, CategoriesFormComponent, OrdersListComponent, OrdersDetailComponent, UsersListComponent, UsersFormComponent],
+	declarations: [AppComponent, SidebarComponent, ShellComponent, DashboardComponent, ProductsFormComponent, ProductsListComponent, CategoriesListComponent, CategoriesFormComponent, OrdersListComponent, OrdersDetailComponent, UsersListComponent, UsersFormComponent],
 	imports: [BrowserModule, RouterModule.forRoot(appRoutes)],
 	providers: [],
 	bootstrap: [AppComponent],
