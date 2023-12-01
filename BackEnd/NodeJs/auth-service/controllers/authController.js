@@ -1,0 +1,80 @@
+const EurekaClient = require('../eureka');
+const axios = require('axios');
+
+exports.getToken = async () => {
+	const response = await axios.post(
+		'http://34.199.239.78:8080/realms/master/protocol/openid-connect/token',
+		{
+			username: 'admin',
+			password: 'dsi31',
+			grant_type: 'password',
+			client_id: 'admin-cli',
+		},
+		{
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+		},
+	);
+
+	return response.data.access_token;
+};
+
+exports.signup = async (req, res, next) => {
+	let { username, firstName, lastName, phoneNumber, email, password } = req.body;
+
+	if (
+		username == null ||
+		firstName == null ||
+		lastName == null ||
+		phoneNumber == null ||
+		email == null ||
+		password == null
+	) {
+		return res.status(400).json({
+			status: 'fail',
+			message: 'some fields are missing',
+		});
+	}
+
+	try {
+		const token = await this.getToken();
+
+		const response = await axios.post(
+			'http://34.199.239.78:8080/admin/realms/SwapShop/users',
+			{
+				username: username,
+				firstName: firstName,
+				lastName: lastName,
+				email: email,
+				enabled: true,
+				attributes: {
+					phone_number: phoneNumber,
+				},
+				credentials: [
+					{
+						type: 'password',
+						value: password,
+						temporary: false,
+					},
+				],
+			},
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			},
+		);
+
+		return res.status(201).json({
+			status: 'success',
+			message: 'user created successfully',
+			data: response.data,
+		});
+	} catch (err) {
+		return res.status(400).json({
+			status: 'fail',
+			message: err.response.data.errorMessage,
+		});
+	}
+};
