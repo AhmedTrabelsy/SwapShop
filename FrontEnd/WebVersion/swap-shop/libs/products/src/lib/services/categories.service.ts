@@ -13,7 +13,7 @@ export class CategoriesService {
     return this.http.get<Category[]>("http://34.199.239.78:8888/CATEGORY-SERVICE/categories");
   }
 
-  getCategoryById(id: number): Observable<Category> {
+  getCategoryById(id: string): Observable<Category> {
     return this.http.get<Category>("http://34.199.239.78:8888/CATEGORY-SERVICE/categories/" + id);
   }
 
@@ -21,11 +21,11 @@ export class CategoriesService {
     return this.http.post("http://34.199.239.78:8888/CATEGORY-SERVICE/categories", formData);
   }
 
-  editCategoryById(id: number, formData: FormData) {
+  editCategoryById(id: string, formData: FormData) {
     return this.http.put("http://34.199.239.78:8888/CATEGORY-SERVICE/categories/" + id, formData);
   }
 
-  deleteCategoryById(id: number) {
+  deleteCategoryById(id: string) {
     return this.http.delete("http://34.199.239.78:8888/CATEGORY-SERVICE/categories/" + id);
   }
 
