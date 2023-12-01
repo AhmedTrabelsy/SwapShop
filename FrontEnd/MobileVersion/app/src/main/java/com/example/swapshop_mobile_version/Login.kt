@@ -33,22 +33,22 @@ class Login : AppCompatActivity() {
         val passwordString = password.text.toString()
         val username = mail.text.toString()
 
-        val call: Call<AccessToken> = getUserData.getAccessToken("Login", "password", "78de9142-03b7-48f4-862b-e52bc1132a98", "openid", username, passwordString)
+        val call: Call<AccessToken> = getUserData.getAccessToken(LoginData(username = username, password = passwordString))
         Log.d("login","$call")
         call.enqueue(object : Callback<AccessToken> {
             override fun onResponse(call: Call<AccessToken>, response: Response<AccessToken>) {
                 Log.d("responseLogin","${response}")
                 if (response.isSuccessful) {
-                    val accessToken: AccessToken? = response.body()
-                    if (accessToken != null) {
+                   // val accessToken: AccessToken? = response.body()
+                    //if (accessToken != null) {
                         val intent = Intent(this@Login, MainActivity::class.java)
                         startActivity(intent)
                         finish() // Optional, to finish the current activity
-                    }  else {
-                        Toast.makeText(this@Login, "Error: Access token is null", Toast.LENGTH_LONG).show()
-                    }
+                    //}  else {
+                        //Toast.makeText(this@Login, "Error: Access token is null", Toast.LENGTH_LONG).show()
+                    //}
                 } else {
-                    Toast.makeText(this@Login, "Error: ${response.message()}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@Login, "Error: Wrong credentials", Toast.LENGTH_LONG).show()
                 }
             }
 
