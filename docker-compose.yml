@@ -53,6 +53,12 @@ services:
       - "8084:8084"
     depends_on:
       - product
+  auth:
+    build:
+      context: ./BackEnd/NodeJs/auth-service
+      dockerfile: Dockerfile
+    ports:
+      - "8085:8085"
   # angular:
   #   build:
   #     context: ./FrontEnd/WebVersion
