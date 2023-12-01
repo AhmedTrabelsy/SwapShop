@@ -23,10 +23,10 @@
           </ng-template>
           <ng-template pTemplate="body" let-category>
             <tr>
-              <td>{{ category.name }}</td>
-              <td><img [src]="'http://34.199.239.78:8888/CATEGORY-SERVICE/'+category.icon" style="height: 100px;"
+              <td class="w-3">{{ category.name }}</td>
+              <td class="w-3"><img [src]="'http://34.199.239.78:8888/CATEGORY-SERVICE/'+category.icon" style="height: 100px;"
                   alt="swap shop category icon" /></td>
-              <td>
+              <td class="w-4">
                 <ng-template ngFor let-subcategory [ngForOf]="category.subcategories">
                   <li>{{category.name}}</li>
                 </ng-template>
