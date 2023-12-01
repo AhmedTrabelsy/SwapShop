@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
     private var imagesArrays = ArrayList<String>()
     private var productsList = ArrayList<Products>()
     private var whishItemsList = ArrayList<WishItems>()
+    //rafresh swipe
     private fun setupAddNewProductButton() {
         addNewProductButton = findViewById(R.id.addNewProduct)
         addNewProductButton.setOnClickListener {
