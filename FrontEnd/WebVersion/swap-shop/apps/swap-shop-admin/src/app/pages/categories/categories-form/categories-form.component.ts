@@ -42,7 +42,7 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this._checkEditMode();
+    this._checkEditMode();
     this._getCategories();
     console.log("oninitcategories form not implemented !")
   }
@@ -69,7 +69,7 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
     formData.append('parentCategoryId', this.categoryForm['selectedCategory'].value.id);
 
     if (this.editmode) {
-      // this._updateCategory(category);
+      this._updateCategory(this.categoryForm['id'].value, formData);
     } else {
       this._addCategory(formData);
     }
@@ -89,7 +89,7 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
       timer(2000)
         .toPromise()
         .then(() => {
-          // this.location.back();
+          this.location.back();
         });
     },
       () => {
@@ -111,22 +111,45 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
       });
   }
 
-  // private _checkEditMode() {
-  //   this.route.params.pipe(takeUntil(this.endsubs$)).subscribe((params) => {
-  //     if (params.id) {
-  //       this.editmode = true;
-  //       this.currentCategoryId = params.id;
-  //       this.categoriesService
-  //         .getCategory(params.id)
-  //         .pipe(takeUntil(this.endsubs$))
-  //         .subscribe((category) => {
-  //           this.categoryForm.name.setValue(category.name);
-  //           this.categoryForm.icon.setValue(category.icon);
-  //           this.categoryForm.color.setValue(category.color);
-  //         });
-  //     }
-  //   });
-  // }
+  private _updateCategory(id: string, category: FormData) {
+    this.categoriesService
+      .editCategoryById(id, category)
+      .subscribe(
+        () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Category is updated!'
+          });
+          timer(2000)
+            .toPromise()
+            .then(() => {
+              this.location.back();
+            });
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Category is not updated!'
+          });
+        }
+      );
+  }
+
+  private _checkEditMode() {
+    this.route.params.subscribe((params) => {
+      if (params['id']) {
+        this.editmode = true;
+        this.currentCategoryId = params['id'];
+        this.categoriesService
+          .getCategoryById(params['id'])
+          .subscribe((category) => {
+            this.categoryForm['name'].setValue(category.name);
+          });
+      }
+    });
+  }
 
   onUpload(event: FileUploadEvent) {
     console.log("Upload")
