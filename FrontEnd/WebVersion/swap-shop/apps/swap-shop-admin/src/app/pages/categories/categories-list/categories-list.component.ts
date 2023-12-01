@@ -11,9 +11,7 @@ import { Subscription } from 'rxjs';
   styles: ``
 })
 export class CategoriesListComponent implements OnInit, OnDestroy {
-deleteCategory(arg0: any) {
-throw new Error('Method not implemented.');
-}
+
   categories: Category[] = [];
   private categoriesSubscription?: Subscription;
 
@@ -36,35 +34,36 @@ throw new Error('Method not implemented.');
     }
   }
 
-  // deleteCategory(categoryId: number) {
-  //   this.confirmationService.confirm({
-  //     message: 'Do you want to Delete this Category?',
-  //     header: 'Delete Category',
-  //     icon: 'pi pi-exclamation-triangle',
-  //     accept: () => {
-  //       this.categoriesService
-  //         .deleteCategoryById(categoryId)
-  //         .pipe(takeUntil(this.endsubs$))
-  //         .subscribe(
-  //           () => {
-  //             this._getCategories();
-  //             this.messageService.add({
-  //               severity: 'success',
-  //               summary: 'Success',
-  //               detail: 'Category is deleted!'
-  //             });
-  //           },
-  //           () => {
-  //             this.messageService.add({
-  //               severity: 'error',
-  //               summary: 'Error',
-  //               detail: 'Category is not deleted!'
-  //             });
-  //           }
-  //         );
-  //     }
-  //   });
-  // }
+  deleteCategory(categoryId: string) {
+    if (this.confirmationService) {
+      this.confirmationService.confirm({
+        message: 'Do you want to Delete this Category?',
+        header: 'Delete Category',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.categoriesService
+            .deleteCategoryById(categoryId)
+            .subscribe(
+              () => {
+                this._getCategories();
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Success',
+                  detail: 'Category is deleted!'
+                });
+              },
+              () => {
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Error',
+                  detail: 'Category is not deleted!'
+                });
+              }
+            );
+        }
+      });
+    }
+  }
 
 
   updateCategory(categoryid: string) {
@@ -75,7 +74,6 @@ throw new Error('Method not implemented.');
     this.categoriesSubscription = this.categoriesService
       .getCategories().subscribe((categories) => {
         this.categories = categories;
-        console.log(this.categories.length);
       });
   }
 

@@ -25,7 +25,7 @@ export class CategoriesService {
     return this.http.put("http://34.199.239.78:8888/CATEGORY-SERVICE/categories/" + id, formData);
   }
 
-  deleteCategoryById(id: number) {
+  deleteCategoryById(id: string) {
     return this.http.delete("http://34.199.239.78:8888/CATEGORY-SERVICE/categories/" + id);
   }
 

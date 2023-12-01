@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Category } from 'libs/products/src/lib/models/category';
 import { CategoriesService } from 'libs/products/src/lib/services/categories.service';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { FileUploadEvent } from 'primeng/fileupload';
 import { Subscription, timer } from 'rxjs';
 
@@ -21,8 +21,9 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
   form: FormGroup;
   isSubmitted = false;
   editmode = false;
-  currentCategoryId: string | undefined;
-  categories: Category[] | undefined;
+  currentCategoryId?: string;
+  categories?: Category[];
+  private confirmationService?: ConfirmationService;
   private categoriesSubscription?: Subscription;
 
 
@@ -42,9 +43,7 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // this._checkEditMode();
-    this.categoriesService.getCategories().subscribe(categories => {
-      this.categories = categories;
-    })
+    this._getCategories();
     console.log("oninitcategories form not implemented !")
   }
 
@@ -101,6 +100,15 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
         });
       }
     );
+  }
+
+  private _getCategories() {
+    this.categoriesService
+      .getCategories()
+      .pipe()
+      .subscribe((categories) => {
+        this.categories = categories;
+      });
   }
 
   // private _checkEditMode() {
