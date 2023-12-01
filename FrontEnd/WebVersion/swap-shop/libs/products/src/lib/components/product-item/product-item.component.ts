@@ -10,7 +10,9 @@ import { BadgeModule } from 'primeng/badge';
 export class ProductItemComponent {
   @Input() product?: product
 
-  badge="danger"
+  badgeStatus: 'success' | 'info' | 'warning' | 'danger' | null | undefined ='danger'
+  badgeValue="Unsigned"
+  sellerName="name"
   getTimeAgo(creationDate?: Date): string {
     if (creationDate) {
       return formatDistanceToNow(new Date(creationDate), { addSuffix: true });

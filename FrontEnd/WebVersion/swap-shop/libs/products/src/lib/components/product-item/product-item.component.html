@@ -24,7 +24,9 @@
         <i class="pi pi-user"></i>
       </div>
       <div class="col-10 m-0">
-        <h6 class="m-0">Seller <p-badge value="unsigned" severity="danger"></p-badge></h6>
+        <h6 class="m-0">{{sellerName.toUpperCase()}} 
+          <p-badge [value]="badgeValue" [severity]="badgeStatus"></p-badge>
+        </h6>
         
       </div>
     </div>
