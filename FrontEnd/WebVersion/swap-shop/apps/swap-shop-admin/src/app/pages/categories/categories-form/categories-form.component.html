@@ -1,1 +1,64 @@
-<p>categories-form works!</p>
+<p-toast></p-toast>
+<div class="admin-page">
+  <p-card [header]="editmode ? 'Edit Category' : 'Add Category'" subheader="You can add or edit categories here">
+    <div class="grid mb-5">
+      <div class="col-12">
+        <p-toolbar>
+          <div class="p-toolbar-group-left"></div>
+          <div class="p-toolbar-group-right">
+            <p-button styleClass="p-button-primary mr-2" [label]="editmode ? 'Update' : 'Create'" icon="pi pi-plus"
+              (click)="onSubmit()"></p-button>
+            <p-button styleClass="p-button-secondary" label="Cancel" icon="pi pi-arrow-circle-left"
+              (click)="onCancle()"></p-button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col-12">
+        <form [formGroup]="form">
+          <div class="p-fluid p-formgrid grid">
+            <div class="field col-6">
+              <span class="p-float-label">
+                <input pInputText id="name" formControlName="name" pInputText />
+                <label htmlFor="name">Name</label>
+                <small *ngIf="categoryForm['name'].invalid && isSubmitted" class="p-error">Name is required</small>
+              </span>
+            </div>
+
+            <div class="field col-6">
+              <span class="p-float-label">
+                <p-dropdown [options]="categories" formControlName="selectedCategory" optionLabel="name"
+                  inputId="float-label"></p-dropdown>
+                <label for="float-label">Parent Category</label>
+              </span>
+            </div>
+
+
+
+            <!-- <div class="field col">
+              <label for="icon">Icon</label>
+              <input formControlName="icon" id="icon" type="file" pInputText />
+              <small *ngIf="categoryForm['icon'].invalid && isSubmitted" class="p-error"
+                >Icon is required</small
+              >
+            </div> -->
+
+            <div class="card flex justify-content-center grid col-12">
+              <p-toast></p-toast>
+              <p-fileUpload name="uploadedFiles[]" url="https://www.primefaces.org/cdn/api/upload.php"
+                (onUpload)="onUpload($event)" [multiple]="true" accept="image/*">
+                <ng-template pTemplate="content">
+                  <ul *ngIf="uploadedFiles.length">
+                    <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                  </ul>
+                </ng-template>
+              </p-fileUpload>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </p-card>
+</div>

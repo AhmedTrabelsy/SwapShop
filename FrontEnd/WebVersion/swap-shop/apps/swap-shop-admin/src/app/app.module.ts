@@ -25,6 +25,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {InputTextModule} from 'primeng/inputtext'
 import { FileUploadModule } from 'primeng/fileupload';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import { FileUploadModule } from 'primeng/fileupload';
     FormsModule,
     ReactiveFormsModule,
     InputTextModule,
-    FileUploadModule
+    FileUploadModule,
+    BrowserAnimationsModule,
+    DropdownModule,
   ],
   providers: [
     CategoriesService,
