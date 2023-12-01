@@ -6,7 +6,7 @@ import { CategoriesBannerComponent } from './components/categories-banner/catego
 import { ProductItemComponent } from './components/product-item/product-item.component';
 import { FeaturedProductsComponent } from './components/featured-products/featured-products.component';
 import {ButtonModule} from 'primeng/button'
-
+import { BadgeModule } from 'primeng/badge';
 
 @NgModule({
     declarations: [
@@ -19,6 +19,7 @@ import {ButtonModule} from 'primeng/button'
     imports: [
         CommonModule,
         ButtonModule,
+        BadgeModule,
     ],
     exports: [
         ProductsComponent,

@@ -14,7 +14,7 @@ import { UiModule } from '@swap-shop/ui';
 import { ProductsModule } from '@swap-shop/products';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoriesService } from 'libs/products/src/lib/services/categories.service';
-
+import { BadgeModule } from 'primeng/badge';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +23,7 @@ import { CategoriesService } from 'libs/products/src/lib/services/categories.ser
     FooterComponent,
     HeaderComponent,
     NavComponent,
+   
   ],
   imports: [
     BrowserModule,
@@ -32,6 +33,7 @@ import { CategoriesService } from 'libs/products/src/lib/services/categories.ser
     UiModule,
     ProductsModule,
     HttpClientModule,
+    BadgeModule,
   ],
   providers: [
     CategoriesService,

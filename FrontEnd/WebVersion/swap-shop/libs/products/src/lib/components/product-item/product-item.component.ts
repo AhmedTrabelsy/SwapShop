@@ -1,6 +1,7 @@
 import { product } from '../../models/product';
 import { Component, Input } from '@angular/core';
 import { formatDistanceToNow } from 'date-fns';
+import { BadgeModule } from 'primeng/badge';
 
 @Component({
   selector: 'swap-shop-product-item',
@@ -9,6 +10,7 @@ import { formatDistanceToNow } from 'date-fns';
 export class ProductItemComponent {
   @Input() product?: product
 
+  badge="danger"
   getTimeAgo(creationDate?: Date): string {
     if (creationDate) {
       return formatDistanceToNow(new Date(creationDate), { addSuffix: true });
