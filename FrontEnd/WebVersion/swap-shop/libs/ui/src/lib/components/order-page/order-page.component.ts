@@ -11,4 +11,16 @@ import { FieldsetModule } from 'primeng/fieldset';
 	templateUrl: './order-page.component.html',
 	styleUrls: ['./order-page.component.css']
 })
-export class OrderPageComponent {}
+export class OrderPageComponent {
+	formatCurrency(price?: number): string {
+		if (price) {
+		  if ((price | 0) < price) {
+			const formattedPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'TND' }).format(price);
+			return formattedPrice.replace(',', ' ');
+		  }
+		  const formattedPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'TND', maximumFractionDigits: 0 }).format(price);
+		  return formattedPrice.replace(',', ' ');
+		}
+		return 'Undefined';
+	  }
+}
