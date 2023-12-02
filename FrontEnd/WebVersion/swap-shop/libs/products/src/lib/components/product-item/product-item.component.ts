@@ -9,6 +9,18 @@ import { formatDistanceToNow } from 'date-fns';
 export class ProductItemComponent {
   @Input() product?: product
 
+  heartClass: string = 'pi pi-heart';
+  wishlistText: string = ' Add to Wishlist';
+  
+  toggleHeart(): void {
+    if (this.heartClass === 'pi pi-heart') {
+      this.heartClass = 'pi pi-heart-fill';
+      this.wishlistText = ' Added succefully';
+    } else {
+      this.heartClass = 'pi pi-heart';
+      this.wishlistText = ' Add to Wishlist';
+    }
+  }
   getTimeAgo(creationDate?: Date): string {
     if (creationDate) {
       return formatDistanceToNow(new Date(creationDate), { addSuffix: true });
