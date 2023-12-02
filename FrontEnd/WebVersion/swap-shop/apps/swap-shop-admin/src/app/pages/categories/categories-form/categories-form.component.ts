@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Category } from 'libs/products/src/lib/models/category';
@@ -16,7 +16,7 @@ import { Subscription, timer } from 'rxjs';
   styles: ``
 })
 
-export class CategoriesFormComponent implements OnInit {
+export class CategoriesFormComponent implements OnInit, OnDestroy {
   uploadedFiles: File[] = [];
   form: FormGroup;
   isSubmitted = false;
@@ -43,7 +43,12 @@ export class CategoriesFormComponent implements OnInit {
 
   ngOnInit(): void {
     this._checkEditMode();
-    console.log("oninitcategories form not implemented !")
+    this._getCategories();
+  }
+  ngOnDestroy() {
+    if (this.categoriesSubscription) {
+      this.categoriesSubscription.unsubscribe();
+    }
   }
 
 
@@ -75,6 +80,15 @@ export class CategoriesFormComponent implements OnInit {
 
   onCancle() {
     this.location.back();
+  }
+
+  private _getCategories() {
+    this.categoriesService
+      .getCategories()
+      .pipe()
+      .subscribe((categories) => {
+        this.categories = categories;
+      });
   }
 
   private _addCategory(category: FormData) {
