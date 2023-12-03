@@ -14,35 +14,19 @@ import { UiModule } from '@swap-shop/ui';
 import { ProductsModule } from '@swap-shop/products';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoriesService } from 'libs/products/src/lib/services/categories.service';
+import { WishListComponent } from './pages/wishlist-page/wish-list.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomePageComponent,
-    ProductListComponent,
-    FooterComponent,
-    HeaderComponent,
-    NavComponent,
-  ],
-  imports: [
-    BrowserModule,
-    RouterModule.forRoot(appRoutes),
-    AccordionModule,
-    BrowserAnimationsModule,
-    UiModule,
-    ProductsModule,
-    HttpClientModule,
-  ],
-  providers: [
-    CategoriesService,
-    {
-      provide: DEFAULT_CURRENCY_CODE,
-      useValue: 'TND '
-    },
-  ],
-  bootstrap: [AppComponent],
-  exports: [
-    HomePageComponent,
-  ]
+	declarations: [AppComponent, HomePageComponent, ProductListComponent, FooterComponent, HeaderComponent, NavComponent, WishListComponent],
+	imports: [BrowserModule, RouterModule.forRoot(appRoutes), AccordionModule, BrowserAnimationsModule, UiModule, ProductsModule, HttpClientModule],
+	providers: [
+		CategoriesService,
+		{
+			provide: DEFAULT_CURRENCY_CODE,
+			useValue: 'TND '
+		}
+	],
+	bootstrap: [AppComponent],
+	exports: [HomePageComponent]
 })
-export class AppModule { }
+export class AppModule {}
