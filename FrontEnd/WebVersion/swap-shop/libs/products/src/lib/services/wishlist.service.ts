@@ -31,16 +31,21 @@ export class WishlistService {
       map((data: any) => data.products.filter((product: any) => product !== null && product !== undefined))
     );
   }
-  deleteProduct(productId: number): void {
-    this.http.delete(`http://34.199.239.78:8888/WISHLIST-SERVICE/1/${productId}`).subscribe(
-      () => {
-        console.log("Deleted Product ID:", productId);
-      },
-      (error) => {
-        console.error("Error deleting product:", error);
-      }
-    );
+  deleteProduct(productId: number): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.http.delete(`http://34.199.239.78:8888/WISHLIST-SERVICE/1/${productId}`).subscribe(
+        () => {
+          console.log("Deleted Product ID:", productId);
+          resolve();
+        },
+        (error) => {
+          console.error("Error deleting product:", error);
+          reject(error);
+        }
+      );
+    });
   }
+  
   addToWishlist(productId: number): Observable<any> {
     const payload = {
       user_id: 1,

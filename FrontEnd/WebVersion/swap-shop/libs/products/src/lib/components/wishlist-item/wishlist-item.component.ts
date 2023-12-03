@@ -36,7 +36,14 @@ export class WishlistItemComponent {
   deleteFromWishlist(idString?: string | undefined): void {
     if (idString !== undefined) {
       const id = parseInt(idString, 10);
-      this.wishlistService.deleteProduct(id);
+      this.wishlistService.deleteProduct(id)
+        .then(() => {
+          console.log('Product deleted successfully.');
+          window.location.href = '/wishlist';
+        })
+        .catch((error) => {
+          console.error('Error deleting product:', error);
+        });
     } else {
       console.error('Item ID is undefined.');
     }
