@@ -15,10 +15,11 @@ import { ProductsModule } from '@swap-shop/products';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoriesService } from 'libs/products/src/lib/services/categories.service';
 import { WishListComponent } from './pages/wishlist-page/wish-list.component';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
 	declarations: [AppComponent, HomePageComponent, ProductListComponent, FooterComponent, HeaderComponent, NavComponent, WishListComponent],
-	imports: [BrowserModule, RouterModule.forRoot(appRoutes), AccordionModule, BrowserAnimationsModule, UiModule, ProductsModule, HttpClientModule],
+	imports: [CardModule,BrowserModule, RouterModule.forRoot(appRoutes), AccordionModule, BrowserAnimationsModule, UiModule, ProductsModule, HttpClientModule],
 	providers: [
 		CategoriesService,
 		{
