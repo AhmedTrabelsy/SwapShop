@@ -62,24 +62,6 @@ class MainActivity : AppCompatActivity() {
         //bottomNavigationView.menu.getItem(2).isEnabled = false
         requestQueue = Volley.newRequestQueue(this)
         jsonParse()
-        val fragment = ProductsFragment()
-        val bundle = Bundle()
-        val productName = bundle?.getString("productName")
-        val productPrice = bundle?.getString("priceProduct")
-        val productId = bundle?.getLong("id")
-        val productDescription = bundle?.getString("description")
-        val category = bundle?.getString("categoryName")
-        val catId = bundle?.getLong("idCat")
-        val image = bundle?.getString("imagePath")
-        val indexString = bundle?.getString("index")
-        bundle.putParcelableArrayList("productsList", productsList)
-        val index = indexString?.toIntOrNull()
-        fragment.arguments = bundle
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.main_fragment, fragment)
-            .commit()
-
-        getSupportActionBar()!!.setTitle("Products List")
 
         setupAddNewProductButton()
 

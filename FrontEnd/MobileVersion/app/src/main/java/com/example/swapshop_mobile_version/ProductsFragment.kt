@@ -40,7 +40,7 @@ class ProductsFragment : Fragment(), MyAdapter.OnItemClickListener {
 
     private var values = ArrayList<Products>()
     private var filterList = ArrayList<Products>()
-    private var imageUrls :String = "@drawable/shopping_cart_833314.png"
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,28 +67,15 @@ class ProductsFragment : Fragment(), MyAdapter.OnItemClickListener {
         // Set click listener for the adapter
         myAdapter.setOnItemClickListener(this)
 
-       /* val productIdExtra = arguments?.getLong("idProduct")
-        val productNameExtra = arguments?.getString("productNameExtra")
-        val priceProductExtra = arguments?.getString("priceProduct")
-        val descriptionExtra = arguments?.getString("descriptionProduct")
-        val catIdExtra = arguments?.getLong("catId")
-        val catNameExtra = arguments?.getString("catName")
-        val imagesArraysExtra = arguments?.getStringArrayList("imagesArray")*/
-        Log.e("cv","helloWorld!")
 
         val productsList = arguments?.getParcelableArrayList<Products>("productsList")
         productsList?.let {
-            values.addAll(it) // Add the received data to your values list
-            myAdapter.notifyDataSetChanged() // Notify adapter after adding data
+            values.addAll(it)
+            myAdapter.notifyDataSetChanged()
         }
 
         Log.d("in productsFragments","$values")
 
-        val pc = Categories(60, "Pc's")
-        val accessories = Categories(80, "Accessories")
-        values.add(Products(5, "Pc Toshiba", "1500.0", "Pc cv", pc, imageUrls))
-      //  requestQueue = Volley.newRequestQueue(requireContext())
-        //jsonParse()
         filterList.addAll(values)
         myAdapter.notifyDataSetChanged()
         val searchItem = view.findViewById<SearchView>(R.id.searchBar)
