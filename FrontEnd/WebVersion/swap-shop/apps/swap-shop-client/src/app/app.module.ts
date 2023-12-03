@@ -14,6 +14,8 @@ import { UiModule } from '@swap-shop/ui';
 import { ProductsModule } from '@swap-shop/products';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoriesService } from 'libs/products/src/lib/services/categories.service';
+// import { WishlistService } from 'libs/products/src/lib/services/wishlist.service';
+// import { WishlistItemComponent } from 'libs/products/src/lib/components/wishlist-item/wishlist-item.component';
 import { WishListComponent } from './pages/wishlist-page/wish-list.component';
 import { CardModule } from 'primeng/card';
 
@@ -26,6 +28,7 @@ import { CardModule } from 'primeng/card';
 			provide: DEFAULT_CURRENCY_CODE,
 			useValue: 'TND '
 		}
+		// WishListService,
 	],
 	bootstrap: [AppComponent],
 	exports: [HomePageComponent]

@@ -18,6 +18,6 @@ import { WishlistItemComponent } from './components/wishlist-item/wishlist-item.
 		WishlistItemComponent
 	],
 	imports: [CommonModule, ButtonModule],
-	exports: [ProductsComponent, ProductsSearchComponent, CategoriesBannerComponent, ProductItemComponent, FeaturedProductsComponent]
+	exports: [WishlistItemComponent,ProductsComponent, ProductsSearchComponent, CategoriesBannerComponent, ProductItemComponent, FeaturedProductsComponent]
 })
 export class ProductsModule {}
