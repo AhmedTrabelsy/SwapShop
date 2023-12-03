@@ -24,6 +24,7 @@ export class ProductItemComponent {
     } else {
       this.heartClass = 'pi pi-heart';
       this.wishlistText = ' Add to Wishlist';
+      this.deleteFromWishlist(idString);
     }
   }
   getTimeAgo(creationDate?: Date): string {
@@ -55,6 +56,14 @@ export class ProductItemComponent {
         }
       );
   }
+  deleteFromWishlist(idString?: string | undefined): void {
+    if (idString !== undefined) {
+      const id = parseInt(idString, 10);
+      this.wishlistService.deleteProduct(id);
+    } else {
+      console.error('Item ID is undefined.');
+    }
+  }  
 }
 
 
