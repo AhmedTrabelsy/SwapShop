@@ -40,5 +40,13 @@ export class WishlistService {
         console.error("Error deleting product:", error);
       }
     );
+  }
+  addToWishlist(productId: number): Observable<any> {
+    const payload = {
+      user_id: 1,
+      product_id: productId
+    };
+
+    return this.http.post<any>("http://34.199.239.78:8888/WISHLIST-SERVICE/", payload);
   }  
 }

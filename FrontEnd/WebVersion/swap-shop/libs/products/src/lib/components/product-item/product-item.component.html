@@ -21,7 +21,7 @@
         <h6 class="m-0">{{ getTimeAgo(product.created_at)}}</h6>
       </div>
       <div class="col-10 m-0">
-        <i class="addToWishlistIcon" [ngClass]="heartClass" style="font-size: 1rem" (click)="toggleHeart()"></i>
+        <i class="addToWishlistIcon" [ngClass]="heartClass" style="font-size: 1rem" (click)="toggleHeart(product.id)"></i>
         <span class="addToWishlistSpan">{{ wishlistText }}</span>
       </div>
     </div>
