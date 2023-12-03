@@ -33,7 +33,14 @@ export class WishlistItemComponent {
       }
     );
   }  
-  
+  deleteFromWishlist(idString?: string | undefined): void {
+    if (idString !== undefined) {
+      const id = parseInt(idString, 10);
+      this.wishlistService.deleteProduct(id);
+    } else {
+      console.error('Item ID is undefined.');
+    }
+  }  
   ngOnDestroy(): void {
     // if (this.wishlistSubscription) {
     //   this.wishlistSubscription.unsubscribe();
