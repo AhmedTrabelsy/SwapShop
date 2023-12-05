@@ -24,7 +24,6 @@ export class WishlistItemComponent implements OnInit, OnDestroy  {
       (products: product[]) => {
         if (Array.isArray(products)) {
           this.products = products;
-          console.log('Filtered Products:', this.products);
         } else {
           console.error('Received Products data is invalid:', products);
         }
