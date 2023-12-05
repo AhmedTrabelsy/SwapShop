@@ -18,8 +18,8 @@ export class CategoriesBannerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.categoriesSubscription = this.categoriesService
       .getCategories().subscribe((categories) => {
-        this.categories = categories;
-        console.log(this.categories.length);
+        this.categories = categories.filter(category => category.subcategories?.length != 0);
+
       });
   }
 

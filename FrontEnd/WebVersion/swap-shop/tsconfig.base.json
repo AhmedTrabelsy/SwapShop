@@ -16,7 +16,8 @@
 		"baseUrl": ".",
 		"paths": {
 			"@swap-shop/products": ["libs/products/src/index.ts"],
-			"@swap-shop/ui": ["libs/ui/src/index.ts"]
+			"@swap-shop/ui": ["libs/ui/src/index.ts"],
+      "@env" : ["environments/environment.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]

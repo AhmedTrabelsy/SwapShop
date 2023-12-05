@@ -26,7 +26,7 @@
               </span>
             </div>
 
-            <div class="field col-6">
+            <div *ngIf="!editmode" class="field col-6">
               <span class="p-float-label">
                 <p-dropdown [options]="categories" formControlName="selectedCategory" optionLabel="name"
                   inputId="float-label"></p-dropdown>

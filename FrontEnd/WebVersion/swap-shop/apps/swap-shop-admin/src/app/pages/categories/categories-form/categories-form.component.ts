@@ -44,14 +44,13 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._checkEditMode();
     this._getCategories();
-    console.log("oninitcategories form not implemented !")
   }
-
   ngOnDestroy() {
     if (this.categoriesSubscription) {
       this.categoriesSubscription.unsubscribe();
     }
   }
+
 
   onSubmit() {
     this.isSubmitted = true;
@@ -62,14 +61,18 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
 
 
     const formData = new FormData();
-    formData.append('name', this.categoryForm['name'].value);
-    for (const file of this.uploadedFiles) {
-      formData.append('icon', file);
+    formData.append('name', this.categoryForm['name']?.value);
+    if (this.uploadedFiles.length > 0) {
+      for (const file of this.uploadedFiles) {
+        formData.append('icon', file);
+      }
     }
-    formData.append('parentCategoryId', this.categoryForm['selectedCategory'].value.id);
+    if (!this.editmode) {
+      formData.append('parentCategoryId', this.categoryForm['selectedCategory']?.value.id);
+    }
 
-    if (this.editmode) {
-      this._updateCategory(this.categoryForm['id'].value, formData);
+    if (this.editmode && this.currentCategoryId) {
+      this._updateCategory(this.currentCategoryId , formData);
     } else {
       this._addCategory(formData);
     }
@@ -77,6 +80,15 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
 
   onCancle() {
     this.location.back();
+  }
+
+  private _getCategories() {
+    this.categoriesService
+      .getCategories()
+      .pipe()
+      .subscribe((categories) => {
+        this.categories = categories;
+      });
   }
 
   private _addCategory(category: FormData) {
@@ -102,14 +114,6 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
     );
   }
 
-  private _getCategories() {
-    this.categoriesService
-      .getCategories()
-      .pipe()
-      .subscribe((categories) => {
-        this.categories = categories;
-      });
-  }
 
   private _updateCategory(id: string, category: FormData) {
     this.categoriesService
@@ -131,7 +135,7 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
-            detail: 'Category is not updated!'
+            detail: 'Couldn\'t Update Category!'
           });
         }
       );
