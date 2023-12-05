@@ -1,8 +1,6 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { wishlist } from 'libs/products/src/lib/models/wishlist';
-import { WishlistService } from 'libs/products/src/lib/services/wishlist.service';
 import { SharedService } from 'libs/products/src/lib/services/shared.service';
-import { Subscription } from 'rxjs';
 import { formatDistanceToNow } from 'date-fns';
 
 @Component({
@@ -12,23 +10,10 @@ import { formatDistanceToNow } from 'date-fns';
 })
 export class WishListComponent {
   wishlists: wishlist[] = [];
-  
-  private wishlistSubscription?: Subscription;
 
-  constructor(private wishlistService: WishlistService, private sharedService: SharedService) { }
 
-  // ngOnInit(): void {
-  //   this.wishlistSubscription = this.wishlistService.getWishlist().subscribe((wishlist: wishlist[]) => {
-  //     this.wishlists = wishlist;
-  //     console.log(this.wishlists)
-  //   });
-  // }
+  constructor(private sharedService: SharedService) { }
 
-  // ngOnDestroy(): void {
-  //   if (this.wishlistSubscription) {
-  //     this.wishlistSubscription.unsubscribe();
-  //   }
-  // }
   calculateAnimationDelay(index?: number): string {
     return this.sharedService.calculateAnimationDelay(index);
   }
