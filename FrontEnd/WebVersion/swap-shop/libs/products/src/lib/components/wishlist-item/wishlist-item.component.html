@@ -1,0 +1,35 @@
+<div class="featured-products">
+    <h2 class="featured-products-title">My Favourite ({{ products.length }})</h2>
+    <hr class="featured-products-ceparator">
+    <div class="featured-products-container grid grid-gap">
+      <div *ngFor="let item of products" class="product-item">
+      <div class="product-item-wrapper" *ngIf="item != null && item.images != null">
+          <div class="product-item-wrapper-image-container">
+              <img src="http://34.199.239.78:8888/PRODUCT-SERVICE/{{ item.images[0].name }}" class="image" width="10dp"
+                  alt="swap shop product-image" />
+          </div>
+          <h4 class="name">{{ item.name }}</h4>
+          <h5 class="price">{{ formatCurrency(item.price) }}</h5>
+          <hr class="w-6 mt-3">
+          <div class="grid product-category" *ngIf="item.category && item.created_at">
+              <div class="col-2 icon">
+                  <i class="pi pi-tags"></i>
+              </div>
+              <div class="col-10 m-0">
+                  <h6 class="m-0">{{ item.category.name }}</h6>
+              </div>
+              <div class="col-2 icon">
+                  <i class="pi pi-clock"></i>
+              </div>
+              <div class="col-10 m-0">
+                  <h6 class="m-0">{{ getTimeAgo(item.created_at) }}</h6>
+              </div>
+          </div>
+          <div class="grid">
+            <p-button styleClass="m-0 mt-3" label="" icon="pi pi-cart-plus" iconPos="right"></p-button> 
+            <p-button styleClass="m-0 mt-3" label="" icon="pi pi-delete-left" iconPos="right" (click)="deleteFromWishlist(item?.id)"></p-button> </div>
+          <p-button styleClass="mt-3 see-more" label="See more" icon="pi pi-arrow-right" iconPos="right"></p-button> 
+      </div>
+    </div>
+  </div>
+  

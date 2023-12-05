@@ -23,8 +23,8 @@
     }
 
     .image {
-      width: 65%;
-      height: 100%;
+      width: 130px;
+      height: 130px;
       margin-top: -85px;
       border-radius: 15px;
     }
@@ -56,4 +56,12 @@
         justify-content: center;
       }
     }
+    .addToWishlistIcon{
+      color: rgb(255, 6, 6);
+    }
+    .addToWishlistSpan{
+      color: $PrimaryColor;
+      font-size: 13px;
+    }
   }
+
