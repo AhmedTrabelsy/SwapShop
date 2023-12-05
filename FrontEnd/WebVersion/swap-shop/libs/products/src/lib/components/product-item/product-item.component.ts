@@ -13,10 +13,9 @@ export class ProductItemComponent {
 
   heartClass: string = 'pi pi-heart';
   wishlistText: string = ' Add to Wishlist';
-  //wishlistService: WishlistService;
-  
+
   toggleHeart(idString: string|undefined): void {
-    var id = parseInt(idString || '0');
+    const id = parseInt(idString || '0');
     if (this.heartClass === 'pi pi-heart') {
       this.heartClass = 'pi pi-heart-fill';
       this.wishlistText = ' Added succefully';
@@ -63,7 +62,7 @@ export class ProductItemComponent {
     } else {
       console.error('Item ID is undefined.');
     }
-  }  
+  }
 }
 
 
