@@ -7,24 +7,29 @@ import { WishlistService } from '../../services/wishlist.service';
   selector: 'swap-shop-product-item',
   templateUrl: './product-item.component.html',
 })
-export class ProductItemComponent {
+export class ProductItemComponent{
   @Input() product?: product
+  wishlistProducts?: product[];
+
+
   constructor(private wishlistService: WishlistService) { }
 
   heartClass: string = 'pi pi-heart';
   wishlistText: string = ' Add to Wishlist';
-  //wishlistService: WishlistService;
-  
+
+
+
+
   toggleHeart(idString: string|undefined): void {
-    var id = parseInt(idString || '0');
+    const id = parseInt(idString || '0');
     if (this.heartClass === 'pi pi-heart') {
+      this.onAddToWishlist(id);
       this.heartClass = 'pi pi-heart-fill';
       this.wishlistText = ' Added succefully';
-      this.onAddToWishlist(id);
     } else {
+      this.deleteFromWishlist(idString);
       this.heartClass = 'pi pi-heart';
       this.wishlistText = ' Add to Wishlist';
-      this.deleteFromWishlist(idString);
     }
   }
   getTimeAgo(creationDate?: Date): string {
@@ -63,7 +68,7 @@ export class ProductItemComponent {
     } else {
       console.error('Item ID is undefined.');
     }
-  }  
+  }
 }
 
 

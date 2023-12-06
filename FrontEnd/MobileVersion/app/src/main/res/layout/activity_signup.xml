@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#4c4e52"
-    tools:context=".Registration">
+    tools:context=".SignupActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -135,6 +135,25 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
                     <EditText
+                        android:id="@+id/username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginEnd="20dp"
+                        android:drawablePadding="10sp"
+                        android:drawableTint="#2874f0"
+                        android:ems="10"
+                        android:hint="username"
+                        android:inputType="textPersonName"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.496"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView270" />
+
+
+
+                    <EditText
                         android:id="@+id/email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -204,6 +223,18 @@
                         app:layout_constraintTop_toBottomOf="@+id/firstName" />
 
                     <TextView
+                        android:id="@+id/textView270"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="18dp"
+                        android:layout_marginBottom="1dp"
+                        android:text="username"
+                        app:layout_constraintBottom_toTopOf="@+id/username"
+                        app:layout_constraintStart_toStartOf="@+id/username"
+                        app:layout_constraintTop_toBottomOf="@+id/lastName" />
+
+                    <TextView
                         android:id="@+id/textView27"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -213,7 +244,7 @@
                         android:text="Email"
                         app:layout_constraintBottom_toTopOf="@+id/email"
                         app:layout_constraintStart_toStartOf="@+id/email"
-                        app:layout_constraintTop_toBottomOf="@+id/lastName" />
+                        app:layout_constraintTop_toBottomOf="@+id/username" />
 
                     <TextView
                         android:id="@+id/textView28"

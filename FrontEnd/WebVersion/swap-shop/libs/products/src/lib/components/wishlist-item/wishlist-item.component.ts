@@ -1,29 +1,29 @@
-import { Component, Inject, Input } from '@angular/core';
-import { wishlist } from '../../models/wishlist';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { formatDistanceToNow } from 'date-fns';
-import { Subscription } from 'rxjs';
 import { WishlistService } from '../../services/wishlist.service';
 import { SharedService } from '../../services/shared.service';
 import { product } from '../../models/product';
+import { Subscription } from 'rxjs';
+import {environment} from '@env';
 
 @Component({
 	selector: 'swap-shop-wishlist-item',
 	templateUrl: './wishlist-item.component.html',
 	styles: []
 })
-export class WishlistItemComponent {
-
+export class WishlistItemComponent implements OnInit, OnDestroy  {
   products: product[] = [];
-  // private wishlistSubscription?: Subscription;
+  private wishlistSubscription?: Subscription;
+  url = environment.apiUrl + "/PRODUCT-SERVICE/";
 
   constructor(private wishlistService: WishlistService, private sharedService: SharedService) { }
 
+
   ngOnInit(): void {
     this.wishlistService.getProducts().subscribe(
-      (products: any[]) => {
+      (products: product[]) => {
         if (Array.isArray(products)) {
           this.products = products;
-          console.log('Filtered Products:', this.products);
         } else {
           console.error('Received Products data is invalid:', products);
         }
@@ -32,7 +32,7 @@ export class WishlistItemComponent {
         console.error('Error fetching Products:', error);
       }
     );
-  }  
+  }
   deleteFromWishlist(idString?: string | undefined): void {
     if (idString !== undefined) {
       const id = parseInt(idString, 10);
@@ -47,11 +47,11 @@ export class WishlistItemComponent {
     } else {
       console.error('Item ID is undefined.');
     }
-  }  
+  }
   ngOnDestroy(): void {
-    // if (this.wishlistSubscription) {
-    //   this.wishlistSubscription.unsubscribe();
-    // }
+    if (this.wishlistSubscription) {
+      this.wishlistSubscription.unsubscribe();
+    }
   }
 
   // Shared Functions
@@ -61,7 +61,7 @@ export class WishlistItemComponent {
 
   heartClass: string = 'pi pi-heart';
   wishlistText: string = ' Add to Wishlist';
-  
+
   toggleHeart(): void {
     if (this.heartClass === 'pi pi-heart') {
       this.heartClass = 'pi pi-heart-fill';
