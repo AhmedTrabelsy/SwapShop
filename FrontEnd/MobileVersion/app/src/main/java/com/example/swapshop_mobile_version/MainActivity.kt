@@ -60,37 +60,28 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView.background = null
         //bottomNavigationView.menu.getItem(2).isEnabled = false
-        requestQueue = Volley.newRequestQueue(this)
-        jsonParse()
+
+        val extras = intent.extras
+        val callMap = extras?.getString("isCallingToMap")
+        if (callMap != null){
+            val fragment = MapsFragment()
+            navigationBetweenFragments(fragment)
+        }
 
         setupAddNewProductButton()
-
-        requestQueue = Volley.newRequestQueue(this)
-        jsonParse()
-        val bundleProducts = Bundle()
-        bundleProducts.putParcelableArrayList("productsList", productsList)
-        jsonParseWishItems()
 
         binding.bottomNavigationView.setOnItemReselectedListener {
             when (it.itemId){
                 R.id.home -> {
                     val fragmentHome = HomeFragment()
-                    fragmentHome.arguments = bundleProducts
                     navigationBetweenFragments(fragmentHome)
                 }
                 R.id.products -> {
                     val fragment = ProductsFragment()
-                    fragment.arguments = bundleProducts
                     navigationBetweenFragments(fragment)
                 }
                 R.id.wishlist -> {
                     val fragment = WhishlistFragment()
-                    val bundle = Bundle()
-                    Log.d("wihshedItems","${whishItemsList}")
-                    val wishItemsParcelableList = ArrayList<Parcelable>(whishItemsList.map { it as Parcelable })
-                    bundle.putParcelableArrayList("wishItems", wishItemsParcelableList)
-                    Log.d("bundle Wished","${bundle}")
-                    fragment.arguments = bundle
                     navigationBetweenFragments(fragment)
                 }
                 R.id.dashboard -> {
@@ -104,119 +95,6 @@ class MainActivity : AppCompatActivity() {
             true
         }
     }
-
-    private fun jsonParse() {
-        val url = "http://34.199.239.78:8888/PRODUCT-SERVICE/products"
-        val request = JsonArrayRequest(Request.Method.GET, url, null, { response ->
-            try {
-                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-                for (i in 0 until response.length()) {
-                    val product = response.getJSONObject(i)
-                    val id = product.getLong("id")
-                    val productName = product.getString("name")
-                    val price = product.getDouble("price")
-                    val description = product.getString("description")
-                    val category = product.getJSONObject("category")
-                    val categoryName = category.getString("name")
-                    val catId = category.getLong("id")
-                    val imagesArray = product.getJSONArray("images")
-                    for (i in 0 until imagesArray.length()) {
-                        val imageUrl = imagesArray.getString(i)
-                        imagesArrays.add(imageUrl)
-                    }
-                    var imageUrl = "@drawable/app_background.png"
-                    if (imagesArray.length() > 0) {
-                        val firstImage = imagesArray.getJSONObject(0)
-                        val imageName = firstImage.getString("name")
-                        imageUrl = imageName
-                        Log.d("uri's", "$imageUrl")
-                    } else {
-                        Log.e("MainActivity", "JSONArray is empty")
-                    }
-
-                    val newUser = Products(
-                        id,
-                        productName,
-                        price.toString(),
-                        description,
-                        Categories(catId, categoryName),
-                        imageUrl,
-                    )
-                    productsList.add(newUser)
-
-                    /* values.add(newUser)
-                     filterList.add(newUser)*/
-
-                }
-               // Log.d("from main","$newUser")
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
-        }, { error -> error.printStackTrace() })
-        requestQueue?.add(request)
-    }
-
-    private fun jsonParseWishItems() {
-        val url = "http://34.199.239.78:8888/WISHLIST-SERVICE/1"
-        val request = JsonObjectRequest(Request.Method.GET, url, null, { response ->
-            try {
-                val userProducts = response.getJSONArray("products")
-
-                for (i in 0 until userProducts.length()) {
-                    val product = userProducts.optJSONObject(i)
-
-                    if (product != null) {
-                        // Parsing for non-null product object
-                        val userId = response.optLong("user_id")
-                        val productId = product.optLong("id")
-                        val productName = product.optString("name")
-                        val price = product.optDouble("price")
-                        val description = product.optString("description")
-
-                        val category = product.optJSONObject("category")
-                        val categoryId = category?.optLong("id") ?: 0
-                        val categoryName = category?.optString("name") ?: "Unknown"
-
-                        val imagesArray = product.optJSONArray("images")
-                        val imagesUrls = ArrayList<String>()
-
-                        imagesArray?.let {
-                            for (j in 0 until it.length()) {
-                                val imageObject = it.optJSONObject(j)
-                                val imageName = imageObject?.optString("name")
-                                imageName?.let {
-                                    val fullImageUrl = "$it"
-                                    imagesUrls.add(fullImageUrl)
-                                }
-                            }
-                        }
-
-                        val imageUrl = if (imagesUrls.isNotEmpty()) imagesUrls[0] else "@drawable/app_background.png"
-
-                        val newUser = WishItems(
-                            userId,
-                            Products(
-                                productId,
-                                productName,
-                                price.toString(),
-                                description,
-                                Categories(categoryId, categoryName),
-                                imageUrl
-                            )
-                        )
-                        whishItemsList.add(newUser)
-                        Log.d("widhedItems", "${whishItemsList[0].userId}")
-                    }
-                }
-
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
-        }, { error -> error.printStackTrace() })
-
-        requestQueue?.add(request)
-    }
-
     fun setActionBarTitle(title: String) {
         supportActionBar?.title = title
     }
@@ -250,7 +128,7 @@ class MainActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.in_right_anim, R.anim.out_left_anim)
     }
 
-    private fun navigationBetweenFragments(fragment: Fragment) {
+    public fun navigationBetweenFragments(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.main_fragment, fragment)

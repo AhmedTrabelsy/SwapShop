@@ -63,7 +63,7 @@ class SignupActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val intent = Intent(this@SignupActivity, Login::class.java)
                     startActivity(intent)
-                    finish() // Optional, to finish the current activity
+                    finish()
                     } else {
                     Toast.makeText(this@SignupActivity, "Error: Wrong Data", Toast.LENGTH_LONG).show()
                 }
