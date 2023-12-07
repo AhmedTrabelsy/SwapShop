@@ -1,6 +1,6 @@
 const express = require('express');
 const { signup, login } = require('./controllers/authController');
-const { getUserData } = require('./controllers/userController');
+const { getUserData, updateProfile } = require('./controllers/userController');
 const app = express();
 require('express-async-errors');
 
@@ -14,5 +14,6 @@ app.use((err, req, res, next) => {
 app.post('/signup', signup);
 app.post('/login', login);
 app.get('/user', getUserData);
+app.put('/update', updateProfile);
 
 module.exports = app;
