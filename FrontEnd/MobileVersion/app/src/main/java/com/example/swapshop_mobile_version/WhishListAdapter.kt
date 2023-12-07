@@ -71,6 +71,7 @@ class WhishListAdapter(private var myDataSet: ArrayList<WishItems>, private val 
             val sharePage = Intent(context, PaimantPage::class.java)
             val bundle = Bundle()
             bundle.putString("price",myDataSet[position].product?.price)
+            bundle.putString("productName",myDataSet[position].product?.productName)
             sharePage.putExtras(bundle)
             context.startActivity(sharePage)
         }

@@ -1,19 +1,29 @@
 package com.example.swapshop_mobile_version
 
 import retrofit2.Call
-import retrofit2.http.Field
+import retrofit2.http.Body
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
+data class LoginData(
+    val username: String,
+    val password: String
+)
+
+data class SignupData(
+    val username: String,
+    val firstName: String,
+    val lastName: String,
+    val email: String,
+    val phoneNumber: String,
+    val password: String
+)
+
 interface GetUserData {
-    @FormUrlEncoded
-    @POST("admin/master/console/#/android_realm/auth/protocol/openid-connect/token")
-    fun getAccessToken(
-        @Field("client-id") clientId: String,
-        @Field("grant_type") grantType: String,
-        @Field("client_secret") clientSecret: String,
-        @Field("scope") scope: String,
-        @Field("username") username: String,
-        @Field("password") password: String
-    ): Call<AccessToken>
+    @POST("AUTH-SERVICE/login")
+    fun getAccessToken(@Body loginData: LoginData): Call<AccessToken>
+
+
+    @POST("AUTH-SERVICE/signup")
+    fun Signup(@Body SignupData: SignupData): Call<SignUpResponse>
 }

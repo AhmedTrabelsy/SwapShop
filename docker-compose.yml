@@ -53,14 +53,20 @@ services:
       - "8084:8084"
     depends_on:
       - product
-  angular:
+  auth:
     build:
-      context: ./FrontEnd/WebVersion
+      context: ./BackEnd/NodeJs/auth-service
       dockerfile: Dockerfile
     ports:
-      - "80:80"
-    depends_on:
-      - product
+      - "8085:8085"
+  # angular:
+  #   build:
+  #     context: ./FrontEnd/WebVersion
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "80:80"
+  #   depends_on:
+  #     - product
   apk_web_server:
     image: nginx:1.17.1-alpine
     ports:

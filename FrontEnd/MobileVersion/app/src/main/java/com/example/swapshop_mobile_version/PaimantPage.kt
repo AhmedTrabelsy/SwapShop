@@ -1,5 +1,6 @@
 package com.example.swapshop_mobile_version
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -8,6 +9,9 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.UUID
 
 class PaimantPage : AppCompatActivity() {
 
@@ -20,6 +24,7 @@ class PaimantPage : AppCompatActivity() {
         val confirm = findViewById<CheckBox>(R.id.checkBox)
         val extras = intent.extras
         val price = extras?.getString("price")
+        val productName = extras?.getString("productName")
         paimantButton.text = "Pay $price DT"
 
         paimantButton.setOnClickListener {
@@ -27,6 +32,21 @@ class PaimantPage : AppCompatActivity() {
             val phone = findViewById<EditText>(R.id.numberPhone).text.toString()
             val numberCard = findViewById<EditText>(R.id.numberCard).text.toString()
             val billingAdress = findViewById<EditText>(R.id.billingAdress).text.toString()
+
+            val currentDateTime = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+            val date = currentDateTime.format(formatter).toString()
+
+            val uuid: String = UUID.randomUUID().toString()
+
+            val sharePage = Intent(this, OrdersActivity::class.java)
+            val bundle = Bundle()
+            bundle.putString("id",uuid)
+            bundle.putString("productName",productName)
+            bundle.putString("orderDate",date)
+            bundle.putString("billingAdress",billingAdress)
+            sharePage.putExtras(bundle)
+            this.startActivity(sharePage)
 
             if (email.isEmpty() || phone.isEmpty() || numberCard.isEmpty() || billingAdress.isEmpty()) {
                 val snackbar = Snackbar.make(

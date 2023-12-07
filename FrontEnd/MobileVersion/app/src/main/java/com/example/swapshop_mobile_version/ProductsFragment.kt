@@ -10,11 +10,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
 import com.android.volley.RequestQueue
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.Volley
 import com.example.swapshop_mobile_version.models.Categories
 import com.example.swapshop_mobile_version.models.Products
+import org.json.JSONException
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
@@ -40,7 +46,7 @@ class ProductsFragment : Fragment(), MyAdapter.OnItemClickListener {
 
     private var values = ArrayList<Products>()
     private var filterList = ArrayList<Products>()
-    private var imageUrls :String = "@drawable/shopping_cart_833314.png"
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,39 +64,10 @@ class ProductsFragment : Fragment(), MyAdapter.OnItemClickListener {
         val view = inflater.inflate(R.layout.fragment_products, container, false)
         (activity as? MainActivity)?.setActionBarTitle("Products List")
         // Initialize RecyclerView and adapter
-        recyclerView = view.findViewById(R.id.productList)
-        manager = LinearLayoutManager(requireContext())
-        myAdapter = MyAdapter(filterList, requireContext())
 
-        recyclerView.layoutManager = manager
-        recyclerView.adapter = myAdapter
-        // Set click listener for the adapter
-        myAdapter.setOnItemClickListener(this)
+        requestQueue = Volley.newRequestQueue(requireContext())
+        jsonParse(view)
 
-       /* val productIdExtra = arguments?.getLong("idProduct")
-        val productNameExtra = arguments?.getString("productNameExtra")
-        val priceProductExtra = arguments?.getString("priceProduct")
-        val descriptionExtra = arguments?.getString("descriptionProduct")
-        val catIdExtra = arguments?.getLong("catId")
-        val catNameExtra = arguments?.getString("catName")
-        val imagesArraysExtra = arguments?.getStringArrayList("imagesArray")*/
-        Log.e("cv","helloWorld!")
-
-        val productsList = arguments?.getParcelableArrayList<Products>("productsList")
-        productsList?.let {
-            values.addAll(it) // Add the received data to your values list
-            myAdapter.notifyDataSetChanged() // Notify adapter after adding data
-        }
-
-        Log.d("in productsFragments","$values")
-
-        val pc = Categories(60, "Pc's")
-        val accessories = Categories(80, "Accessories")
-        values.add(Products(5, "Pc Toshiba", "1500.0", "Pc cv", pc, imageUrls))
-      //  requestQueue = Volley.newRequestQueue(requireContext())
-        //jsonParse()
-        filterList.addAll(values)
-        myAdapter.notifyDataSetChanged()
         val searchItem = view.findViewById<SearchView>(R.id.searchBar)
         val editText = searchItem.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
         searchItem.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -118,48 +95,72 @@ class ProductsFragment : Fragment(), MyAdapter.OnItemClickListener {
 
         })
 
-        val productName = arguments?.getString("productName")
-        val productPrice =arguments?.getString("priceProduct")
-        val productId = arguments?.getLong("id")
-        val productDescription = arguments?.getString("description")
-        val category = arguments?.getString("categoryName")
-        val catId = arguments?.getLong("idCat")
-        val image = arguments?.getString("imagePath")
-        val indexString = arguments?.getString("index")
-        val index = indexString?.toIntOrNull()
-
-        if (index != null) {
-            if (catId != null && productName != null && productPrice != null && productDescription != null && (index >= 0 && index < values.size)) {
-                if (productId != null) {
-                    values[index].id = productId
-                }
-                values[index].price = productPrice.toString()
-                values[index].productName = productName
-                values[index].description = productDescription
-                values[index].category = Categories(catId, category)
-                if (image != null) {
-                    values[index].picturePath = image
-                }
-                //filterList.addAll(values)
-            }
-        } else {
-            /* if (catId != null && productId != null && productName != null && productPrice != null && productDescription != null && index == null && image != null) {
-                 values.add(
-                     Products(
-                         productId,
-                         productName,
-                         productPrice,
-                         productDescription.toString(),
-                         Categories(catId, category),
-                         image
-                     )
-                 )
-                 filterList.addAll(values)
-             }*/
-        }
         // Inflate the layout for this fragment
         return view
     }
+
+    private fun jsonParse(view: View) {
+        val url = "http://34.199.239.78:8888/PRODUCT-SERVICE/products"
+        val request = JsonArrayRequest(Request.Method.GET, url, null, { response ->
+            try {
+                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+                for (i in 0 until response.length()) {
+                    val product = response.getJSONObject(i)
+                    val id = product.getLong("id")
+                    val productName = product.getString("name")
+                    val price = product.getDouble("price")
+                    val description = product.getString("description")
+                    val category = product.getJSONObject("category")
+                    val categoryName = category.getString("name")
+                    val catId = category.getLong("id")
+                    val imagesArray = product.getJSONArray("images")
+                    for (i in 0 until imagesArray.length()) {
+                        val imageUrl = imagesArray.getString(i)
+                        imagesArrays.add(imageUrl)
+                    }
+                    var imageUrl = "@drawable/app_background.png"
+                    if (imagesArray.length() > 0) {
+                        val firstImage = imagesArray.getJSONObject(0)
+                        val imageName = firstImage.getString("name")
+                        imageUrl = imageName
+                        Log.d("uri's", "$imageUrl")
+                    } else {
+                        Log.e("MainActivity", "JSONArray is empty")
+                    }
+
+                    val newUser = Products(
+                        id,
+                        productName,
+                        price.toString(),
+                        description,
+                        Categories(catId, categoryName),
+                        imageUrl,
+                    )
+                    filterList.add(newUser)
+                    values.add(newUser)
+                    recyclerView = view.findViewById(R.id.productList)
+                    manager = LinearLayoutManager(requireContext())
+                    myAdapter = MyAdapter(filterList, requireContext())
+
+                    recyclerView.layoutManager = manager
+                    recyclerView.adapter = myAdapter
+                    // Set click listener for the adapter
+                    myAdapter.setOnItemClickListener(this)
+
+                   // Log.d("in productsFragments","$values")
+                    myAdapter.notifyDataSetChanged()
+                    /* values.add(newUser)
+                     filterList.add(newUser)*/
+
+                }
+                // Log.d("from main","$newUser")
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+        }, { error -> error.printStackTrace() })
+        requestQueue?.add(request)
+    }
+
 
     override fun onItemClick(position: Int) {
         val selectedProduct = values[position]

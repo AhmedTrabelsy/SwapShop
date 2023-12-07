@@ -1,59 +1,67 @@
 .product-item {
-    &-wrapper {
-      background: linear-gradient(145deg, #dddddd, #ffffff);
-      box-shadow:
-        5px 5px 6px #dddddd,
-        -5px -5px 6px #ffffff;
-      border-radius: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      min-height: 280px;
-      margin-top: 85px;
+  &-wrapper {
+    background: linear-gradient(145deg, #dddddd, #ffffff);
+    box-shadow:
+      5px 5px 6px #dddddd,
+      -5px -5px 6px #ffffff;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 280px;
+    margin-top: 85px;
+  }
+  &-wrapper-image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 43px;
+    max-height: 43px;
+  }
 
-    }
-    &-wrapper-image-container{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      min-height: 43px;
-      max-height: 43px;
-    }
+  .image {
+    width: 65%;
+    height: 100%;
+    margin-top: -85px;
+    border-radius: 15px;
+  }
 
-    .image {
-      width: 65%;
-      height: 100%;
-      margin-top: -85px;
-      border-radius: 15px;
-    }
+  .name {
+    margin: 10px 0;
+  }
 
-    .name {
-      margin: 10px 0;
-    }
+  .price {
+    color: $PrimaryColor;
+    font-size: 1.2em;
+    margin: 0;
+  }
 
-    .price {
-      color: $PrimaryColor;
-      font-size: 1.2em;
-      margin: 0;
-    }
+  .see-more {
+    background-color: $PrimaryColor;
+    border: 0;
+    border-radius: 15px;
+  }
 
-    .see-more {
-      background-color: $PrimaryColor;
-      border: 0;
-      border-radius: 15px;
-    }
-
-    .product-category{
+  .product-category {
+    margin: 0;
+    padding: 0;
+    .icon {
       margin: 0;
       padding: 0;
-      .icon{
-        margin: 0;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
+  .addToWishlistIcon {
+    color: rgb(255, 6, 6);
+    cursor: pointer;
+  }
+  .addToWishlistSpan {
+    color: $PrimaryColor;
+    font-size: 13px;
+    cursor: pointer;
+  }
+}
