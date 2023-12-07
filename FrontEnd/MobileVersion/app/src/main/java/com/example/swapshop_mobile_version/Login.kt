@@ -12,6 +12,7 @@ import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import com.example.swapshop_mobile_version.SharedPreference as SharedPreference
 
 class Login : AppCompatActivity() {
     private lateinit var mail: EditText
@@ -37,6 +38,13 @@ class Login : AppCompatActivity() {
             val intent = Intent(this@Login, SignupActivity::class.java)
             startActivity(intent)
         }
+
+        val accessToken : String? =  SharedPreference(this@Login).getValueString("accessToken")
+        if(accessToken != null){
+            val intent = Intent(this@Login, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
     private fun getAccessToken() {
         val getUserData = RetrofitClient.getRetrofitInstance().create(GetUserData::class.java)
@@ -49,9 +57,9 @@ class Login : AppCompatActivity() {
             override fun onResponse(call: Call<AccessToken>, response: Response<AccessToken>) {
                 Log.d("responseLogin","${response}")
                 if (response.isSuccessful) {
-                   // val accessToken: AccessToken? = response.body()
-                    //if (accessToken != null) {
-                        val intent = Intent(this@Login, MainActivity::class.java)
+                    val accessToken: AccessToken? = response.body()
+                    SharedPreference(this@Login).save("accessToken",response.body()!!.accessToken)
+                    val intent = Intent(this@Login, MainActivity::class.java)
                         startActivity(intent)
                         finish() // Optional, to finish the current activity
                     //}  else {

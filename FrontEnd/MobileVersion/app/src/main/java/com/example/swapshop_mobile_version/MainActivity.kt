@@ -117,7 +117,10 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.logOut -> {
-                Toast.makeText(this, "Logout selected", Toast.LENGTH_SHORT).show()
+                SharedPreference(this).clearSharedPreference()
+                val intent = Intent(this, Login::class.java)
+                startActivity(intent)
+                finish()
                 true
             }
             else -> super.onOptionsItemSelected(item)
