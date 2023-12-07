@@ -18,3 +18,13 @@ data class SignUpResponse(
 ) {
 
 }
+
+data class getUserResponse(
+    @SerializedName("email") val email: String,
+    @SerializedName("firstName") val firstName: String,
+    @SerializedName("lastName") val lastName: String,
+    @SerializedName("attributes") val attributes: Map<String, List<String>>
+) {
+    val phoneNumber: String?
+        get() = attributes["phone_number"]?.firstOrNull()
+}
