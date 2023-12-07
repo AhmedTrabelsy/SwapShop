@@ -97,6 +97,7 @@ exports.login = async (req, res, next) => {
 				password: password,
 				grant_type: 'password',
 				client_id: 'app',
+				scope: 'openid',
 			},
 			{
 				headers: {
