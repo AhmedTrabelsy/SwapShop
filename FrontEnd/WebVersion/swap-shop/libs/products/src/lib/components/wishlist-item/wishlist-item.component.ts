@@ -4,7 +4,7 @@ import { WishlistService } from '../../services/wishlist.service';
 import { SharedService } from '../../services/shared.service';
 import { product } from '../../models/product';
 import { Subscription } from 'rxjs';
-import {environment} from '@env';
+// import {environment} from '@env';
 
 @Component({
 	selector: 'swap-shop-wishlist-item',
@@ -14,7 +14,7 @@ import {environment} from '@env';
 export class WishlistItemComponent implements OnInit, OnDestroy  {
   products: product[] = [];
   private wishlistSubscription?: Subscription;
-  url = environment.apiUrl + "/PRODUCT-SERVICE/";
+  url = "http://34.199.239.78:8888" + "/PRODUCT-SERVICE/";
 
   constructor(private wishlistService: WishlistService, private sharedService: SharedService) { }
 
