@@ -54,10 +54,10 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/email"
+                    android:id="@+id/SettingsfirstName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email" />
+                    android:hint="FirstName" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -76,11 +76,34 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/numberPhone"
+                    android:id="@+id/SettingslastName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Phone number" />
+                    android:hint="LastName" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="310dp"
+                android:layout_marginEnd="40dp"
+                android:textColor="@color/black"
+                app:helperText="required"
+                app:helperTextTextColor="#00C7A9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/SettingsPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="PohneNumber" />
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputcard"
@@ -98,21 +121,12 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/numberCard"
+                    android:id="@+id/Settingsemail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Password"
-                    android:inputType="textPassword"/>
+                    android:hint="Email" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <CheckBox
-                android:id="@+id/checkBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="I confirm all the data"
-                style="@style/Theme.MaterialComponents"
-                android:layout_marginTop="320dp"
-                android:layout_marginStart="16dp"/>
 
             <Button
                 android:id="@+id/Confirmsettings"
@@ -120,13 +134,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginStart="24dp"
+                android:layout_marginTop="445dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="20dp"
                 android:background="?attr/colorPrimary"
-                android:text="Confirm"
+                android:text="Update"
                 android:textSize="18sp"
-                app:cornerRadius="20dp"
-                android:layout_marginTop="445dp"/>
+                app:cornerRadius="20dp" />
 
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
