@@ -1,13 +1,16 @@
 package com.example.swapshop_mobile_version
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,6 +34,7 @@ class SettingsFragment : Fragment() {
     private lateinit var lastName : EditText
     private lateinit var email : EditText
     private lateinit var phone : EditText
+    private lateinit var updateBtn : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +60,25 @@ class SettingsFragment : Fragment() {
         lastName = view.findViewById(R.id.SettingslastName)
         email = view.findViewById(R.id.Settingsemail)
         phone = view.findViewById(R.id.SettingsPhone)
+        updateBtn = view.findViewById(R.id.Confirmsettings)
+
+        updateBtn.setOnClickListener{
+            val getUserData = RetrofitClient.getRetrofitInstance().create(GetUserData::class.java)
+            val token = "Bearer " + SharedPreference(requireContext()).getValueString("accessToken")
+            val call: Call<getUserResponse> = getUserData.updateProfile(token,updateProfileDate(firstName = firstName.text.toString(),lastName=lastName.text.toString(), email = email.text.toString(), phoneNumber = phone
+                .text.toString()))
+            call.enqueue(object : Callback<getUserResponse> {
+                override fun onResponse(call: Call<getUserResponse>, response: Response<getUserResponse>) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(context, "Settings are saved", Toast.LENGTH_LONG).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<getUserResponse>, t: Throwable) {
+                    Toast.makeText(context, "Failure: ${t.message}", Toast.LENGTH_LONG).show()
+                }
+            })
+        }
 
         return view;
     }
