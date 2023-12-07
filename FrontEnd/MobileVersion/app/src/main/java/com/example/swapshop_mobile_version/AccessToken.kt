@@ -7,10 +7,14 @@ data class AccessToken(
     @SerializedName("token_type") val tokenType: String,
     @SerializedName("expires_in") val expiresIn: Long,
     @SerializedName("refresh_expires_in") val refreshExpiresIn: Long,
-    @SerializedName("refresh_token") val refreshToken: Long,
-    @SerializedName("id_token") val idToken: Long,
-    @SerializedName("session_state") val sessionState: Long,
-    @SerializedName("scope") val scope: Long
+    @SerializedName("refresh_token") val refreshToken: String,
+) {
+
+}
+
+data class SignUpResponse(
+    @SerializedName("status") val status: String,
+    @SerializedName("message") val message: String,
 ) {
 
 }

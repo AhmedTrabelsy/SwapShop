@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
+import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,6 +17,7 @@ class Login : AppCompatActivity() {
     private lateinit var mail: EditText
     private lateinit var password: EditText
     private lateinit var login: Button
+    private lateinit var signUpTxt:TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -27,28 +30,35 @@ class Login : AppCompatActivity() {
         login.setOnClickListener {
             getAccessToken()
         }
+
+        signUpTxt = findViewById(R.id.signUpTxt)
+
+        signUpTxt.setOnClickListener{
+            val intent = Intent(this@Login, SignupActivity::class.java)
+            startActivity(intent)
+        }
     }
     private fun getAccessToken() {
         val getUserData = RetrofitClient.getRetrofitInstance().create(GetUserData::class.java)
         val passwordString = password.text.toString()
         val username = mail.text.toString()
 
-        val call: Call<AccessToken> = getUserData.getAccessToken("Login", "password", "78de9142-03b7-48f4-862b-e52bc1132a98", "openid", username, passwordString)
+        val call: Call<AccessToken> = getUserData.getAccessToken(LoginData(username = username, password = passwordString))
         Log.d("login","$call")
         call.enqueue(object : Callback<AccessToken> {
             override fun onResponse(call: Call<AccessToken>, response: Response<AccessToken>) {
                 Log.d("responseLogin","${response}")
                 if (response.isSuccessful) {
-                    val accessToken: AccessToken? = response.body()
-                    if (accessToken != null) {
+                   // val accessToken: AccessToken? = response.body()
+                    //if (accessToken != null) {
                         val intent = Intent(this@Login, MainActivity::class.java)
                         startActivity(intent)
                         finish() // Optional, to finish the current activity
-                    }  else {
-                        Toast.makeText(this@Login, "Error: Access token is null", Toast.LENGTH_LONG).show()
-                    }
+                    //}  else {
+                        //Toast.makeText(this@Login, "Error: Access token is null", Toast.LENGTH_LONG).show()
+                    //}
                 } else {
-                    Toast.makeText(this@Login, "Error: ${response.message()}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@Login, "Error: Wrong credentials", Toast.LENGTH_LONG).show()
                 }
             }
 
