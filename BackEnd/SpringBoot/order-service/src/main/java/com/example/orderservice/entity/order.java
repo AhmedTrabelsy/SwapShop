@@ -1,14 +1,11 @@
 package com.example.orderservice.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
 
-@Entity
+@Entity(name = "`order`")
 @Getter
 @Setter
 @Data
@@ -16,10 +13,11 @@ import java.util.Date;
 @NoArgsConstructor
 public class order {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long userId;
     private Long trackId;
     private Long productId;
     private Date createdAt;
+    private Date updatedAt;
 }
