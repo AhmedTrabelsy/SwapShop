@@ -29,7 +29,7 @@ public class orderController {
         order o=new order();
         o.setUserId(request.getUserId());
         o.setProductId(request.getProudctId());
-        o.setTrackId(request.getTrackId());
+        o.setBillingAdress(request.getBillingAdress());
         o.setCreatedAt(new Date());
         o.setUpdatedAt(new Date());
         orderRepository.save(o);
@@ -46,7 +46,7 @@ public class orderController {
            o.setProductId(request.getProudctId());
         }
         if (request.getTrackId() != null) {
-            o.setTrackId(request.getTrackId());
+            o.setBillingAdress(request.getBillingAdress());
         }
         o.setUpdatedAt(new Date());
         orderRepository.save(o);
