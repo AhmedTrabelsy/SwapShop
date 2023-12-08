@@ -1,1 +1,22 @@
-node_modules
+# Node.js
+node_modules/
+dist/
+*.log
+
+# TypeScript
+*.tsbuildinfo
+*.js.map
+
+# Editor/IDE
+.vscode/
+.idea/
+*.sublime-*
+*.swp
+*.swo
+
+# Miscellaneous
+.DS_Store
+
+# Environment variables
+.env
+.env.*
