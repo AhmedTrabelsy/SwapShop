@@ -8,6 +8,8 @@ RUN npm i install
 
 COPY . .
 
+COPY uploads uploads
+
 EXPOSE 8086
 
 CMD ["npm", "start"]
