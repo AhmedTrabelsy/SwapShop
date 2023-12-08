@@ -22,6 +22,7 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
 app.use(errorHandler);
 
 app.post('/upload', upload.single('image'), handleFileUpload);
-app.get('/uploads/:filename', retrieveUploadedFile);
+app.get('/lastUpload', retrieveUploadedFile);
+// app.get('/uploads/:filename', retrieveUploadedFile);
 
 module.exports = app;
