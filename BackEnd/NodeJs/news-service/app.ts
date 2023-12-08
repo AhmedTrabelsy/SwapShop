@@ -22,3 +22,5 @@ app.use(errorHandler);
 
 app.post('/upload', upload.single('image'), handleFileUpload);
 app.get('/uploads/:filename', retrieveUploadedFile);
+
+module.exports = app;
