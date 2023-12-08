@@ -45,7 +45,7 @@ public class orderController {
         if (request.getProudctId() != null) {
            o.setProductId(request.getProudctId());
         }
-        if (request.getTrackId() != null) {
+        if (request.getBillingAdress() != null) {
             o.setBillingAdress(request.getBillingAdress());
         }
         o.setUpdatedAt(new Date());
