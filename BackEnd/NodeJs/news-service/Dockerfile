@@ -8,7 +8,7 @@ RUN npm i install
 
 COPY . .
 
-COPY uploads uploads
+RUN mkdir uploads
 
 EXPOSE 8086
 
