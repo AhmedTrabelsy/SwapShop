@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,6 +59,19 @@ public class ProductController {
         PageRequest pageable = PageRequest.of(page, size, Sort.by("id").descending());
 
         Page<product> products = productRepository.findAll(pageable);
+        products.forEach(product -> {
+            product.setCategory(categoryServiceClient.findCategoryById(product.getCategoryID()));
+        });
+
+        return products.getContent();
+    }
+
+    @GetMapping("/deletedProducts")
+    public List<product> findDeletedProducts(@RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        PageRequest pageable = PageRequest.of(page, size, Sort.by("id").descending());
+
+        Page<product> products = productRepository.findDeleted(pageable);
         products.forEach(product -> {
             product.setCategory(categoryServiceClient.findCategoryById(product.getCategoryID()));
         });
@@ -155,10 +169,12 @@ public class ProductController {
 
     @DeleteMapping("/products/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
-
-        productRepository.softDelete(id);
-
-        return ResponseEntity.noContent().build();
+        try {
+            productRepository.softDelete(id);
+            return ResponseEntity.ok("Product deleted successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete product.");
+        }
     }
 
     @GetMapping("/uploads/{imageName}")
