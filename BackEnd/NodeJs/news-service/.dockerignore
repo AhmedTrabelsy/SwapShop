@@ -5,6 +5,7 @@ secret.key
 # Ignore directories
 node_modules/
 dist/
+uploads/*
 
 # Ignore files with specific extensions
 *.log
