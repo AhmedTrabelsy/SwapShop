@@ -1,9 +1,7 @@
 import { Request, Response } from 'express';
 import path from 'path';
-import fs from 'fs';
 
-
-const lastUploadedFilePath = path.join(__dirname, 'lastUploadedFile.txt');
+const news = require('../models/newsModel');
 
 export async function handleFileUpload(req: Request, res: Response): Promise<void> {
     try {
@@ -31,7 +29,7 @@ export async function handleFileUpload(req: Request, res: Response): Promise<voi
 
 export async function retrieveUploadedFile(req: Request, res: Response): Promise<void> {
     try {
-        const filename: string | null = getLastUploadedFile();
+        const filename: string | null = await getLastUploadedFile();
         if (!filename) {
             res.status(404).json({ error: 'No file found' });
             return;
@@ -45,15 +43,26 @@ export async function retrieveUploadedFile(req: Request, res: Response): Promise
 }
 
 
-function getLastUploadedFile(): string | null {
+async function getLastUploadedFile(): Promise<string | null> {
     try {
-        const data = fs.readFileSync(lastUploadedFilePath, 'utf-8');
-        return data.trim();
+        const lastNews = await news.findOne().sort({ _id: -1 }).limit(1);
+        if (lastNews) {
+            return lastNews.path;
+        } else {
+            return null;
+        }
     } catch (error) {
-        return null;
+        throw error;
     }
 }
 
-function updateLastUploadedFile(filename: string): void {
-    fs.writeFileSync(lastUploadedFilePath, filename);
+async function updateLastUploadedFile(filename: string): Promise<void> {
+    try {
+        const newWishList = new news({
+            path: filename,
+        });
+        await newWishList.save();
+    } catch (error) {
+        throw error;
+    }
 }
