@@ -50,7 +50,7 @@ services:
       context: ./BackEnd/SpringBoot/order-service
       dockerfile: Dockerfile
     ports:
-      - '8085:8085'
+      - '8090:8090'
     depends_on:
       - product
   trackshippement:
