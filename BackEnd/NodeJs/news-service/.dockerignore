@@ -1,16 +1,3 @@
-# Ignore specific files
-file.txt
-secret.key
-
-# Ignore directories
-node_modules/
-dist/
+node_modules
 uploads/*
-
-# Ignore files with specific extensions
-*.log
-*.tmp
-*.swp
-
-
-
+!uploads/index.html
