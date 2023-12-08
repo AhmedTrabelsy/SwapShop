@@ -18,6 +18,7 @@
 	"version": "1.0.0",
 	"main": "server.ts",
 	"scripts": {
+        "dev": "ts-node server.ts",
 		"start": "nodemon server.ts",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
