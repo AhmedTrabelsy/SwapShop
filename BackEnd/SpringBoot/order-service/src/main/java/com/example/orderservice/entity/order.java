@@ -16,7 +16,7 @@ public class order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long userId;
-    private Long trackId;
+    private String billingAdress;
     private Long productId;
     private Date createdAt;
     private Date updatedAt;
