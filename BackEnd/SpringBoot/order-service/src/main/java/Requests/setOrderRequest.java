@@ -14,7 +14,7 @@ public class setOrderRequest {
     @NotNull
     private Long userId;
     @NotNull
-    private Long trackId;
+    private String billingAdress;
     private Date createdAt;
     private Date updatedAt;
     @NotNull
