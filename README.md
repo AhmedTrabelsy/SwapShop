@@ -1,6 +1,6 @@
 # SwapShop
 
-<a href="http://34.199.239.78">DEMO WEB</a>
+<a href="https://ahmedtrabelsy.github.io/SwapShop/">DEMO WEB</a>
 
 <a href="http://34.199.239.78:1000">DOWNLOAD APK</a>
 

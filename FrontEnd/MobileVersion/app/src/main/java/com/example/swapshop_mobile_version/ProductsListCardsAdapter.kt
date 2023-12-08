@@ -27,6 +27,7 @@ class ProductsListCardsAdapter(private var myDataSet: ArrayList<Products>, priva
 
     private var requestQueue: RequestQueue? = null
     private var whishItemsList = ArrayList<WishItems>()
+    private val imagesUrls = ArrayList<String>()
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val productName = itemView.findViewById(R.id.productNameList) as TextView
         val price = itemView.findViewById(R.id.priceProductList) as TextView
@@ -151,7 +152,15 @@ class ProductsListCardsAdapter(private var myDataSet: ArrayList<Products>, priva
         Log.d("MyAdapter", "Image URL: $imageUrl")
         Picasso.get().load(imageUrl).into(holder.productPic)
         holder.productCard.setOnClickListener{
-            Toast.makeText(context,"productsDetails",Toast.LENGTH_LONG).show()
+            val intent = Intent(context, ProductsDetails::class.java)
+
+            intent.putExtra("categoryName", myDataSet[position].category.categoryName)
+            intent.putExtra("productName", myDataSet[position].productName)
+            intent.putExtra("priceProduct", myDataSet[position].price)
+            intent.putExtra("description", myDataSet[position].description)
+            intent.putExtra("imagePath",myDataSet[position].picturePath)
+            intent.putStringArrayListExtra("imageList", imagesUrls)
+            context.startActivity(intent)
         }
         var isWished = false
         for (item in whishItemsList){

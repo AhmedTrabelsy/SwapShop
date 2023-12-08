@@ -2,33 +2,18 @@ package com.example.swapshop_mobile_version
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.android.volley.Request
 import com.android.volley.RequestQueue
-import com.android.volley.toolbox.JsonArrayRequest
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
 import com.example.swapshop_mobile_version.databinding.ActivityMainBinding
-import com.example.swapshop_mobile_version.models.Categories
 import com.example.swapshop_mobile_version.models.Products
 import com.example.swapshop_mobile_version.models.WishItems
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.MapFragment
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import org.json.JSONException
-import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
     private lateinit var addNewProductButton: FloatingActionButton
@@ -117,7 +102,10 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.logOut -> {
-                Toast.makeText(this, "Logout selected", Toast.LENGTH_SHORT).show()
+                SharedPreference(this).clearSharedPreference()
+                val intent = Intent(this, Login::class.java)
+                startActivity(intent)
+                finish()
                 true
             }
             else -> super.onOptionsItemSelected(item)
