@@ -156,7 +156,7 @@ public class ProductController {
     @DeleteMapping("/products/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
 
-        productRepository.deleteById(id);
+        productRepository.softDelete(id);
 
         return ResponseEntity.noContent().build();
     }
