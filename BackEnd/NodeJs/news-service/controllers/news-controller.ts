@@ -7,9 +7,7 @@ export async function handleFileUpload(req: Request, res: Response): Promise<voi
             res.status(400).json({ error: 'No file uploaded' });
         } else {
             const originalFilename = req.file.originalname;
-            const fileExtension = path.extname(originalFilename);
-            const generatedFilename = req.file.filename + fileExtension;
-            res.json({ filename: generatedFilename });
+            res.json({ filename: originalFilename });
         }
     } catch (error) {
         res.status(500).json({ error: 'Something went wrong' });
