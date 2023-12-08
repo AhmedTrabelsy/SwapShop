@@ -22,4 +22,5 @@ public class order {
     private Long trackId;
     private Long productId;
     private Date createdAt;
+    private Date updatedAt;
 }

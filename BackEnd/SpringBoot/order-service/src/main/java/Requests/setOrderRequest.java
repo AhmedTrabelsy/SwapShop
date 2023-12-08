@@ -2,18 +2,21 @@ package Requests;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 import lombok.NonNull;
 
 import java.util.Date;
-
+@Data
 public class setOrderRequest {
-    @NonNull
+    @NotNull
     private Long id;
-    @NonNull
+    @NotNull
     private Long userId;
-    @NonNull
+    @NotNull
     private Long trackId;
     private Date createdAt;
-    @NonNull
+    private Date updatedAt;
+    @NotNull
     private Long proudctId;
 }
