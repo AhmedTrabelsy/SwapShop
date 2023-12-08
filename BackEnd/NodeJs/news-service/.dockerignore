@@ -11,11 +11,5 @@ dist/
 *.tmp
 *.swp
 
-# Ignore all files and directories starting with a dot
-.*
 
-# Ignore Docker-related files
-Dockerfile
-.dockerignore
-.dockerignore.template
-.dockerignore.example
+
