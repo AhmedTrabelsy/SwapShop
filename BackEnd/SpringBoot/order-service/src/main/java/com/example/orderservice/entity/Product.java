@@ -1,2 +1,7 @@
-package com.example.orderservice.entity;public class Product {
+package com.example.orderservice.entity;
+
+import lombok.Data;
+
+@Data
+public class Product {
 }
