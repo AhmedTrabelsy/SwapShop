@@ -27,7 +27,7 @@ export async function handleFileUpload(req: Request, res: Response): Promise<voi
 //     }
 // }
 
-export async function retrieveUploadedFile(req: Request, res: Response): Promise<void> {
+export async function retrieveUploadedFile(res: Response): Promise<void> {
     try {
         const filename: string | null = await getLastUploadedFile();
         if (!filename) {
@@ -35,6 +35,16 @@ export async function retrieveUploadedFile(req: Request, res: Response): Promise
             return;
         }
 
+        const filePath: string = path.join(__dirname, '../uploads', filename);
+        res.sendFile(filePath);
+    } catch (error) {
+        res.status(500).json({ error: 'Something went wrong' });
+    }
+}
+
+export async function retrieveUploadedFileByName(req: Request, res: Response): Promise<void> {
+    try {
+        const filename: string = req.params.filename;
         const filePath: string = path.join(__dirname, '../uploads', filename);
         res.sendFile(filePath);
     } catch (error) {

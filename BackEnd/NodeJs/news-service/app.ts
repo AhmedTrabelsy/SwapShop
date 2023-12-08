@@ -1,6 +1,6 @@
 import express, { ErrorRequestHandler } from 'express';
 import multer from 'multer';
-import { handleFileUpload, retrieveUploadedFile } from './controllers/news-controller';
+import { handleFileUpload, retrieveUploadedFile, retrieveUploadedFileByName } from './controllers/news-controller';
 import path from 'path';
 require('express-async-errors');
 export const app = express();
@@ -23,6 +23,6 @@ app.use(errorHandler);
 
 app.post('/upload', upload.single('image'), handleFileUpload);
 app.get('/lastUpload', retrieveUploadedFile);
-// app.get('/uploads/:filename', retrieveUploadedFile);
+app.get('/uploads/:filename', retrieveUploadedFileByName);
 
 module.exports = app;
