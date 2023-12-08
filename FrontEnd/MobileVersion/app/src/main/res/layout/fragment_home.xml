@@ -6,9 +6,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".HomeFragment">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,13 +56,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="#E2E2E2">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/products_for_shop"
                 android:layout_width="405dp"
-                android:layout_height="400dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="45dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -68,6 +72,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
-
+    </androidx.core.widget.NestedScrollView>
 
 </FrameLayout>
