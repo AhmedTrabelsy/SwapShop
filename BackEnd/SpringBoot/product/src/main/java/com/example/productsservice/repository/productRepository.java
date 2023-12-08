@@ -14,9 +14,14 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource
 public interface productRepository extends JpaRepository<product, Long> {
 
+    
+    @Query("SELECT p FROM product p WHERE p.deleted_at IS NULL")
     public Page<product> findAll(Pageable pageable);
-
-    //Soft delete.
+    
+    @Query("SELECT p FROM product p WHERE p.deleted_at IS NOT NULL")
+    public Page<product> findDeleted(Pageable pageable);
+    
+    // Soft delete.
     @Transactional
     @Query("update product set deleted_at = CURRENT_TIMESTAMP where id=?1")
     @Modifying
