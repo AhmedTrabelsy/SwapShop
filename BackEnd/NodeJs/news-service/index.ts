@@ -1,9 +1,18 @@
 import express, { ErrorRequestHandler } from 'express';
-// const { create, get, deleteByUserId, deleteProductFromUserWishList } = require('./controllers/wishListController');
-const app = express();
+import multer from 'multer';
+import { handleFileUpload, retrieveUploadedFile } from './controllers/news-controller';
 require('express-async-errors');
+const app = express();
 
 app.use(express.json({ limit: '10kb' }));
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => cb(null, "./uploads/"),
+    filename: (req, file, cb) => cb(null, file.originalname),
+})
+
+const upload = multer({storage});
+
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     console.error(err.stack);
@@ -11,10 +20,14 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
 };
 app.use(errorHandler);
 
+app.post('/upload', upload.single('image'), handleFileUpload);
+app.get('/uploads/:filename', retrieveUploadedFile);
 
-// app.get('/:user_id', get);
-// app.delete('/:user_id', deleteByUserId);
-// app.delete('/:user_id/:product_id', deleteProductFromUserWishList);
-// app.post('/', create);
+
+// Start the server
+const port: number = 3000;
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
 
 module.exports = app;
