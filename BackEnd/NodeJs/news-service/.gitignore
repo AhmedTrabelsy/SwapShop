@@ -17,6 +17,6 @@ dist/
 # Miscellaneous
 .DS_Store
 
-# Environment variables
-.env
-.env.*
+# # Environment variables
+# .env
+# .env.*

@@ -1,0 +1,16 @@
+# Ignore specific files
+file.txt
+secret.key
+
+# Ignore directories
+node_modules/
+dist/
+uploads/*
+
+# Ignore files with specific extensions
+*.log
+*.tmp
+*.swp
+
+
+
