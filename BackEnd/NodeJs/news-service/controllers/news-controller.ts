@@ -27,7 +27,7 @@ export async function handleFileUpload(req: Request, res: Response): Promise<voi
 //     }
 // }
 
-export async function retrieveUploadedFile(res: Response): Promise<void> {
+export async function retrieveUploadedFile(req: Request, res: Response): Promise<void> {
     try {
         const filename: string | null = await getLastUploadedFile();
         if (!filename) {
