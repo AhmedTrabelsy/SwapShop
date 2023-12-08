@@ -53,6 +53,14 @@ services:
       - '8085:8085'
     depends_on:
       - product
+  trackshippement:
+    build:
+      context: ./BackEnd/SpringBoot/trackshippement
+      dockerfile: Dockerfile
+    ports:
+      - '8089:8089'
+    depends_on:
+      - order
   wishlist:
     build:
       context: ./BackEnd/NodeJs/wishlist-service
