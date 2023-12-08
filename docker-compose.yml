@@ -1,20 +1,20 @@
-version: "3.8"
+version: '3.8'
 services:
   keycloak:
     build:
       dockerfile: keycloak.Dockerfile
     ports:
-      - "8080:8080"
+      - '8080:8080'
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=dsi31
-    command: ["start-dev"]
+    command: ['start-dev']
   discovery:
     build:
       context: ./BackEnd/SpringBoot/discovery
       dockerfile: Dockerfile
     ports:
-      - "8761:8761"
+      - '8761:8761'
     depends_on:
       - keycloak
   gateway:
@@ -22,7 +22,7 @@ services:
       context: ./BackEnd/SpringBoot/gateway
       dockerfile: Dockerfile
     ports:
-      - "8888:8888"
+      - '8888:8888'
     depends_on:
       - discovery
   category:
@@ -30,7 +30,7 @@ services:
       context: ./BackEnd/SpringBoot/category
       dockerfile: Dockerfile
     ports:
-      - "8081:8081"
+      - '8081:8081'
     volumes:
       - category_uploads:/app/uploads
     depends_on:
@@ -40,17 +40,33 @@ services:
       context: ./BackEnd/SpringBoot/product
       dockerfile: Dockerfile
     ports:
-      - "8082:8082"
+      - '8082:8082'
     volumes:
       - product_uploads:/app/uploads
     depends_on:
       - category
+  order:
+    build:
+      context: ./BackEnd/SpringBoot/order-service
+      dockerfile: Dockerfile
+    ports:
+      - '8085:8085'
+    depends_on:
+      - product
+  trackshippement:
+    build:
+      context: ./BackEnd/SpringBoot/trackshippement
+      dockerfile: Dockerfile
+    ports:
+      - '8089:8089'
+    depends_on:
+      - order
   wishlist:
     build:
       context: ./BackEnd/NodeJs/wishlist-service
       dockerfile: Dockerfile
     ports:
-      - "8084:8084"
+      - '8084:8084'
     depends_on:
       - product
   auth:
@@ -58,13 +74,13 @@ services:
       context: ./BackEnd/NodeJs/auth-service
       dockerfile: Dockerfile
     ports:
-      - "8085:8085"
+      - '8085:8085'
   news:
     build:
       context: ./BackEnd/NodeJs/news-service
       dockerfile: Dockerfile
     ports:
-      - "8086:8086"
+      - '8086:8086'
     volumes:
       - news_uploads:/app/uploads
 
@@ -79,7 +95,7 @@ services:
   apk_web_server:
     image: nginx:1.17.1-alpine
     ports:
-      - "1000:80"
+      - '1000:80'
     volumes:
       - ./APK:/usr/share/nginx/html
 volumes:
