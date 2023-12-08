@@ -1,7 +1,7 @@
-version: '3.8'
+version: "3.8"
 services:
   keycloak:
-    build: 
+    build:
       dockerfile: keycloak.Dockerfile
     ports:
       - "8080:8080"
@@ -59,6 +59,12 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8085:8085"
+  news:
+    build:
+      context: ./BackEnd/NodeJs/news-service
+      dockerfile: Dockerfile
+    ports:
+      - "8086:8086"
   # angular:
   #   build:
   #     context: ./FrontEnd/WebVersion
