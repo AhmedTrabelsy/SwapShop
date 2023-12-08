@@ -1,4 +1,5 @@
 const app = require('./app');
+require('dotenv').config();
 
 const EurekaClient = require('./eureka');
 EurekaClient.start();
