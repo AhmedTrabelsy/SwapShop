@@ -27,5 +27,6 @@ public class product {
     private Long categoryID;
     private Date created_at;
     private Date updated_at;
+    private Date deleted_at;
 
 }
