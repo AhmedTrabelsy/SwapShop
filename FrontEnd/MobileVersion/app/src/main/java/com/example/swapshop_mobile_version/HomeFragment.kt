@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,8 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.swapshop_mobile_version.models.Categories
 import com.example.swapshop_mobile_version.models.Products
 import org.json.JSONException
@@ -40,6 +43,8 @@ class HomeFragment : Fragment() {
     private var requestQueue: RequestQueue? = null
     private var imagesArrays = ArrayList<String>()
 
+    private  lateinit var  newsImageView: ImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -57,6 +62,18 @@ class HomeFragment : Fragment() {
         requestQueue = Volley.newRequestQueue(requireContext())
         jsonParse(view)
         // Inflate the layout for this fragment
+
+        newsImageView = view.findViewById(R.id.newsImageView)
+
+        val imageUrl = "http://34.199.239.78:8888/NEWS-SERVICE/lastUpload"
+
+        Glide.with(this)
+            .load(imageUrl)
+            .skipMemoryCache(true)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .placeholder(R.drawable.placeholder)
+            .error(R.drawable.placeholder)
+            .into(newsImageView)
 
         return view
     }

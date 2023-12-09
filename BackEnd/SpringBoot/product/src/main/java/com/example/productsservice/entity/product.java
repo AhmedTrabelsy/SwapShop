@@ -1,6 +1,5 @@
 package com.example.productsservice.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -28,5 +27,6 @@ public class product {
     private Long categoryID;
     private Date created_at;
     private Date updated_at;
+    private Date deleted_at;
 
 }
