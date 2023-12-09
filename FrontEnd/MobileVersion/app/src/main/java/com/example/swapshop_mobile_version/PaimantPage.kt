@@ -39,14 +39,19 @@ class PaimantPage : AppCompatActivity() {
 
             val uuid: String = UUID.randomUUID().toString()
 
-            val sharePage = Intent(this, OrdersActivity::class.java)
+            /*val intent = Intent(this, MainActivity::class.java)
             val bundle = Bundle()
-            bundle.putString("id",uuid)
-            bundle.putString("productName",productName)
-            bundle.putString("orderDate",date)
-            bundle.putString("billingAdress",billingAdress)
-            sharePage.putExtras(bundle)
-            this.startActivity(sharePage)
+
+            bundle.putString("id", uuid)
+            bundle.putString("productName", productName)
+            bundle.putString("orderDate", date)
+            bundle.putString("billingAdress", billingAdress)
+
+            intent.putExtras(bundle)
+            startActivity(intent)*/
+
+
+            Toast.makeText(this,"Order Passed Succesfully",Toast.LENGTH_LONG).show()
 
             if (email.isEmpty() || phone.isEmpty() || numberCard.isEmpty() || billingAdress.isEmpty()) {
                 val snackbar = Snackbar.make(
@@ -64,5 +69,14 @@ class PaimantPage : AppCompatActivity() {
                 }
             }
         }
+    }
+    fun saveOrder() {
+        val extras = intent.extras
+        val price = extras?.getString("price")
+        val productName = extras?.getString("productName")
+        val email = findViewById<EditText>(R.id.email).text.toString()
+        val phone = findViewById<EditText>(R.id.numberPhone).text.toString()
+        val numberCard = findViewById<EditText>(R.id.numberCard).text.toString()
+        val billingAdress = findViewById<EditText>(R.id.billingAdress).text.toString()
     }
 }

@@ -53,20 +53,46 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        navigationBetweenFragments(HomeFragment())
-        productsList = ArrayList<Products>()
+        val extrasPaimant = intent.extras
+        if (extrasPaimant == null) {
+            navigationBetweenFragments(HomeFragment())
+            productsList = ArrayList<Products>()
+        }
         //var filterList = ArrayList<Products>()
         //filterList.addAll
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView.background = null
         //bottomNavigationView.menu.getItem(2).isEnabled = false
+        if (extrasPaimant != null) {
+            val id = extrasPaimant?.getString("id")
+            val productName = extrasPaimant?.getString("productName")
+            val orderDate = extrasPaimant?.getString("orderDate")
+            val billingAdress = extrasPaimant?.getString("billingAdress")
+            val yeaforMap = extrasPaimant?.getString("isCallingToMap")
+            if (yeaforMap != null) {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_fragment, MapsFragment())
+                    .commit()
+            }
+            val fragment = OrderFragment()
+            val bundle = Bundle()
+            bundle.putString("id", id)
+            bundle.putString("productName", productName)
+            bundle.putString("orderDate", orderDate)
+            bundle.putString("billingAdress", billingAdress)
 
-        val extras = intent.extras
+            fragment.arguments = bundle
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main_fragment, fragment)
+                .commit()
+        }
+
+       /* val extras = intent.extras
         val callMap = extras?.getString("isCallingToMap")
         if (callMap != null){
             val fragment = MapsFragment()
             navigationBetweenFragments(fragment)
-        }
+        }*/
 
         setupAddNewProductButton()
 
