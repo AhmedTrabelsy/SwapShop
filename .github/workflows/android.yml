@@ -27,7 +27,7 @@ jobs:
       - name: Build gradle project
         run: |
           cd ${{ env.path }}
-          ./gradlew build
+          ./gradlew build --warning-mode=all
       - name: Build apk release project (APK)
         run: |
           cd ${{ env.path }}
