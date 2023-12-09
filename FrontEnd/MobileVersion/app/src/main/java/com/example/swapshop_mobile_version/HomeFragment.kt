@@ -15,6 +15,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.swapshop_mobile_version.models.Categories
 import com.example.swapshop_mobile_version.models.Products
 import org.json.JSONException
@@ -68,6 +69,8 @@ class HomeFragment : Fragment() {
 
         Glide.with(this)
             .load(imageUrl)
+            .skipMemoryCache(true)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .into(newsImageView)
