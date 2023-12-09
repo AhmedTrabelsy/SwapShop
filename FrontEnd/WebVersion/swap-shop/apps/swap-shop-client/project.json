@@ -17,7 +17,11 @@
 				"tsConfig": "apps/swap-shop-client/tsconfig.app.json",
 				"inlineStyleLanguage": "scss",
 				"assets": ["apps/swap-shop-client/src/favicon.ico", "apps/swap-shop-client/src/assets"],
-				"styles": ["apps/swap-shop-client/src/styles.scss"],
+				"styles": ["apps/swap-shop-client/src/styles.scss",
+			    "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+   				 "node_modules/primeng/resources/primeng.min.css"
+				],
+				
 				"scripts": []
 			},
 			"configurations": {

@@ -28,9 +28,9 @@ class PaimantPage : AppCompatActivity() {
         paimantButton.text = "Pay $price DT"
 
         paimantButton.setOnClickListener {
-            val email = findViewById<EditText>(R.id.email).text.toString()
-            val phone = findViewById<EditText>(R.id.numberPhone).text.toString()
-            val numberCard = findViewById<EditText>(R.id.numberCard).text.toString()
+            val email = findViewById<EditText>(R.id.SettingsfirstName).text.toString()
+            val phone = findViewById<EditText>(R.id.SettingslastName).text.toString()
+            val numberCard = findViewById<EditText>(R.id.Settingsemail).text.toString()
             val billingAdress = findViewById<EditText>(R.id.billingAdress).text.toString()
 
             val currentDateTime = LocalDateTime.now()

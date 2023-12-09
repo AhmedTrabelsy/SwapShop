@@ -1,10 +1,19 @@
 package com.example.swapshop_mobile_version
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,12 +30,20 @@ class SettingsFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var firstName : EditText
+    private lateinit var lastName : EditText
+    private lateinit var email : EditText
+    private lateinit var phone : EditText
+    private lateinit var updateBtn : Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+
     }
 
     override fun onCreateView(
@@ -35,7 +52,59 @@ class SettingsFragment : Fragment() {
     ): View? {
         (activity as? MainActivity)?.setActionBarTitle("Settings")
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+
+        val view =  inflater.inflate(R.layout.fragment_settings, container, false)
+
+
+        firstName = view.findViewById(R.id.SettingsfirstName)
+        lastName = view.findViewById(R.id.SettingslastName)
+        email = view.findViewById(R.id.Settingsemail)
+        phone = view.findViewById(R.id.SettingsPhone)
+        updateBtn = view.findViewById(R.id.Confirmsettings)
+
+        updateBtn.setOnClickListener{
+            val getUserData = RetrofitClient.getRetrofitInstance().create(GetUserData::class.java)
+            val token = "Bearer " + SharedPreference(requireContext()).getValueString("accessToken")
+            val call: Call<getUserResponse> = getUserData.updateProfile(token,updateProfileDate(firstName = firstName.text.toString(),lastName=lastName.text.toString(), email = email.text.toString(), phoneNumber = phone
+                .text.toString()))
+            call.enqueue(object : Callback<getUserResponse> {
+                override fun onResponse(call: Call<getUserResponse>, response: Response<getUserResponse>) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(context, "Settings are saved", Toast.LENGTH_LONG).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<getUserResponse>, t: Throwable) {
+                    Toast.makeText(context, "Failure: ${t.message}", Toast.LENGTH_LONG).show()
+                }
+            })
+        }
+
+        return view;
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+
+        val getUserData = RetrofitClient.getRetrofitInstance().create(GetUserData::class.java)
+        val token = "Bearer " + SharedPreference(context).getValueString("accessToken")
+        val call: Call<getUserResponse> = getUserData.getData(token)
+
+        call.enqueue(object : Callback<getUserResponse> {
+            override fun onResponse(call: Call<getUserResponse>, response: Response<getUserResponse>) {
+                Log.d("userResponse","${response}")
+                if (response.isSuccessful) {
+                    firstName.setText(response.body()!!.firstName)
+                    lastName.setText(response.body()!!.lastName)
+                    email.setText(response.body()!!.email)
+                    phone.setText(response.body()!!.phoneNumber)
+                }
+            }
+
+            override fun onFailure(call: Call<getUserResponse>, t: Throwable) {
+            }
+        })
     }
 
     companion object {

@@ -26,9 +26,9 @@ class SignupActivity : AppCompatActivity() {
         supportActionBar?.title = "Signup"
 
 
-        firstName = findViewById(R.id.firstName)
-        lastName = findViewById(R.id.lastName)
-        email = findViewById(R.id.email)
+        firstName = findViewById(R.id.SettingsfirstName)
+        lastName = findViewById(R.id.SettingslastName)
+        email = findViewById(R.id.SettingsfirstName)
         username = findViewById(R.id.username)
         phone = findViewById(R.id.phoneNumber)
         password = findViewById(R.id.password)

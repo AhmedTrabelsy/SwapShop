@@ -13,4 +13,5 @@ public interface productProjection {
     public Double getPrice();
     public Date getCreated_at();
     public Date getUpdated_at();
+    public Date getDeleted_at();
 }

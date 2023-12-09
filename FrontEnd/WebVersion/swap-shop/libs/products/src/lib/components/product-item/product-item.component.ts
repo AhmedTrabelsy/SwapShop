@@ -1,7 +1,11 @@
 import { product } from '../../models/product';
 import { Component, Input } from '@angular/core';
 import { formatDistanceToNow } from 'date-fns';
+<<<<<<< HEAD
+import { BadgeModule } from 'primeng/badge';
+=======
 import { WishlistService } from '../../services/wishlist.service';
+>>>>>>> 4bd670574288a8f7ab9abbcc04fdd3823939e7bc
 
 @Component({
   selector: 'swap-shop-product-item',
@@ -11,6 +15,11 @@ export class ProductItemComponent{
   @Input() product?: product
   wishlistProducts?: product[];
 
+<<<<<<< HEAD
+  badgeStatus: 'success' | 'info' | 'warning' | 'danger' | null | undefined ='danger'
+  badgeValue="Unsigned"
+  sellerName="name"
+=======
 
   constructor(private wishlistService: WishlistService) { }
 
@@ -32,6 +41,7 @@ export class ProductItemComponent{
       this.wishlistText = ' Add to Wishlist';
     }
   }
+>>>>>>> 4bd670574288a8f7ab9abbcc04fdd3823939e7bc
   getTimeAgo(creationDate?: Date): string {
     if (creationDate) {
       return formatDistanceToNow(new Date(creationDate), { addSuffix: true });
