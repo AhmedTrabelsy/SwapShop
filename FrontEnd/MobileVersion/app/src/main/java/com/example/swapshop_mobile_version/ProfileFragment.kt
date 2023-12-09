@@ -1,5 +1,6 @@
 package com.example.swapshop_mobile_version
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -34,6 +35,11 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         (activity as? MainActivity)?.setActionBarTitle("Profile")
+
+        val sharedPreferenceInstance = SharedPreference(requireContext())
+        val accessToken = sharedPreferenceInstance.getValueString("accessToken")
+
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
