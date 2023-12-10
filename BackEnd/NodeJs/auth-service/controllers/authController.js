@@ -1,5 +1,7 @@
 const EurekaClient = require('../eureka');
 const axios = require('axios');
+const EmailController = require('./emailController')
+
 
 exports.getAdminToken = async () => {
     const response = await axios.post(

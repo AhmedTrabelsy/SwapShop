@@ -1,7 +1,6 @@
 class EmailController {
-    API_KEY = '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';
-
     static async sendEmail(email, username) {
+        const API_KEY = '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';
         const sgMail = require('@sendgrid/mail')
         sgMail.setApiKey(API_KEY)
 
@@ -30,6 +29,10 @@ class EmailController {
               text-align: center;
               margin-bottom: 20px;
             }
+            .logo img {
+                max-width: 200px;
+                height: auto;
+              }
             .button {
               display: inline-block;
               background-color: #4caf50;
