@@ -66,12 +66,14 @@ exports.signup = async (req, res, next) => {
             },
         );
 
+        if (response.status === 201) {
+            sendEmail(email, `${firstName} ${lastName}`);
+        }
+
         return res.status(201).json({
             status: 'success',
             message: 'user created successfully',
             data: response.data,
-        }, () => {
-            sendEmail(email, `${firstName} ${lastName}`);
         });
     } catch (err) {
         return res.status(400).json({
