@@ -19,6 +19,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@sendgrid/mail": "^8.1.0",
     "axios": "^1.6.1",
     "cors": "^2.8.5",
     "eureka-js-client": "^4.5.0",
