@@ -1,15 +1,15 @@
-const sgMail = require('@sendgrid/mail')
+class EmailController {
+    API_KEY = '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';
 
-function sendEmail(email, username) {
-    const API_KEY = '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';
+    static async sendEmail(email, username) {
+        const sgMail = require('@sendgrid/mail')
+        sgMail.setApiKey(API_KEY)
 
-    sgMail.setApiKey(API_KEY)
-
-    const messge = {
-        to: email,
-        from: 'azettt532@gmail.com',
-        subject: 'Welcome to Swap Shop!',
-        html: `<!DOCTYPE html>
+        const messge = {
+            to: email,
+            from: 'azettt532@gmail.com',
+            subject: 'Welcome to Swap Shop!',
+            html: `<!DOCTYPE html>
         <html>
         <head>
           <style>
@@ -71,7 +71,11 @@ function sendEmail(email, username) {
           </div>
         </body>
         </html>`
-    }
+        }
 
-    sgMail.send(messge).then((response) => console.log('Email sent...')).catch((error) => console.log('Error sending email ! ' + error))
+        await sgMail.send(messge).then((response) => console.log('Email sent...')).catch((error) => console.log('Error sending email ! ' + error))
+    }
 }
+
+module.exports = EmailController;
+

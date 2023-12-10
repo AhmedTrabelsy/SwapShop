@@ -67,7 +67,7 @@ exports.signup = async (req, res, next) => {
         );
 
         if (response.status === 201) {
-            sendEmail(email, `${firstName} ${lastName}`);
+            await EmailController.sendEmail(email, `${firstName} ${lastName}`);
         }
 
         return res.status(201).json({
