@@ -4,7 +4,7 @@ class EmailController {
             "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";
         const sgMail = require("@sendgrid/mail");
         sgMail.setApiKey(API_KEY);
-        message = null;
+        let message = null;
         if (type == "welcome") {
             message = {
                 to: email,
