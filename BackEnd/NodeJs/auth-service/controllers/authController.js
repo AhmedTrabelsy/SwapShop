@@ -69,7 +69,7 @@ exports.signup = async (req, res, next) => {
         );
 
         if (response.status === 201) {
-            EmailController.sendEmail(email, `${firstName} ${lastName}`);
+            EmailController.sendEmail(email, `${firstName} ${lastName}`, 'welcome');
         }
 
         return res.status(201).json({
@@ -111,6 +111,10 @@ exports.login = async (req, res, next) => {
                 },
             },
         );
+
+        if (response.status === 201) {
+            EmailController.sendEmail(email, `${firstName} ${lastName}`, 'login');
+        }
 
         return res.status(200).json(response.data);
     } catch (err) {
