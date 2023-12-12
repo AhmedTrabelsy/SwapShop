@@ -54,7 +54,7 @@ class EmailController {
                   <img src="http://34.199.239.78:8888/NEWS-SERVICE/lastUpload" alt="Swap Shop Logo">
                 </div>
                 <h2>Welcome to Swap Shop!</h2>
-                <p>Dear ${username},</p>
+                <p>Dear <b>${username}</b>,</p>
                 <p>Thank you for joining Swap Shop, your go-to platform for buying and selling products. Get ready to explore a world of endless possibilities!</p>
                 <p>With Swap Shop, you can:</p>
                 <ul>
@@ -129,7 +129,7 @@ class EmailController {
                           <img src="http://34.199.239.78:8888/NEWS-SERVICE/lastUpload" alt="Swap Shop Logo">
                         </div>
                         <h2>Login Alert - Swap Shop</h2>
-                        <p>Dear ${username},</p>
+                        <p>Dear <b>${username}</b>,</p>
                         <p>There was a login attempt detected on your Swap Shop account.</p>
                         <p>If you did not initiate this login, please take immediate action to secure your account by following these steps:</p>
                         <ol>
