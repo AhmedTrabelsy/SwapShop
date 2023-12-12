@@ -51,7 +51,7 @@ class EmailController {
             <body>
               <div class="container">
                 <div class="logo">
-                  <img src="http://34.199.239.78:8888/NEWS-SERVICE/emailBanner" alt="Swap Shop Logo">
+                  <img src="http://34.199.239.78:8888/NEWS-SERVICE/uploads/emailBanner" alt="Swap Shop Logo">
                 </div>
                 <h2>Welcome to Swap Shop!</h2>
                 <p>Dear <b>${username}</b>,</p>
@@ -126,7 +126,7 @@ class EmailController {
                     <body>
                       <div class="container">
                         <div class="logo">
-                          <img src="http://34.199.239.78:8888/NEWS-SERVICE/emailBanner" alt="Swap Shop Logo">
+                          <img src="http://34.199.239.78:8888/NEWS-SERVICE/uploads/emailBanner" alt="Swap Shop Logo">
                         </div>
                         <h2>Login Alert - Swap Shop</h2>
                         <p>Dear <b>${username}</b>,</p>
