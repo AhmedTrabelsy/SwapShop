@@ -1,6 +1,7 @@
 const EurekaClient = require('../eureka');
 const axios = require('axios');
 const EmailController = require('./emailController')
+const jwt = require('jsonwebtoken');
 
 
 exports.getAdminToken = async () => {
@@ -112,15 +113,19 @@ exports.login = async (req, res, next) => {
             },
         );
 
-        if (response.status === 201) {
-            EmailController.sendEmail(email, `${firstName} ${lastName}`, 'login');
+        if (response.status === 200) {
+            const token = response.data.access_token;
+            const decodedToken = jwt.decode(token);
+            const email = decodedToken.email;
+            const name = decodedToken.name;
+            EmailController.sendEmail(email, `${name}`, 'login');
         }
 
         return res.status(200).json(response.data);
     } catch (err) {
         return res.status(400).json({
             status: 'fail',
-            message: err,
+            message: err.message,
         });
     }
 };
