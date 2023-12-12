@@ -134,7 +134,6 @@ class EmailController {
                         <p>If you did not initiate this login, please take immediate action to secure your account by following these steps:</p>
                         <ol>
                           <li>Change your Swap Shop account password.</li>
-                          <li>Enable two-factor authentication (2FA) for enhanced security.</li>
                           <li>Review your account settings and activity for any unauthorized changes or suspicious activity.</li>
                         </ol>
                         <p>If you initiated the login, you can ignore this alert.</p>
