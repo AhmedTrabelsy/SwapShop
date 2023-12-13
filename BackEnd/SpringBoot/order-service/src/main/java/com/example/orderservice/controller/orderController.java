@@ -25,7 +25,7 @@ public class orderController {
     }
 
     @PostMapping("/neworder")
-    public void createOrder(@Valid setOrderRequest request) {
+    public void createOrder(setOrderRequest request) {
         order o=new order();
         o.setUserId(request.getUserId());
         o.setProductId(request.getProudctId());
