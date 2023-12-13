@@ -46,7 +46,7 @@ class EmailController {
                 .button:hover {
                   background-color: #45a049;
                 }
-              </style>
+              </style>a
             </head>
             <body>
               <div class="container">
@@ -78,72 +78,41 @@ class EmailController {
             </html>`,
             };
         } else if (type == "login") {
+            const loginTime = new Date().toLocaleString();
+
             message = {
-                to: email,
-                from: "azettt532@gmail.com",
-                subject: "Login Alert - Swap Shop",
-                html: `<!DOCTYPE html>
-                  <html>
-                    <head>
-                      <style>
-                        /* CSS styles for the email */
-                        body {
-                          font-family: Arial, sans-serif;
-                          background-color: #f5f5f5;
-                          padding: 20px;
-                        }
-                        .container {
-                          max-width: 600px;
-                          margin: 0 auto;
-                          background-color: #ffffff;
-                          padding: 30px;
-                          border-radius: 5px;
-                        }
-                        .logo {
-                          text-align: center;
-                          margin-bottom: 20px;
-                        }
-                        .logo img {
-                          max-width: 200px;
-                          height: auto;
-                        }
-                        .message {
-                          margin-bottom: 20px;
-                        }
-                        .button {
-                          display: inline-block;
-                          background-color: #4caf50;
-                          color: #ffffff;
-                          text-decoration: none;
-                          padding: 10px 20px;
-                          border-radius: 4px;
-                        }
-                        .button:hover {
-                          background-color: #45a049;
-                        }
-                      </style>
-                    </head>
-                    <body>
-                      <div class="container">
-                        <div class="logo">
-                          <img src="http://34.199.239.78:8888/NEWS-SERVICE/uploads/emailBanner.png" alt="Swap Shop Logo">
-                        </div>
-                        <h2>Login Alert - Swap Shop</h2>
-                        <p>Dear <b>${username}</b>,</p>
-                        <p>There was a login attempt detected on your Swap Shop account.</p>
-                        <p>If you did not initiate this login, please take immediate action to secure your account by following these steps:</p>
-                        <ol>
-                          <li>Change your Swap Shop account password.</li>
-                          <li>Review your account settings and activity for any unauthorized changes or suspicious activity.</li>
-                        </ol>
-                        <p>If you initiated the login, you can ignore this alert.</p>
-                        <p>If you have any concerns or need further assistance, please contact our support team.</p>
-                        <p>Thank you for using Swap Shop.</p>
-                        <p>Best regards,</p>
-                        <p>The Swap Shop Team</p>
+              to: email,
+              from: "azettt532@gmail.com",
+              subject: "Login Alert - Swap Shop",
+              html: `<!DOCTYPE html>
+                <html>
+                  <head>
+                    <style>
+                      /* CSS styles for the email */
+                      /* ... (existing CSS styles) ... */
+                    </style>
+                  </head>
+                  <body>
+                    <div class="container">
+                      <div class="logo">
+                        <img src="http://34.199.239.78:8888/NEWS-SERVICE/uploads/emailBanner.png" alt="Swap Shop Logo">
                       </div>
-                    </body>
-                  </html>`,
+                      <h2>Login Alert - Swap Shop</h2>
+                      <p>Dear <b>${username}</b>,</p>
+                      <p>There was a login attempt detected on your Swap Shop account at ${loginTime}.</p>
+                      <p>If you did not initiate this login, please take immediate action to secure your account by following these steps:</p>
+                      <ol>
+                        <li>Change your Swap Shop account password.</li>
+                        <li>Review your account settings and activity for any unauthorized changes or suspicious activity.</li>
+                      </ol>
+                      <p>If you initiated the login, you can ignore this alert.</p>
+                      <p>If you have any concerns or need further assistance, please contact our support team.</p>
+                      <p>Thank you for using Swap Shop.</p>
+                      <p>Best regards,</p>
+                      <p>The Swap Shop Team</p>
+                    </div>
+                  </body>
+                </html>`,
             };
         }
 
