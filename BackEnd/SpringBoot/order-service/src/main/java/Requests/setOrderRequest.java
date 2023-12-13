@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NonNull;
 
 import java.util.Date;
-
+@Data
 public class setOrderRequest {
 
     @NotNull
