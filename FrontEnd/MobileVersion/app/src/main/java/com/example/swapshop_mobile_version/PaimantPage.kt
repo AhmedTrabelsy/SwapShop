@@ -9,12 +9,21 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
+import org.json.JSONObject
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.UUID
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.VolleyError
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONArray
 
 class PaimantPage : AppCompatActivity() {
-
+    private var requestQueue: RequestQueue? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_paimant_page)
@@ -28,9 +37,9 @@ class PaimantPage : AppCompatActivity() {
         paimantButton.text = "Pay $price DT"
 
         paimantButton.setOnClickListener {
-            val email = findViewById<EditText>(R.id.SettingsfirstName).text.toString()
-            val phone = findViewById<EditText>(R.id.SettingslastName).text.toString()
-            val numberCard = findViewById<EditText>(R.id.Settingsemail).text.toString()
+            val email = findViewById<EditText>(R.id.email).text.toString()
+            val phone = findViewById<EditText>(R.id.numberPhone).text.toString()
+            val numberCard = findViewById<EditText>(R.id.numberCard).text.toString()
             val billingAdress = findViewById<EditText>(R.id.billingAdress).text.toString()
 
             val currentDateTime = LocalDateTime.now()
@@ -51,7 +60,7 @@ class PaimantPage : AppCompatActivity() {
             startActivity(intent)*/
 
 
-            Toast.makeText(this,"Order Passed Succesfully",Toast.LENGTH_LONG).show()
+           // Toast.makeText(this,"Order Passed Succesfully",Toast.LENGTH_LONG).show()
 
             if (email.isEmpty() || phone.isEmpty() || numberCard.isEmpty() || billingAdress.isEmpty()) {
                 val snackbar = Snackbar.make(
@@ -62,21 +71,45 @@ class PaimantPage : AppCompatActivity() {
                 snackbar.show()
             } else {
                 if (confirm.isChecked) {
-                    Toast.makeText(this, "Checkout successful", Toast.LENGTH_LONG).show()
-                    finish()
+                    requestQueue = Volley.newRequestQueue(this)
+                    saveOrder(requestQueue!!)
+                    //finish()
                 } else {
                     Toast.makeText(this, "Please check the confirmation checkbox", Toast.LENGTH_LONG).show()
                 }
             }
         }
     }
-    fun saveOrder() {
-        val extras = intent.extras
-        val price = extras?.getString("price")
-        val productName = extras?.getString("productName")
-        val email = findViewById<EditText>(R.id.email).text.toString()
-        val phone = findViewById<EditText>(R.id.numberPhone).text.toString()
-        val numberCard = findViewById<EditText>(R.id.numberCard).text.toString()
-        val billingAdress = findViewById<EditText>(R.id.billingAdress).text.toString()
+
+    fun saveOrder(requestQueue: RequestQueue) {
+        val extras = intent?.extras
+        val prodId = extras?.getLong("prodId", 0L)
+        val billingAddress = findViewById<EditText>(R.id.billingAdress)?.text.toString()
+        val userId: Long = 1
+
+
+        val url = "http://34.199.239.78:8888/ORDER-SERVICE/neworder"
+
+        val orderObject = JSONObject().apply {
+            put("userId", userId)
+            put("billingAdress", billingAddress)
+            put("productId", prodId)
+        }
+
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.POST,
+            url,
+            orderObject,
+            { response ->
+                // Handle the response here
+            },
+            { error ->
+                error.printStackTrace()
+            }
+        )
+
+        requestQueue.add(jsonObjectRequest)
     }
+
+
 }
