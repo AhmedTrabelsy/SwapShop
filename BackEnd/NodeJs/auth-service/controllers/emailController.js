@@ -46,7 +46,7 @@ class EmailController {
                 .button:hover {
                   background-color: #45a049;
                 }
-              </style>a
+              </style>
             </head>
             <body>
               <div class="container">
@@ -81,16 +81,46 @@ class EmailController {
             const loginTime = new Date().toLocaleString();
 
             message = {
-              to: email,
-              from: "azettt532@gmail.com",
-              subject: "Login Alert - Swap Shop",
-              html: `<!DOCTYPE html>
+                to: email,
+                from: "azettt532@gmail.com",
+                subject: "Login Alert - Swap Shop",
+                html: `<!DOCTYPE html>
                 <html>
                   <head>
-                    <style>
-                      /* CSS styles for the email */
-                      /* ... (existing CSS styles) ... */
-                    </style>
+                  <style>
+                  /* CSS styles for the email */
+                  body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f5f5f5;
+                    padding: 20px;
+                  }
+                  .container {
+                    max-width: 600px;
+                    margin: 0 auto;
+                    background-color: #ffffff;
+                    padding: 30px;
+                    border-radius: 5px;
+                  }
+                  .logo {
+                    text-align: center;
+                    margin-bottom: 20px;
+                  }
+                  .logo img {
+                      max-width: 200px;
+                      height: auto;
+                    }
+                  .button {
+                    display: inline-block;
+                    background-color: #4caf50;
+                    color: #ffffff;
+                    text-decoration: none;
+                    padding: 10px 20px;
+                    border-radius: 4px;
+                  }
+                  .button:hover {
+                    background-color: #45a049;
+                  }
+                </style>
                   </head>
                   <body>
                     <div class="container">
