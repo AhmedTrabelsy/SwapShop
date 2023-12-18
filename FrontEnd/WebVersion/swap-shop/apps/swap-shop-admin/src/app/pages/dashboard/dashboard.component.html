@@ -1,57 +1,99 @@
 <div class="admin-page">
-  <h1><i class="pi pi-chart-line" style="font-size: 2.5rem"><span class="font-bold" style="font-family: Verdana, Geneva, Tahoma, sans-serif;"> My Dashboard</span></i></h1>
-  <div class="grid p-2">
-    <div class="col-12 md:col-6 lg:col-3">
-        <div class="text-center p-3 border-round-sm bg-primary font-bold">
-          <div class="grid">
-            <div class="col">
-              <div class="text-center p-3 border-round-sm bg-primary font-bold "><span class="name">Users</span><br>
-                <span class="number">{{ registredUsers }}</span></div>
-            </div>
-            <div class="col">
-              <i class="pi pi-user" style="font-size: 2.5rem"></i>
-            </div>
-          </div>
-        </div>
+	<h1>
+		<i class="pi pi-chart-line" style="font-size: 2.5rem"
+			><span class="font-bold" style="font-family: Verdana, Geneva, Tahoma, sans-serif"> My Dashboard</span></i
+		>
+	</h1>
+	<div class="grid p-2">
+		<div class="col-12 md:col-6 lg:col-3">
+			<div class="text-center p-3 border-round-sm bg-primary font-bold">
+				<div class="grid">
+					<div class="col">
+						<div class="text-center p-3 border-round-sm bg-primary font-bold">
+							<span class="name">Users</span><br />
+							<span class="number">{{ registredUsers }}</span>
+						</div>
+					</div>
+					<div class="col">
+						<i class="pi pi-user" style="font-size: 2.5rem"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 md:col-6 lg:col-3">
+			<div class="text-center p-3 border-round-sm bg-primary font-bold">
+				<div class="grid">
+					<div class="col">
+						<div class="text-center p-3 border-round-sm bg-primary font-bold">
+							<span class="name">Orders</span><br />
+							<span class="number">{{ currentOrders }}</span>
+						</div>
+					</div>
+					<div class="col">
+						<i class="pi pi-shopping-cart" style="font-size: 2.5rem"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 md:col-6 lg:col-3">
+			<div class="text-center p-3 border-round-sm bg-primary font-bold">
+				<div class="grid">
+					<div class="col">
+						<div class="text-center p-3 border-round-sm bg-primary font-bold">
+							<span class="name">Products</span><br />
+							<span class="number">{{ productsCount }}</span>
+						</div>
+					</div>
+					<div class="col">
+						<i class="pi pi-briefcase" style="font-size: 2.5rem"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 md:col-6 lg:col-3">
+			<div class="text-center p-3 border-round-sm bg-primary font-bold">
+				<div class="grid">
+					<div class="col">
+						<div class="text-center p-3 border-round-sm bg-primary font-bold">
+							<span class="name">Total Scales</span><br />
+							<span class="number">{{ totalSales | currency }}</span>
+						</div>
+					</div>
+					<div class="col">
+						<i class="pi pi-money-bill" style="font-size: 2.5rem"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+  <!-- Another Component For latest Products and Users-->
+  <div class="grid">
+    <div class="col-6">
+      <p-card header="Products" subheader="Latest 3 Updates"> 
+        <p-table>
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Quantity</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <tr>
+            <td>20</td>
+            <td>50</td>
+            <td>120</td>
+            <td>14</td>
+        </tr>
+    </ng-template>
+</p-table>
+      </p-card>
     </div>
-    <div class="col-12 md:col-6 lg:col-3">
-        <div class="text-center p-3 border-round-sm bg-primary font-bold ">
-          <div class="grid">
-            <div class="col">
-              <div class="text-center p-3 border-round-sm bg-primary font-bold "><span class="name">Orders</span><br>
-                <span class="number">{{ currentOrders }}</span></div>
-            </div>
-            <div class="col">
-              <i class="pi pi-shopping-cart" style="font-size: 2.5rem"></i>
-            </div>
-          </div>
-        </div>
-    </div>
-    <div class="col-12 md:col-6 lg:col-3">
-        <div class="text-center p-3 border-round-sm bg-primary font-bold ">
-          <div class="grid">
-            <div class="col">
-              <div class="text-center p-3 border-round-sm bg-primary font-bold "><span class="name">Products</span><br>
-                <span class="number">{{ productsCount }}</span></div>
-            </div>
-            <div class="col">
-              <i class="pi pi-briefcase" style="font-size: 2.5rem"></i>
-            </div>
-          </div>
-        </div>
-    </div>
-    <div class="col-12 md:col-6 lg:col-3">
-      <div class="text-center p-3 border-round-sm bg-primary font-bold ">
-        <div class="grid">
-          <div class="col">
-            <div class="text-center p-3 border-round-sm bg-primary font-bold "><span class="name">Total Scales</span><br>
-              <span class="number">{{ totalSales | currency }}</span></div>
-          </div>
-          <div class="col">
-            <i class="pi pi-money-bill" style="font-size: 2.5rem"></i>
-          </div>
-        </div>
-      </div>
-  </div>
-</div>      
+    <div class="col-6">
+      <p-card header="Total Scales" subheader="Per Mounth"> 
+        <p-chart type="bar"></p-chart>
+        </p-card>
+</div>
+</div>
 </div>

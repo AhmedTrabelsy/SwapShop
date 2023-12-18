@@ -27,11 +27,13 @@ import {InputTextModule} from 'primeng/inputtext'
 import { FileUploadModule } from 'primeng/fileupload';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DropdownModule } from 'primeng/dropdown';
+import { ChartModule } from 'primeng/chart';
 
 
 @NgModule({
   declarations: [AppComponent, SidebarComponent, DashboardComponent, ProductsFormComponent, ProductsListComponent, CategoriesListComponent, CategoriesFormComponent, OrdersListComponent, OrdersDetailComponent, UsersListComponent, UsersFormComponent],
   imports: [
+    ChartModule,
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     CardModule,
