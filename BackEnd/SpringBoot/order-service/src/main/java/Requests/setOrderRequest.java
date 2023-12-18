@@ -9,14 +9,11 @@ import lombok.NonNull;
 import java.util.Date;
 @Data
 public class setOrderRequest {
-    @NotNull
-    private Long id;
+
     @NotNull
     private Long userId;
     @NotNull
     private String billingAdress;
-    private Date createdAt;
-    private Date updatedAt;
     @NotNull
     private Long proudctId;
 }

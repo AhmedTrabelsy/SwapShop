@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
         setupAddNewProductButton()
 
-        binding.bottomNavigationView.setOnItemReselectedListener {
+        binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId){
                 R.id.home -> {
                     val fragmentHome = HomeFragment()

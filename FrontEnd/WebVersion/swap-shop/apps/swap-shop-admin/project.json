@@ -22,17 +22,11 @@
 			},
 			"configurations": {
 				"production": {
-					"fileReplacements": [
-						{
-							"replace": "../../environments/environment.ts",
-							"with": "../../environments/environment.prod.ts"
-						}
-					],
 					"budgets": [
 						{
 							"type": "initial",
 							"maximumWarning": "500kb",
-							"maximumError": "1mb"
+							"maximumError": "1.4mb"
 						},
 						{
 							"type": "anyComponentStyle",
