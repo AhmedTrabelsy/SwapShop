@@ -20,7 +20,6 @@
       <div class="col-10 m-0">
         <h6 class="m-0">{{ getTimeAgo(product.created_at)}}</h6>
       </div>
-<<<<<<< HEAD
       <div class="col-2 icon">
         <i class="pi pi-user"></i>
       </div>
@@ -28,15 +27,13 @@
         <h6 class="m-0">{{sellerName.toUpperCase()}} 
           <p-badge [value]="badgeValue" [severity]="badgeStatus"></p-badge>
         </h6>
-        
-=======
+      </div>
       <div class="col-2 m-0">
         <i class="addToWishlistIcon" [ngClass]="heartClass" style="font-size: 1rem"
           (click)="toggleHeart(product.id)"></i>
       </div>
       <div class="col-10 m-0">
         <span class="addToWishlistSpan" (click)="toggleHeart(product.id)">{{ wishlistText }}</span>
->>>>>>> 4bd670574288a8f7ab9abbcc04fdd3823939e7bc
       </div>
     </div>
     <p-button styleClass="mt-3 see-more" label="See more" icon="pi pi-arrow-right" iconPos="right"></p-button>
