@@ -12,6 +12,19 @@ export class DashboardComponent implements OnInit, OnDestroy  {
   registredUsers = 10;
   totalSales = 10;
 
+  chartData = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+    datasets: [
+      {
+        label: 'Scale Values',
+        data: [50, 80, 60, 90, 55, 75],
+        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      }
+    ]
+  };
+
   private productSubscription?: Subscription;
   // constructor(private productService: ProductService) { }
 
@@ -23,7 +36,6 @@ export class DashboardComponent implements OnInit, OnDestroy  {
     console.log("api call not implemented");
 
   }
-
   ngOnDestroy(): void {
     if (this.productSubscription) {
       this.productSubscription.unsubscribe();
