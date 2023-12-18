@@ -13,11 +13,12 @@ export class DashboardComponent implements OnInit, OnDestroy  {
   totalSales = 10;
 
   chartData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+    labels: ['January', 'February', 'March', 'April', 'May', 'June','July','August','September','October',
+    'Nouvember','December'],
     datasets: [
       {
         label: 'Scale Values',
-        data: [50, 80, 60, 90, 55, 75],
+        data: [50, 80, 60, 90, 55, 75, 102, 50, 40, 96, 50, 80],
         backgroundColor: 'rgba(54, 162, 235, 0.5)',
         borderColor: 'rgba(54, 162, 235, 1)',
         borderWidth: 1

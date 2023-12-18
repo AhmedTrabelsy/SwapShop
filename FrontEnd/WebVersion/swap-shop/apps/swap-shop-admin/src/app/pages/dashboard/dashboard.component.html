@@ -73,10 +73,11 @@
         <p-table>
     <ng-template pTemplate="header">
         <tr>
-            <th>Code</th>
+            <th>Ref</th>
             <th>Name</th>
             <th>Category</th>
-            <th>Quantity</th>
+            <th>Aded in</th>
+			<th>updated in</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body">
@@ -95,5 +96,33 @@
         <p-chart type="line" [data]="chartData"></p-chart>
       </p-card>
 </div>
+
+    <div class="col-6">
+      <p-card header="Users Evolution" subheader="Sellers And Buyers"> 
+        <p-chart type="bar" [data]="chartData"></p-chart>
+      </p-card>
+    </div>
+    <div class="col-6">
+      <p-card header="Orders" subheader=""> 
+        <p-table>
+			<ng-template pTemplate="header">
+				<tr>
+					<th>Ref</th>
+					<th>Name</th>
+					<th>Category</th>
+					<th>Aded in</th>
+					<th>updated in</th>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="body">
+				<tr>
+					<td>20</td>
+					<td>50</td>
+					<td>120</td>
+					<td>14</td>
+				</tr>
+			</ng-template>
+		</p-table>
+      </p-card>
 </div>
 </div>
