@@ -229,4 +229,17 @@ public class ProductController {
         List<String> allowedExtensions = Arrays.asList("jpg", "jpeg", "png", "gif");
         return allowedExtensions.contains(fileExtension.toLowerCase());
     }
+
+    @GetMapping("/lastUpdatedProduct")
+    public List<product> getLastUpdatedProduct(){
+        List<product> products = productRepository.findLastThree();
+        products.forEach(product -> {
+            product.setCategory(categoryServiceClient.findCategoryById(product.getCategoryID()));
+        });
+        return products;
+    }
+    @GetMapping("/countProductInMounths")
+    public List<Long> getCountProductInMounth(){
+        return productRepository.getProductsUpdatedCountForEveryMonth();
+    }
 }

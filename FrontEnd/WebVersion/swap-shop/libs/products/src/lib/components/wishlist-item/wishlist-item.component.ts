@@ -4,8 +4,7 @@ import { WishlistService } from '../../services/wishlist.service';
 import { SharedService } from '../../services/shared.service';
 import { product } from '../../models/product';
 import { Subscription } from 'rxjs';
-// import {environment} from '@env';
-
+import { environment } from '@env';
 @Component({
 	selector: 'swap-shop-wishlist-item',
 	templateUrl: './wishlist-item.component.html',
@@ -36,6 +35,7 @@ export class WishlistItemComponent implements OnInit, OnDestroy  {
   deleteFromWishlist(idString?: string | undefined): void {
     if (idString !== undefined) {
       const id = parseInt(idString, 10);
+      if (confirm('Are you sure you want to delete this product from your wishlist?')){
       this.wishlistService.deleteProduct(id)
         .then(() => {
           console.log('Product deleted successfully.');
@@ -44,6 +44,7 @@ export class WishlistItemComponent implements OnInit, OnDestroy  {
         .catch((error) => {
           console.error('Error deleting product:', error);
         });
+      }
     } else {
       console.error('Item ID is undefined.');
     }
