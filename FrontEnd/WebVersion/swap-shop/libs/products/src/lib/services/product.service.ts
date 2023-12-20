@@ -18,6 +18,9 @@ export class ProductService {
   getNumberProductsInMounth(): Observable<number[]> {
     return this.http.get<never>("http://34.199.239.78:8888" + '/PRODUCT-SERVICE/countProductInMounths');
   }
+  getProductCount(): Observable<number> {
+    return this.http.get<number>("http://34.199.239.78:8888" + '/PRODUCT-SERVICE/productCount');
+  }
   getProducts(): Observable<never[]> {
     return this.http.get<never>(this.categoriesApiUrl);
   }
