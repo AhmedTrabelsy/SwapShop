@@ -1,5 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { ProductService } from 'libs/products/src/lib/services/product.service';
+import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { product } from 'libs/products/src/lib/models/product';
 
 @Component({
   selector: 'swap-shop-dashboard',
@@ -7,39 +12,72 @@ import { Subscription } from 'rxjs';
   styles: ``
 })
 export class DashboardComponent implements OnInit, OnDestroy  {
-  productsCount = 10;
+  constructor(private productsService: ProductService){}
+  productsCount = 0;
   currentOrders = 10;
   registredUsers = 10;
   totalSales = 10;
-
-  chartData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June','July','August','September','October',
-    'Nouvember','December'],
-    datasets: [
-      {
-        label: 'Scale Values',
-        data: [50, 80, 60, 90, 55, 75, 102, 50, 40, 96, 50, 80],
-        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-        borderColor: 'rgba(54, 162, 235, 1)',
-        borderWidth: 1
-      }
-    ]
-  };
+  chartData: any;
+  products: product[] = [];
+  endsubs$: Subject<unknown> = new Subject();
 
   private productSubscription?: Subscription;
   // constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-    // this.productSubscription = this.productService
-    //   .getProducts().subscribe((products) => {
-    //     this.productsCount = products.length;
-    //   });
-    console.log("api call not implemented");
+    this.productsService
+      .getLastUpdatedProducts()
+      .pipe(takeUntil(this.endsubs$))
+      .subscribe((products) => {
+        this.products = products;
+        console.log(products);
+      });
 
+    this.productsService
+      .getProducts().pipe(takeUntil(this.endsubs$)).subscribe((products) => {
+        this.productsCount = products.length;
+        console.log(products.length);
+      });
+    // this._getData();
+    this.chartData = {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June','July','August','September','October',
+      'Nouvember','December'],
+      datasets: [
+        {
+          label: 'Scale Values',
+          data: [],
+          backgroundColor: 'rgba(54, 162, 235, 0.5)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }
+      ]
+    };
+    this._getData().pipe(takeUntil(this.endsubs$)).subscribe(
+      (data: number[]) => {
+        this.chartData.datasets[0].data = data;
+        console.log(data);
+      },
+      (error) => {
+        console.error('Error fetching data:', error);
+      }
+    );
+    console.log("api call not implemented");
   }
+  private _getData(): Observable<number[]> {
+    return this.productsService.getNumberProductsInMounth();
+  }
+  // private _getData(){
+  //   this.productsService
+  //     .getNumberProductsInMounth()
+  //     .subscribe((data) => {
+  //       this.chartData.datasets[0].data = data;
+  //       console.log(data);
+  //     });
+  // }
   ngOnDestroy(): void {
     if (this.productSubscription) {
       this.productSubscription.unsubscribe();
     }
+    this.endsubs$.complete();
   }
 }
