@@ -70,25 +70,26 @@
   <div class="grid">
     <div class="col-6">
       <p-card header="Products" subheader="Latest 3 Updates"> 
-        <p-table>
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Ref</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Aded in</th>
-			<th>updated in</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body">
-        <tr>
-            <td>20</td>
-            <td>50</td>
-            <td>120</td>
-            <td>14</td>
-        </tr>
-    </ng-template>
-</p-table>
+		<p-table [value]="products" styleClass="p-datatable-gridlines">
+		<ng-template pTemplate="header">
+		  <tr>
+		<th>Ref</th>
+		<th>Name</th>
+		<th>Category</th>
+		<th>Added in</th>
+		<th>Updated in</th>
+		  </tr>
+		</ng-template>
+		<ng-template pTemplate="body" let-product>
+		  <tr>
+			  <td>{{ product.id }}</td>
+			  <td>{{ product.name }}</td>
+			  <td>{{ product.category?.name }}</td>
+			  <td>{{ product.created_at | date: 'short' }}</td>
+			  <td>{{ product.updated_at | date: 'short' }}</td>
+		  </tr>
+		</ng-template>
+	</p-table>		  
       </p-card>
     </div>
     <div class="col-6">

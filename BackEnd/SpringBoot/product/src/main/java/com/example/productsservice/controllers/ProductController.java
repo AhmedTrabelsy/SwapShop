@@ -242,4 +242,8 @@ public class ProductController {
     public List<Long> getCountProductInMounth(){
         return productRepository.getProductsUpdatedCountForEveryMonth();
     }
+    @GetMapping("/productCount")
+    public int getProductCount(){
+        return productRepository.getProductCount();
+    }
 }
