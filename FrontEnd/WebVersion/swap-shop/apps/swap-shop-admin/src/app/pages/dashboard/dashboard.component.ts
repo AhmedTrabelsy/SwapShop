@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit, OnDestroy  {
       });
 
     this.productsService
-      .getProducts().pipe(takeUntil(this.endsubs$)).subscribe((products) => {
+      .getProducts().subscribe((products) => {
         this.productsCount = products.length;
         console.log(products.length);
       });
