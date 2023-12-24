@@ -25,10 +25,10 @@ public class orderController {
     }
 
     @PostMapping("/neworder")
-    public void createOrder(setOrderRequest request) {
+    public void createOrder(@Valid setOrderRequest request) {
         order o=new order();
         o.setUserId(request.getUserId());
-        o.setProductId(request.getProudctId());
+        o.setProductId(request.getProductId());
         o.setBillingAdress(request.getBillingAdress());
         o.setCreatedAt(new Date());
         o.setUpdatedAt(new Date());
@@ -42,8 +42,8 @@ public class orderController {
         if (request.getUserId() != null) {
             o.setUserId(request.getUserId());
         }
-        if (request.getProudctId() != null) {
-           o.setProductId(request.getProudctId());
+        if (request.getProductId() != null) {
+           o.setProductId(request.getProductId());
         }
         if (request.getBillingAdress() != null) {
             o.setBillingAdress(request.getBillingAdress());
