@@ -106,3 +106,54 @@ exports.getUserCount = async (req, res) => {
         });
     }
 };
+
+
+exports.getUserRegistrationsByMonth = async (req, res) => {
+    try {
+        const adminToken = await getAdminToken();
+        const response = await axios.get('http://34.199.239.78:8080/admin/realms/SwapShop/users', {
+            headers: {
+                Authorization: `Bearer ${adminToken}`,
+            },
+        });
+        const users = response.data;
+        const registrationsByMonth = {};
+
+        users.forEach(user => {
+            const registrationDate = new Date(user.createdTimestamp);
+            const monthYear = `${registrationDate.getMonth() + 1} - ${registrationDate.getFullYear()}`;
+
+            if (!registrationsByMonth[monthYear]) {
+                registrationsByMonth[monthYear] = 0;
+            }
+
+            registrationsByMonth[monthYear]++;
+        });
+
+        const table = [];
+        const currentDate = new Date();
+        for (let i = 0; i < 12; i++) {
+            const monthYearKey = `${currentDate.getMonth() + 1}-${currentDate.getFullYear()}`;
+            const monthName = currentDate.toLocaleString('default', { month: 'long' });
+            const count = registrationsByMonth[monthYearKey] || 0;
+
+            table.push({
+                month: monthName,
+                usersCount: count,
+            });
+
+            currentDate.setMonth(currentDate.getMonth() - 1);
+        }
+
+        return res.status(200).json({
+            status: 'success',
+            data: table.reverse(),
+        });
+    } catch (error) {
+        console.error('Error retrieving user registrations by month:', error.message);
+        return res.status(500).json({
+            status: 'error',
+            message: 'Failed to retrieve user registrations by month',
+        });
+    }
+};
