@@ -59,5 +59,8 @@ public class orderController {
         o.setUpdatedAt(new Date());
         orderRepository.save(o);
     }
-
+    @GetMapping("/orderCount")
+    public int getOrderCount(){
+        return orderRepository.getOrderCount();
+    }
 }
