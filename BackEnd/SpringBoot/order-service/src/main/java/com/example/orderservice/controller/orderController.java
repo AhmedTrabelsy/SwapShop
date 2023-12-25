@@ -27,7 +27,7 @@ public class orderController {
     public List<order> getOrder() {
         List<order> orders = orderRepository.findAll();
         orders.forEach(order -> {
-            order.setProduct(productServiceClient.findById(order.getProductId()));
+            order.setProduct(productServiceClient.findProductById(order.getProductId()));
         });
         return orders;
     }
