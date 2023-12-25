@@ -80,3 +80,29 @@ exports.updateProfile = async (req, res, next) => {
 		status: 'success',
 	});
 };
+
+
+exports.getUserCount = async (req, res) => {
+    try {
+        const adminToken = await getAdminToken();
+
+        const response = await axios.get('http://34.199.239.78:8080/admin/realms/SwapShop/users/count', {
+            headers: {
+                Authorization: `Bearer ${adminToken}`,
+            },
+        });
+
+        const userCount = response.data;
+
+        return res.status(200).json({
+            status: 'success',
+            userCount: userCount,
+        });
+    } catch (error) {
+        console.error('Error retrieving user count:', error.message);
+        return res.status(500).json({
+            status: 'error',
+            message: 'Failed to retrieve user count',
+        });
+    }
+};
