@@ -2,6 +2,7 @@ package com.example.orderservice.controller;
 
 import Requests.setOrderRequest;
 import com.example.orderservice.entity.order;
+import com.example.orderservice.repository.ProductServiceClient;
 import com.example.orderservice.repository.orderRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,16 @@ public class orderController {
     @Autowired
     orderRepository orderRepository;
 
+    @Autowired
+    ProductServiceClient productServiceClient;
+
     @GetMapping("/orders")
     public List<order> getOrder() {
-        return orderRepository.findAll();
+        List<order> orders = orderRepository.findAll();
+        orders.forEach(order -> {
+            order.setProduct(productServiceClient.findById(order.getProductId()));
+        });
+        return orders;
     }
 
     @PostMapping("/neworder")
@@ -43,7 +51,7 @@ public class orderController {
             o.setUserId(request.getUserId());
         }
         if (request.getProductId() != null) {
-           o.setProductId(request.getProductId());
+            o.setProductId(request.getProductId());
         }
         if (request.getBillingAdress() != null) {
             o.setBillingAdress(request.getBillingAdress());
