@@ -33,6 +33,7 @@ export class DashboardComponent implements OnInit, OnDestroy  {
     .pipe(takeUntil(this.endsubs$))
     .subscribe((orderPricePerMounth) => {
       this.orderPricePerMounth = orderPricePerMounth;
+      this.chartData.datasets[0].data = orderPricePerMounth;
       for (let i = 0; i < this.orderPricePerMounth.length; i++) {
         this.totalSales += this.orderPricePerMounth[i];
       }
@@ -73,7 +74,8 @@ export class DashboardComponent implements OnInit, OnDestroy  {
         }
       ]
     };
-    this._getData().pipe(takeUntil(this.endsubs$)).subscribe(
+  }
+    /*this._getData().pipe(takeUntil(this.endsubs$)).subscribe(
       (data: number[]) => {
         this.chartData.datasets[0].data = data;
         console.log(data);
@@ -83,10 +85,10 @@ export class DashboardComponent implements OnInit, OnDestroy  {
       }
     );
     console.log("api call not implemented");
-  }
-  private _getData(): Observable<number[]> {
+  }*/
+ /* private _getData(): Observable<number[]> {
     return this.productsService.getNumberProductsInMounth();
-  }
+  }*/
   // private _getData(){
   //   this.productsService
   //     .getNumberProductsInMounth()
