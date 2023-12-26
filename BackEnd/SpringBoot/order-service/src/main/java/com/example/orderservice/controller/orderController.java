@@ -89,4 +89,13 @@ public class orderController {
         product product = productServiceClient.findProductById(productId);
         return (product != null) ? product.getPrice() : 0.0; 
     }
+
+    @GetMapping("/getLastOrders")
+    public List<order> getLastOrders() {
+        List<order> orders = orderRepository.getLastModifiedOrder();
+        orders.forEach(order -> {
+            order.setProduct(productServiceClient.findProductById(order.getProductId()));
+        });
+        return orders;
+    }
 }
