@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ProductService } from 'libs/products/src/lib/services/product.service';
+import { OrderService } from 'libs/products/src/lib/services/order.service';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -12,7 +13,7 @@ import { product } from 'libs/products/src/lib/models/product';
   styles: ``
 })
 export class DashboardComponent implements OnInit, OnDestroy  {
-  constructor(private productsService: ProductService){}
+  constructor(private productsService: ProductService, private orderService: OrderService){}
   productsCount = 0;
   currentOrders = 10;
   registredUsers = 10;
@@ -22,9 +23,17 @@ export class DashboardComponent implements OnInit, OnDestroy  {
   endsubs$: Subject<unknown> = new Subject();
 
   private productSubscription?: Subscription;
+  private orderSubscription?: Subscription;
   // constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
+    this.orderService
+    .getOrderCount()
+    .pipe(takeUntil(this.endsubs$))
+    .subscribe((count) => {
+      this.currentOrders = count;
+      console.log(count);
+    });
     this.productsService
       .getLastUpdatedProducts()
       .pipe(takeUntil(this.endsubs$))
