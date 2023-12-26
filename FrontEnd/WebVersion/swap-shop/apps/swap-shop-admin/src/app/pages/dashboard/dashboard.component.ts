@@ -17,8 +17,9 @@ export class DashboardComponent implements OnInit, OnDestroy  {
   productsCount = 0;
   currentOrders = 10;
   registredUsers = 10;
-  totalSales = 10;
+  totalSales = 0;
   chartData: any;
+  orderPricePerMounth = [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0];
   products: product[] = [];
   endsubs$: Subject<unknown> = new Subject();
 
@@ -27,6 +28,17 @@ export class DashboardComponent implements OnInit, OnDestroy  {
   // constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
+    this.orderService
+    .getOrdersPricePerMounth()
+    .pipe(takeUntil(this.endsubs$))
+    .subscribe((orderPricePerMounth) => {
+      this.orderPricePerMounth = orderPricePerMounth;
+      for (let i = 0; i < this.orderPricePerMounth.length; i++) {
+        this.totalSales += this.orderPricePerMounth[i];
+      }
+      console.log(orderPricePerMounth);
+    });
+
     this.orderService
     .getOrderCount()
     .pipe(takeUntil(this.endsubs$))

@@ -12,4 +12,7 @@ export class OrderService {
    getOrderCount(): Observable<number> {
     return this.http.get<number>(this.BASE_URL_ORDER_SERVICE+"orderCount");
   }
+  getOrdersPricePerMounth(): Observable<never[]> {
+    return this.http.get<never[]>(this.BASE_URL_ORDER_SERVICE+"orderPerMonth");
+  }
 }
