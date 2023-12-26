@@ -15,4 +15,7 @@ export class OrderService {
   getOrdersPricePerMounth(): Observable<never[]> {
     return this.http.get<never[]>(this.BASE_URL_ORDER_SERVICE+"orderPerMonth");
   }
+  getLastUpdatedOrders(): Observable<never[]> {
+    return this.http.get<never>(this.BASE_URL_ORDER_SERVICE+"getLastOrders");
+  }
 }
