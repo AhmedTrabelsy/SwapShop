@@ -2,6 +2,7 @@ package com.example.orderservice.controller;
 
 import Requests.setOrderRequest;
 import com.example.orderservice.entity.order;
+import com.example.orderservice.entity.product;
 import com.example.orderservice.repository.ProductServiceClient;
 import com.example.orderservice.repository.orderRepository;
 import jakarta.validation.Valid;
@@ -12,8 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 public class orderController {
@@ -62,5 +64,29 @@ public class orderController {
     @GetMapping("/orderCount")
     public int getOrderCount(){
         return orderRepository.getOrderCount();
+    }
+
+    @GetMapping("/orderPerMonth")
+    public List<Double> getOrderPricesSumByMonth() {
+        LocalDate currentDate = LocalDate.now();
+        int year = currentDate.getYear();
+
+        List<order> orders = orderRepository.findByYear(year);
+
+        double[] orderPricesByMonth = new double[12]; // Array to store order prices for each month
+
+        for (order order : orders) {
+            int month = order.getCreatedAt().getMonth()+1;
+            double orderPrice = getProductPrice(order.getProductId());
+
+            orderPricesByMonth[month - 1] += orderPrice; // Increment the respective month's value
+        }
+
+        return Arrays.stream(orderPricesByMonth).boxed().collect(Collectors.toList());
+    }
+
+    private double getProductPrice(Long productId) {
+        product product = productServiceClient.findProductById(productId);
+        return (product != null) ? product.getPrice() : 0.0; // Assuming price is a double field
     }
 }
