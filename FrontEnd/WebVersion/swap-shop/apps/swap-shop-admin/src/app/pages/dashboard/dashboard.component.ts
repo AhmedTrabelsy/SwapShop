@@ -33,7 +33,19 @@ export class DashboardComponent implements OnInit, OnDestroy  {
     .pipe(takeUntil(this.endsubs$))
     .subscribe((orderPricePerMounth) => {
       this.orderPricePerMounth = orderPricePerMounth;
-      this.chartData.datasets[0].data = orderPricePerMounth;
+      this.chartData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June','July','August','September','October',
+        'Nouvember','December'],
+        datasets: [
+          {
+            label: 'Total Scales',
+            data: orderPricePerMounth,
+            backgroundColor: 'rgba(54, 162, 235, 0.5)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+          }
+        ]
+      };
       for (let i = 0; i < this.orderPricePerMounth.length; i++) {
         this.totalSales += this.orderPricePerMounth[i];
       }
@@ -61,19 +73,6 @@ export class DashboardComponent implements OnInit, OnDestroy  {
         console.log(count);
       });
     // this._getData();
-    this.chartData = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June','July','August','September','October',
-      'Nouvember','December'],
-      datasets: [
-        {
-          label: 'Scale Values',
-          data: [],
-          backgroundColor: 'rgba(54, 162, 235, 0.5)',
-          borderColor: 'rgba(54, 162, 235, 1)',
-          borderWidth: 1
-        }
-      ]
-    };
   }
     /*this._getData().pipe(takeUntil(this.endsubs$)).subscribe(
       (data: number[]) => {
