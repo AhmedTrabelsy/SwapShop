@@ -11,6 +11,9 @@ public interface orderRepository extends JpaRepository<order,Long> {
     @Query("SELECT COUNT(*) FROM order o")
     int getOrderCount();
 
+    @Query("SELECT o FROM order o ORDER BY o.updatedAt DESC LIMIT 3")
+    List<order> getLastModifiedOrder();
+
     @Query("SELECT o FROM order o WHERE YEAR(o.createdAt) = :year")
     List<order> findByYear(@Param("year") int year);
 }

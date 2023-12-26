@@ -73,13 +73,13 @@ public class orderController {
 
         List<order> orders = orderRepository.findByYear(year);
 
-        double[] orderPricesByMonth = new double[12]; // Array to store order prices for each month
+        double[] orderPricesByMonth = new double[12];
 
         for (order order : orders) {
             int month = order.getCreatedAt().getMonth()+1;
             double orderPrice = getProductPrice(order.getProductId());
 
-            orderPricesByMonth[month - 1] += orderPrice; // Increment the respective month's value
+            orderPricesByMonth[month - 1] += orderPrice;
         }
 
         return Arrays.stream(orderPricesByMonth).boxed().collect(Collectors.toList());
@@ -87,6 +87,15 @@ public class orderController {
 
     private double getProductPrice(Long productId) {
         product product = productServiceClient.findProductById(productId);
-        return (product != null) ? product.getPrice() : 0.0; // Assuming price is a double field
+        return (product != null) ? product.getPrice() : 0.0; 
+    }
+
+    @GetMapping("/getLastOrders")
+    public List<order> getLastOrders() {
+        List<order> orders = orderRepository.getLastModifiedOrder();
+        orders.forEach(order -> {
+            order.setProduct(productServiceClient.findProductById(order.getProductId()));
+        });
+        return orders;
     }
 }
