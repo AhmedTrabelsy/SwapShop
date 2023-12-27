@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { product } from 'libs/products/src/lib/models/product';
+import { Order } from 'libs/products/src/lib/models/order';
 
 @Component({
   selector: 'swap-shop-dashboard',
@@ -21,6 +22,7 @@ export class DashboardComponent implements OnInit, OnDestroy  {
   chartData: any;
   orderPricePerMounth = [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0];
   products: product[] = [];
+  orders: Order[] = [];
   endsubs$: Subject<unknown> = new Subject();
 
   private productSubscription?: Subscription;
@@ -28,6 +30,14 @@ export class DashboardComponent implements OnInit, OnDestroy  {
   // constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
+    this.orderService
+      .getLastUpdatedOrders()
+      .pipe(takeUntil(this.endsubs$))
+      .subscribe((orders) => {
+        this.orders = orders;
+        console.log(orders);
+      });
+
     this.orderService
     .getOrdersPricePerMounth()
     .pipe(takeUntil(this.endsubs$))

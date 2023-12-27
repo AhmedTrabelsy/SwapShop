@@ -104,24 +104,23 @@
       </p-card>
     </div>
     <div class="col-6">
-      <p-card header="Orders" subheader=""> 
-        <p-table>
+      <p-card header="Orders" subheader="Last 3 Per Client"> 
+        <p-table [value]="orders" styleClass="p-datatable-gridlines">
 			<ng-template pTemplate="header">
-				<tr>
-					<th>Ref</th>
-					<th>Name</th>
-					<th>Category</th>
-					<th>Aded in</th>
-					<th>updated in</th>
-				</tr>
+			  <tr>
+			<th>UserRef</th>
+			<th>Product</th>
+			<th>Billing Address</th>
+			<th>Passed in</th>
+			  </tr>
 			</ng-template>
-			<ng-template pTemplate="body">
-				<tr>
-					<td>20</td>
-					<td>50</td>
-					<td>120</td>
-					<td>14</td>
-				</tr>
+			<ng-template pTemplate="body" let-order>
+			  <tr>
+				  <td>{{ order.userId }}</td>
+				  <td>{{ order.product.name }}</td>
+				  <td>{{ order.billingAdress }}</td>
+				  <td>{{ order.createdAt | date: 'short' }}</td>
+			  </tr>
 			</ng-template>
 		</p-table>
       </p-card>
