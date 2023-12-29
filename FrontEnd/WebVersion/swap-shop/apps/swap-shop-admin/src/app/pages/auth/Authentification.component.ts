@@ -5,4 +5,6 @@ import { Component } from '@angular/core';
 	templateUrl: './Authentification.component.html',
 	styles: []
 })
-export class AuthentificationComponent {}
+export class AuthentificationComponent {
+	
+}

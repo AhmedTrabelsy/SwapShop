@@ -40,16 +40,9 @@ export class LoginPageComponent {
       (response) => {
         console.log('Login successful:', response);
         if (response && response.access_token) {
+          sessionStorage.setItem('credentials', response);
           sessionStorage.setItem('access_token', response.access_token);
           this.isAuthenticating = true;
-          // this.authService.getUserData().subscribe(
-          //   (response) => {
-          //     console.log('User data:', response);
-          //   },
-          //   (error) => {
-          //     console.error('Failed to get user data:', error);
-          //   }
-          // );
           window.location.href = '/';
         }
       },

@@ -29,9 +29,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DropdownModule } from 'primeng/dropdown';
 import { ChartModule } from 'primeng/chart';
 import { AuthentificationComponent } from './pages/auth/Authentification.component';
-
+import { LoginPageComponent } from 'libs/products/src/lib/components/login-page/login-page.component';
+import { PasswordModule } from 'primeng/password';
 @NgModule({
 	declarations: [
+		LoginPageComponent,
 		AppComponent,
 		SidebarComponent,
 		DashboardComponent,
@@ -46,6 +48,7 @@ import { AuthentificationComponent } from './pages/auth/Authentification.compone
 		AuthentificationComponent
 	],
 	imports: [
+		PasswordModule,
 		ChartModule,
 		BrowserModule,
 		RouterModule.forRoot(appRoutes),

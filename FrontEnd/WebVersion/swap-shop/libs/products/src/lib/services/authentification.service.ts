@@ -19,19 +19,23 @@ export class AuthentificationService {
 
     return this.http.post<any>(loginUrl, body);
   }
-  getUserData(): Observable<any> {
-    const getUserDataUrl = `${this.BASE_URL_AUTH_SERVICE}/user`;
 
-    // Get the access token from session storage
-    const accessToken = sessionStorage.getItem('access_token');
+  getUserCount(token: string): Observable<any> {
+    const getUserCountUrl = `${this.BASE_URL_AUTH_SERVICE}/getUsersCount`;
 
-    if (!accessToken) {
-      return new Observable<any>();
-    }
     const headers = new HttpHeaders({
-      Authorization: accessToken
+      Authorization: `Bearer ${token}`
     });
 
-    return this.http.get<any>(getUserDataUrl, { headers });
+    return this.http.get<any>(getUserCountUrl, { headers });
+  }
+  getUsersPerMounth(token: string): Observable<any> {
+    const getUsersPerMounthUrl = `${this.BASE_URL_AUTH_SERVICE}/getUsersPerMonth`;
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.get<any>(getUsersPerMounthUrl, { headers });
   }
 }
