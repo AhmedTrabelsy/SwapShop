@@ -21,7 +21,9 @@ export class DashboardComponent implements OnInit, OnDestroy  {
   registredUsers = 10;
   totalSales = 0;
   chartData: any;
+  chartDataForUsers: any;
   orderPricePerMounth = [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0];
+  usersPerMounth = [0,0,0,0,0,0,0,0,0,0,0,0];
   products: product[] = [];
   orders: Order[] = [];
   endsubs$: Subject<unknown> = new Subject();
@@ -45,6 +47,30 @@ export class DashboardComponent implements OnInit, OnDestroy  {
     this.authService.getUsersPerMounth(accessToken).subscribe(
       (response) => {
         console.log('User count:', response.data);
+        response.data.forEach((monthData: { month: string; usersCount: number; }) => {
+          const monthIndex = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+          ].indexOf(monthData.month);
+    
+          if (monthIndex !== -1) {
+            this.usersPerMounth[monthIndex] = monthData.usersCount;
+            console.log(this.usersPerMounth)
+          }
+        });
+        this.chartDataForUsers = {
+          labels: ['January', 'February', 'March', 'April', 'May', 'June','July','August','September','October',
+          'Nouvember','December'],
+          datasets: [
+            {
+              label: 'Total Scales',
+              data: this.usersPerMounth,
+              backgroundColor: 'rgba(54, 162, 235, 0.5)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+            }
+          ]
+        };
       },
       (error) => {
         console.error('Failed to get user count:', error.message);
