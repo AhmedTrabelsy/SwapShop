@@ -12,9 +12,9 @@
       <swap-shop-nav></swap-shop-nav>
     </div>
     <div class="col-2 tools">
-      <i class="pi pi-user" *ngIf="isAuthenticated"></i>
-      <a routerLink="/login" class="p-3" *ngIf="!isAuthenticated">Login</a>
-      <a routerLink="/signUp" *ngIf="!isAuthenticated">signUp</a>
+      <i class="pi pi-sign-out" *ngIf="isAuthenticated" (click)="logoutUser()"></i>
+      <a routerLink="/login" class="p-3" *ngIf="!isAuthenticated"><i class="pi pi-sign-in"></i></a>
+      <a routerLink="/signUp" *ngIf="!isAuthenticated"><i class="pi pi-user-plus"></i></a>
       <a routerLink="/wishlist"><i class="pi pi-heart" *ngIf="isAuthenticated"></i></a>
     </div>
   </div>

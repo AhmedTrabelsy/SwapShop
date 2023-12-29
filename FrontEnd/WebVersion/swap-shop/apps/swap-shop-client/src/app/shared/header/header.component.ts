@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 isAuthenticated = false;
+showLogoutMenu = false;
 constructor() {
   const retrievedValue: string | null = sessionStorage.getItem('access_token');
 
@@ -14,6 +15,13 @@ constructor() {
   } else {
     console.log('Value not found in session storage');
   }
+}
+toggleLogoutMenu() {
+  this.showLogoutMenu = !this.showLogoutMenu;
+}
+logoutUser() {
+  sessionStorage.removeItem('access_token');
+  window.location.href = '/';
 }
 
 }
