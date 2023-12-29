@@ -12,8 +12,10 @@
       <swap-shop-nav></swap-shop-nav>
     </div>
     <div class="col-2 tools">
-      <i class="pi pi-user"></i>
-      <a routerLink="/wishlist"><i class="pi pi-heart"></i></a>
+      <i class="pi pi-user" *ngIf="isAuthenticated"></i>
+      <a routerLink="/login" *ngIf="!isAuthenticated">Login</a>
+      <a routerLink="/signUp" *ngIf="!isAuthenticated">signUp</a>
+      <a routerLink="/wishlist"><i class="pi pi-heart" *ngIf="isAuthenticated"></i></a>
     </div>
   </div>
 </header>
