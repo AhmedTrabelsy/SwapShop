@@ -23,50 +23,62 @@ import { HttpClientModule } from '@angular/common/http';
 import { CategoriesService } from 'libs/products/src/lib/services/categories.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {InputTextModule} from 'primeng/inputtext'
+import { InputTextModule } from 'primeng/inputtext';
 import { FileUploadModule } from 'primeng/fileupload';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DropdownModule } from 'primeng/dropdown';
 import { ChartModule } from 'primeng/chart';
-
-
+import { AuthentificationComponent } from './pages/auth/Authentification.component';
+import { LoginPageComponent } from 'libs/products/src/lib/components/login-page/login-page.component';
+import { PasswordModule } from 'primeng/password';
 @NgModule({
-  declarations: [AppComponent, SidebarComponent, DashboardComponent, ProductsFormComponent, ProductsListComponent, CategoriesListComponent, CategoriesFormComponent, OrdersListComponent, OrdersDetailComponent, UsersListComponent, UsersFormComponent],
-  imports: [
-    ChartModule,
-    BrowserModule,
-    RouterModule.forRoot(appRoutes),
-    CardModule,
-    ButtonModule,
-    ToastModule,
-    ToolbarModule,
-    TableModule,
-    ConfirmDialogModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    InputTextModule,
-    FileUploadModule,
-    BrowserAnimationsModule,
-    DropdownModule,
-  ],
-  providers: [
-    CategoriesService,
-    MessageService,
-    ConfirmationService,
-  ],
-  bootstrap: [AppComponent],
-  exports: [
-    SidebarComponent,
-    DashboardComponent,
-    ProductsFormComponent,
-    ProductsListComponent,
-    CategoriesListComponent,
-    CategoriesFormComponent,
-    OrdersListComponent,
-    OrdersDetailComponent,
-    UsersListComponent,
-    UsersFormComponent
-  ]
+	declarations: [
+		LoginPageComponent,
+		AppComponent,
+		SidebarComponent,
+		DashboardComponent,
+		ProductsFormComponent,
+		ProductsListComponent,
+		CategoriesListComponent,
+		CategoriesFormComponent,
+		OrdersListComponent,
+		OrdersDetailComponent,
+		UsersListComponent,
+		UsersFormComponent,
+		AuthentificationComponent
+	],
+	imports: [
+		PasswordModule,
+		ChartModule,
+		BrowserModule,
+		RouterModule.forRoot(appRoutes),
+		CardModule,
+		ButtonModule,
+		ToastModule,
+		ToolbarModule,
+		TableModule,
+		ConfirmDialogModule,
+		HttpClientModule,
+		FormsModule,
+		ReactiveFormsModule,
+		InputTextModule,
+		FileUploadModule,
+		BrowserAnimationsModule,
+		DropdownModule
+	],
+	providers: [CategoriesService, MessageService, ConfirmationService],
+	bootstrap: [AppComponent],
+	exports: [
+		SidebarComponent,
+		DashboardComponent,
+		ProductsFormComponent,
+		ProductsListComponent,
+		CategoriesListComponent,
+		CategoriesFormComponent,
+		OrdersListComponent,
+		OrdersDetailComponent,
+		UsersListComponent,
+		UsersFormComponent
+	]
 })
-export class AppModule { }
+export class AppModule {}

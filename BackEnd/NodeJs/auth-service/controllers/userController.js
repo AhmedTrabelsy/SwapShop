@@ -121,7 +121,7 @@ exports.getUserRegistrationsByMonth = async (req, res) => {
 
         users.forEach(user => {
             const registrationDate = new Date(user.createdTimestamp);
-            const monthYear = `${registrationDate.getMonth() + 1} - ${registrationDate.getFullYear()}`;
+            const monthYear = `${registrationDate.getMonth() + 1}-${registrationDate.getFullYear()}`;
 
             if (!registrationsByMonth[monthYear]) {
                 registrationsByMonth[monthYear] = 0;
@@ -142,7 +142,7 @@ exports.getUserRegistrationsByMonth = async (req, res) => {
                 usersCount: count,
             });
 
-            currentDate.setMonth(currentDate.getMonth() - 1);
+            currentDate.setMonth(currentDate.getMonth() - 1); // Move to the previous month
         }
 
         return res.status(200).json({
@@ -157,3 +157,4 @@ exports.getUserRegistrationsByMonth = async (req, res) => {
         });
     }
 };
+

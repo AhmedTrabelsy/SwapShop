@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { product } from 'libs/products/src/lib/models/product';
 import { Order } from 'libs/products/src/lib/models/order';
+import { AuthentificationService } from 'libs/products/src/lib/services/authentification.service';
 
 @Component({
   selector: 'swap-shop-dashboard',
@@ -14,7 +15,7 @@ import { Order } from 'libs/products/src/lib/models/order';
   styles: ``
 })
 export class DashboardComponent implements OnInit, OnDestroy  {
-  constructor(private productsService: ProductService, private orderService: OrderService){}
+  constructor(private productsService: ProductService, private orderService: OrderService, private authService: AuthentificationService){}
   productsCount = 0;
   currentOrders = 10;
   registredUsers = 10;
@@ -24,12 +25,32 @@ export class DashboardComponent implements OnInit, OnDestroy  {
   products: product[] = [];
   orders: Order[] = [];
   endsubs$: Subject<unknown> = new Subject();
-
   private productSubscription?: Subscription;
   private orderSubscription?: Subscription;
+  private authSubscription?: Subscription;
   // constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
+    const accessToken = sessionStorage.getItem('access_token');
+    if (accessToken) {
+    this.authService.getUserCount(accessToken).subscribe(
+      (response) => {
+        console.log('User count:', response.userCount);
+        this.registredUsers = response.userCount;
+      },
+      (error) => {
+        console.error('Failed to get user count:', error.message);
+      }
+    );
+    this.authService.getUsersPerMounth(accessToken).subscribe(
+      (response) => {
+        console.log('User count:', response.data);
+      },
+      (error) => {
+        console.error('Failed to get user count:', error.message);
+      }
+    );
+    }
     this.orderService
       .getLastUpdatedOrders()
       .pipe(takeUntil(this.endsubs$))
