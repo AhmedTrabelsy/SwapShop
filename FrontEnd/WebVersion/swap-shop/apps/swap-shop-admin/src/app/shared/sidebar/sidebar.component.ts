@@ -7,7 +7,8 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
 logoutUser() {
-throw new Error('Method not implemented.');
+  sessionStorage.removeItem('access_token');
+  window.location.href = '/login';
 }
 isAuthenticated = false;
 constructor() {
