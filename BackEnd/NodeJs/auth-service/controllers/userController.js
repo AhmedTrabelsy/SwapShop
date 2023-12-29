@@ -1,5 +1,7 @@
 const axios = require('axios');
 const { getAdminToken } = require('./authController');
+const jwt = require('jsonwebtoken');
+const axios = require('axios');
 
 exports.getUserData = async (req, res) => {
 	const token = req.headers.authorization;
@@ -158,3 +160,31 @@ exports.getUserRegistrationsByMonth = async (req, res) => {
     }
 };
 
+exports.getUserDetailsFromToken = async (req, res) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+
+        const decoded = jwt.decode(token);
+
+        if (!decoded || !decoded.sub) {
+            return res.status(400).json({
+                status: 'error',
+                message: 'Invalid token or missing user ID',
+            });
+        }
+
+        const userId = decoded.sub;
+        const adminToken = await getAdminToken();
+
+        return res.status(200).json({
+            status: 'success',
+            userId: userId,
+        });
+    } catch (error) {
+        console.error('Error retrieving user Id from token:', error.message);
+        return res.status(500).json({
+            status: 'error',
+            message: 'Failed to retrieve user Id from token',
+        });
+    }
+};
