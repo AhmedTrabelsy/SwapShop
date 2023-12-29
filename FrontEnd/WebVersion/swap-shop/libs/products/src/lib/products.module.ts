@@ -8,9 +8,13 @@ import { FeaturedProductsComponent } from './components/featured-products/featur
 import { ButtonModule } from 'primeng/button';
 import { BadgeModule } from 'primeng/badge';
 import { LoginPageComponent } from './components/login-page/login-page.component';
+import { CardModule } from 'primeng/card';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
 	declarations: [ProductsComponent, ProductsSearchComponent, CategoriesBannerComponent, ProductItemComponent, FeaturedProductsComponent, LoginPageComponent],
-	imports: [CommonModule, ButtonModule, BadgeModule],
+	imports: [ReactiveFormsModule, FormsModule, CommonModule, ButtonModule, BadgeModule,CardModule, InputTextModule, PasswordModule],
 	exports: [ProductsComponent, ProductsSearchComponent, CategoriesBannerComponent, ProductItemComponent, FeaturedProductsComponent]
 })
 export class ProductsModule {}

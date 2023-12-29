@@ -1,1 +1,23 @@
-<p>login-page works!</p>
+<div class="login-page">
+    <p-card header="Login" subheader="Register Form" [style]="{ width: '360px', 'margin': '0 auto' }">
+        <ng-template pTemplate="header">
+            <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+        </ng-template>
+        <form (ngSubmit)="onSubmit()" [formGroup]="form">
+            <div class="flex flex-column gap-2">
+              <label for="username">Username</label>
+              <input pInputText id="username" formControlName="username" aria-describedby="username-help" name="username" required />
+              <small id="username-help">Enter your username</small>
+            </div>
+            <br />
+            <div class="flex flex-column gap-2">
+              <label for="password">Password</label>
+              <p-password [feedback]="false" formControlName="password" [toggleMask]="true" aria-describedby="password-help" name="password" required />
+              <small id="password-help">Enter your password</small>
+            </div>
+            <br />
+              <p-button label="Login" icon="pi pi-check" type="submit"></p-button>
+              <p-button label="Cancel" type="reset" icon="pi pi-times" styleClass="p-button-secondary" [style]="{ 'margin-left': '.5em' }"></p-button>
+          </form>  
+    </p-card>
+</div>
