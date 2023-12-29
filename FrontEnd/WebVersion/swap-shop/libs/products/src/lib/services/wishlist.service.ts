@@ -48,7 +48,7 @@ export class WishlistService {
   
   addToWishlist(productId: number): Observable<any> {
     const payload = {
-      user_id: 1,
+      user_id: sessionStorage.getItem('userId'),
       product_id: productId
     };
 

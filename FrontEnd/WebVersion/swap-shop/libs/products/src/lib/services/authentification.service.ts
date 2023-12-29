@@ -29,6 +29,14 @@ export class AuthentificationService {
 
     return this.http.get<any>(getUserCountUrl, { headers });
   }
+  getUserId(token: string): Observable<any> {
+    const getUserIdUrl = `${this.BASE_URL_AUTH_SERVICE}/getUserId`;
+  
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    return this.http.get<any>(getUserIdUrl, { headers: headers });
+  }  
   getUsersPerMounth(token: string): Observable<any> {
     const getUsersPerMounthUrl = `${this.BASE_URL_AUTH_SERVICE}/getUsersPerMonth`;
 
