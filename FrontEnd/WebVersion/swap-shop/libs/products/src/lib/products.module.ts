@@ -12,9 +12,10 @@ import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MessagesModule } from 'primeng/messages';
 @NgModule({
 	declarations: [ProductsComponent, ProductsSearchComponent, CategoriesBannerComponent, ProductItemComponent, FeaturedProductsComponent, LoginPageComponent],
-	imports: [ReactiveFormsModule, FormsModule, CommonModule, ButtonModule, BadgeModule,CardModule, InputTextModule, PasswordModule],
+	imports: [MessagesModule, ReactiveFormsModule, FormsModule, CommonModule, ButtonModule, BadgeModule,CardModule, InputTextModule, PasswordModule],
 	exports: [ProductsComponent, ProductsSearchComponent, CategoriesBannerComponent, ProductItemComponent, FeaturedProductsComponent]
 })
 export class ProductsModule {}

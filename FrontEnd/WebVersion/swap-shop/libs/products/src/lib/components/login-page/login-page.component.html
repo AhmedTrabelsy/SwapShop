@@ -1,8 +1,9 @@
 <div class="login-page">
-    <p-card header="Login" subheader="Register Form" [style]="{ width: '360px', 'margin': '0 auto' }">
+    <p-card header="Login" subheader="Register Form" [style]="{ width: '400px', 'margin': '0 auto' }">
         <ng-template pTemplate="header">
             <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
         </ng-template>
+        <p [style.color]="'red'" *ngIf="!isAuthenticating">{{ alertMessage }}</p>
         <form (ngSubmit)="onSubmit()" [formGroup]="form">
             <div class="flex flex-column gap-2">
               <label for="username">Username</label>

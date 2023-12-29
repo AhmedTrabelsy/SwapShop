@@ -5,11 +5,9 @@ import { Component } from '@angular/core';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {
-// sessionStorage.setItem('key', 'value');
 isAuthenticated = false;
 constructor() {
-  // Retrieve the value from session storage
-  const retrievedValue: string | null = sessionStorage.getItem('key');
+  const retrievedValue: string | null = sessionStorage.getItem('access_token');
 
   if (retrievedValue !== null) {
     this.isAuthenticated = true;
