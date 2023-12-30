@@ -161,7 +161,23 @@ exports.getUserRegistrationsByMonth = async (req, res) => {
 
 exports.getUserIdFromToken = async (req, res) => {
     try {
-        const token = req.headers.authorization.split(' ')[1];
+        if (!req.headers.authorization || typeof req.headers.authorization !== 'string') {
+            return res.status(400).json({
+                status: 'error',
+                message: 'Invalid Authorization header',
+            });
+        }
+
+        const authHeaderParts = req.headers.authorization.split(' ');
+
+        if (authHeaderParts.length !== 2 || authHeaderParts[0] !== 'Bearer') {
+            return res.status(400).json({
+                status: 'error',
+                message: 'Invalid Authorization header format. Use "Bearer token"',
+            });
+        }
+
+        const token = authHeaderParts[1];
 
         const decoded = jwt.decode(token);
 
