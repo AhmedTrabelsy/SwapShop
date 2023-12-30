@@ -7,14 +7,23 @@ import { WishlistService } from '../../services/wishlist.service';
   templateUrl: './product-item.component.html',
 })
 export class ProductItemComponent{
+
   @Input() product?: product
   wishlistProducts?: product[];
-
+  isAuthenticated = false;
   badgeStatus: 'success' | 'info' | 'warning' | 'danger' | null | undefined ='danger'
   badgeValue="Unsigned"
   sellerName="name"
 
-  constructor(private wishlistService: WishlistService) { }
+  constructor(private wishlistService: WishlistService) { 
+    const retrievedValue: string | null = sessionStorage.getItem('access_token');
+
+  if (retrievedValue !== null) {
+    this.isAuthenticated = true;
+  } else {
+    console.log('Value not found in session storage');
+  }
+   }
 
   heartClass: string = 'pi pi-heart';
   wishlistText: string = ' Add to Wishlist';
