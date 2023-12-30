@@ -42,8 +42,17 @@ export class LoginPageComponent {
         if (response && response.access_token) {
           sessionStorage.setItem('credentials', response);
           sessionStorage.setItem('access_token', response.access_token);
+          this.authService.getUserId(response.access_token).subscribe(
+            (response) => {
+              sessionStorage.setItem('userId', response.userId);
+              console.log('Get user id successful:', response.userId)
+            },
+            (error) => {
+              console.error('Get user id failed:', error);
+            }
+          );
           this.isAuthenticating = true;
-          window.location.href = '/';
+          // window.location.href = '/';
         }
       },
       (error) => {
