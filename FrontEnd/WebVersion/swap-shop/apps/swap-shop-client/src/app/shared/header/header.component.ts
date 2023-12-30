@@ -21,6 +21,7 @@ toggleLogoutMenu() {
 }
 logoutUser() {
   sessionStorage.removeItem('access_token');
+  sessionStorage.removeItem('userId');
   window.location.href = '/';
 }
 
