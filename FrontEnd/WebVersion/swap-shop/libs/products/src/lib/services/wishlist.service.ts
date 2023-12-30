@@ -15,7 +15,7 @@ export class WishlistService {
 
   getWishlist(): Observable<wishlist> {
     console.log("hello");
-    return this.http.get<any>("http://34.199.239.78:8888/WISHLIST-SERVICE/1").pipe(
+    return this.http.get<any>(`http://34.199.239.78:8888/WISHLIST-SERVICE/${sessionStorage.getItem('userId')}`).pipe(
       map((data: any) => {
         console.log("data", data);
         const processedWishlist: wishlist = {
@@ -27,13 +27,13 @@ export class WishlistService {
     );
   }
   getProducts(): Observable<product[]> {
-    return this.http.get<any>("http://34.199.239.78:8888/WISHLIST-SERVICE/1").pipe(
+    return this.http.get<any>(`http://34.199.239.78:8888/WISHLIST-SERVICE/${sessionStorage.getItem('userId')}`).pipe(
       map((data: any) => data.products.filter((product: any) => product !== null && product !== undefined))
     );
   }
   deleteProduct(productId: number): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.http.delete(`http://34.199.239.78:8888/WISHLIST-SERVICE/1/${productId}`).subscribe(
+      this.http.delete(`http://34.199.239.78:8888/WISHLIST-SERVICE/${sessionStorage.getItem('userId')}/${productId}`).subscribe(
         () => {
           console.log("Deleted Product ID:", productId);
           resolve();
