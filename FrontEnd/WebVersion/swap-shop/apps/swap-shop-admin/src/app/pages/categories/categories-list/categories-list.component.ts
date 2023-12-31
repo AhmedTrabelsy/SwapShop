@@ -43,7 +43,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
         accept: () => {
           this.categoriesService
             .deleteCategoryById(categoryId)
-            .subscribe(
+            .then(
               () => {
                 this._getCategories();
                 this.messageService.add({
@@ -64,8 +64,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
       });
     }
   }
-
-
+  
   updateCategory(categoryid: string) {
     this.router.navigateByUrl(`categories/form/${categoryid}`);
   }
