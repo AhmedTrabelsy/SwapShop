@@ -40,19 +40,19 @@ export class LoginPageComponent {
       (response) => {
         console.log('Login successful:', response);
         if (response && response.access_token) {
-          sessionStorage.setItem('credentials', response);
+          console.log(response);
           sessionStorage.setItem('access_token', response.access_token);
           this.authService.getUserId(response.access_token).subscribe(
             (response) => {
               sessionStorage.setItem('userId', response.userId);
               console.log('Get user id successful:', response.userId)
+              this.isAuthenticating = true;
+              window.location.href = '/';
             },
             (error) => {
               console.error('Get user id failed:', error);
             }
           );
-          this.isAuthenticating = true;
-          // window.location.href = '/';
         }
       },
       (error) => {
