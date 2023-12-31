@@ -10,18 +10,20 @@ import { OrdersListComponent } from './pages/orders/orders-list/orders-list.comp
 import { OrdersDetailComponent } from './pages/orders/orders-detail/orders-detail.component';
 import { AuthentificationComponent } from './pages/auth/Authentification.component';
 import { HasRoleGuard } from '../../../../libs/products/src/lib/Auth-Roles-guard/has-role.guard';
+import { UnothorizedComponent } from 'libs/products/src/lib/components/unothorized/unothorized.component';
 export const appRoutes: Route[] = [
-  { path: '', component: DashboardComponent },
-  { path: 'categories', component: CategoriesListComponent },
-  { path: 'categories/form', component: CategoriesFormComponent },
-  { path: 'categories/form/:id', component: CategoriesFormComponent },
-  { path: 'products', component: ProductsListComponent },
-  { path: 'products/form', component: ProductsFormComponent },
-  { path: 'products/form/:id', component: ProductsFormComponent },
-  { path: 'users', component: UsersListComponent, canActivate: [HasRoleGuard], data: {userRole: 'client-admin'} },
-  { path: 'users/form', component: UsersFormComponent },
-  { path: 'users/form/:id', component: UsersFormComponent },
-  { path: 'orders', component: OrdersListComponent },
-  { path: 'orders/:id', component: OrdersDetailComponent },
-  { path: 'login', component: AuthentificationComponent }
+  { path: '', component: DashboardComponent, canActivate: [HasRoleGuard], data: {userRole: ['client-admin','client-seller']} },
+  { path: 'categories', component: CategoriesListComponent, canActivate: [HasRoleGuard], data: {userRole: ['client-admin','client-seller']} },
+  { path: 'categories/form', component: CategoriesFormComponent, canActivate: [HasRoleGuard], data: {userRole: ['client-admin']} },
+  { path: 'categories/form/:id', component: CategoriesFormComponent, canActivate: [HasRoleGuard], data: {userRole: ['client-admin']} },
+  { path: 'products', component: ProductsListComponent, canActivate: [HasRoleGuard], data: {userRole: ['client-admin','client-seller']} },
+  { path: 'products/form', component: ProductsFormComponent, canActivate: [HasRoleGuard], data: {userRole: ['client-admin','client-seller']} },
+  { path: 'products/form/:id', component: ProductsFormComponent, canActivate: [HasRoleGuard], data: {userRole: ['client-admin','client-seller']} },
+  { path: 'users', component: UsersListComponent, canActivate: [HasRoleGuard], data: {userRole: ['client-admin']} },
+  { path: 'users/form', component: UsersFormComponent, canActivate: [HasRoleGuard], data: {userRole: ['client-admin']} },
+  { path: 'users/form/:id', component: UsersFormComponent, canActivate: [HasRoleGuard], data: {userRole: ['client-admin']} },
+  { path: 'orders', component: OrdersListComponent, canActivate: [HasRoleGuard], data: {userRole: ['client-admin','client-seller']} },
+  { path: 'orders/:id', component: OrdersDetailComponent, canActivate: [HasRoleGuard], data: {userRole: ['client-admin','client-seller']} },
+  { path: 'login', component: AuthentificationComponent },
+  { path: 'unauthorized', component: UnothorizedComponent },
 ];
