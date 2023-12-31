@@ -15,6 +15,9 @@ export class AuthentificationService {
   constructor(private http: HttpClient) {
     // this.user = this.getUserInfo(this.getToken());
   }
+  isAuthenticated() {
+    return of(this.getToken() !== '');
+  }
   login(username: string, password: string): Observable<any> {
     const loginUrl = `${this.BASE_URL_AUTH_SERVICE}/login`;
 
@@ -55,9 +58,7 @@ export class AuthentificationService {
   }
 
   getUserInfo(token: string): Observable<any> {
-    const userData = JSON.parse(atob(token.split('.')[1])); // Parse user data from the token
-
-    // Assuming 'userData' contains user information, return it as an Observable
+    const userData = JSON.parse(atob(token.split('.')[1]));
     return of(userData);
   }
 }
