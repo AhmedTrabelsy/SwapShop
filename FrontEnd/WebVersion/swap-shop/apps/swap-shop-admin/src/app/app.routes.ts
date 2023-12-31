@@ -9,7 +9,7 @@ import { UsersFormComponent } from './pages/users/users-form/users-form.componen
 import { OrdersListComponent } from './pages/orders/orders-list/orders-list.component';
 import { OrdersDetailComponent } from './pages/orders/orders-detail/orders-detail.component';
 import { AuthentificationComponent } from './pages/auth/Authentification.component';
-
+import { HasRoleGuard } from '../../../../libs/products/src/lib/Auth-Roles-guard/has-role.guard';
 export const appRoutes: Route[] = [
   { path: '', component: DashboardComponent },
   { path: 'categories', component: CategoriesListComponent },
@@ -18,7 +18,7 @@ export const appRoutes: Route[] = [
   { path: 'products', component: ProductsListComponent },
   { path: 'products/form', component: ProductsFormComponent },
   { path: 'products/form/:id', component: ProductsFormComponent },
-  { path: 'users', component: UsersListComponent },
+  { path: 'users', component: UsersListComponent, canActivate: [HasRoleGuard], data: {userRole: 'client-admin'} },
   { path: 'users/form', component: UsersFormComponent },
   { path: 'users/form/:id', component: UsersFormComponent },
   { path: 'orders', component: OrdersListComponent },

@@ -42,6 +42,7 @@ export class LoginPageComponent {
         if (response && response.access_token) {
           console.log(response);
           sessionStorage.setItem('access_token', response.access_token);
+          this.authService.getUserInfo(response.access_token);
           this.authService.getUserId(response.access_token).subscribe(
             (response) => {
               sessionStorage.setItem('userId', response.userId);
