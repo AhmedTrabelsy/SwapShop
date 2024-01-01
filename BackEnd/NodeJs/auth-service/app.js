@@ -7,6 +7,7 @@ const {
 	getUserRegistrationsByMonth,
 	getUserIdFromToken,
 	getAllUsers,
+	deleteUser,
 } = require('./controllers/userController');
 const app = express();
 require('express-async-errors');
@@ -27,5 +28,6 @@ app.get('/getUsersPerMonth', getUserRegistrationsByMonth);
 app.get('/getUserId', getUserIdFromToken);
 
 app.get('/users', getAllUsers);
+app.delete('/users/:id', deleteUser);
 
 module.exports = app;
