@@ -1,0 +1,54 @@
+<p-toast></p-toast>
+<div class="admin-page">
+  <p-card [header]="'Add Product'">
+    <div class="grid mb-5">
+      <div class="col-12">
+        <p-toolbar>
+          <div class="p-toolbar-group-left"></div>
+          <div class="p-toolbar-group-right">
+            <p-button styleClass="p-button-primary mr-2" [label]="'add'" icon="pi pi-plus"
+              (click)="onSubmit()"></p-button>
+            <p-button styleClass="p-button-secondary" label="Cancel" icon="pi pi-arrow-circle-left"></p-button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col-12">
+        <div class="p-fluid p-formgrid grid">
+          <div class="field col-6">
+            <span class="p-float-label">
+              <p-dropdown (onChange)="onChangeCategory($event)" [options]=" categories" [ngModel]="categoryID"
+                formControlName="categoryID" optionLabel="name" inputId="float-label"></p-dropdown>
+              <label for="float-label">Category</label>
+            </span>
+          </div>
+          <div class="field col-6">
+            <span class="p-float-label">
+              <input pInputText id="name" [(ngModel)]="name" pInputText />
+              <label htmlFor="name">Name</label>
+            </span>
+          </div>
+          <div class="field col-12">
+            <span class="p-float-label">
+              <input type="file" pInputText id="image" (change)="onFileSelected($event)" #fileUpload />
+              <label htmlFor="image">Image</label>
+            </span>
+          </div>
+          <div class="field col-12">
+            <span class="p-float-label">
+              <textarea pInputText id="description" [(ngModel)]="description" pInputText></textarea>
+              <label htmlFor="description">Description</label>
+            </span>
+          </div>
+          <div class="field col-12">
+            <span class="p-float-label">
+              <input pInputText id="price" [(ngModel)]="price" pInputText />
+              <label htmlFor="price">Price</label>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-card>
+</div>

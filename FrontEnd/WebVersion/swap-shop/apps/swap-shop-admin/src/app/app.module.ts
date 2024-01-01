@@ -31,6 +31,7 @@ import { ChartModule } from 'primeng/chart';
 import { AuthentificationComponent } from './pages/auth/Authentification.component';
 import { LoginPageComponent } from 'libs/products/src/lib/components/login-page/login-page.component';
 import { PasswordModule } from 'primeng/password';
+import { ProductsAddComponent } from './pages/products/products-add/products-add.component';
 @NgModule({
 	declarations: [
 		LoginPageComponent,
@@ -45,7 +46,8 @@ import { PasswordModule } from 'primeng/password';
 		OrdersDetailComponent,
 		UsersListComponent,
 		UsersFormComponent,
-		AuthentificationComponent
+		AuthentificationComponent,
+    ProductsAddComponent,
 	],
 	imports: [
 		PasswordModule,
@@ -64,7 +66,7 @@ import { PasswordModule } from 'primeng/password';
 		InputTextModule,
 		FileUploadModule,
 		BrowserAnimationsModule,
-		DropdownModule
+		DropdownModule,
 	],
 	providers: [CategoriesService, MessageService, ConfirmationService],
 	bootstrap: [AppComponent],
@@ -73,12 +75,13 @@ import { PasswordModule } from 'primeng/password';
 		DashboardComponent,
 		ProductsFormComponent,
 		ProductsListComponent,
+    ProductsAddComponent,
 		CategoriesListComponent,
 		CategoriesFormComponent,
 		OrdersListComponent,
 		OrdersDetailComponent,
 		UsersListComponent,
-		UsersFormComponent
+		UsersFormComponent,
 	]
 })
 export class AppModule {}

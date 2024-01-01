@@ -5,7 +5,7 @@
       <div class="col-12">
         <p-toolbar>
           <div class="p-toolbar-group-left">
-            <p-button styleClass="p-button-success" label="New" icon="pi pi-plus" routerLink="form"></p-button>
+            <p-button styleClass="p-button-success" label="New" icon="pi pi-plus" routerLink="add"></p-button>
           </div>
         </p-toolbar>
       </div>
@@ -28,7 +28,7 @@
           </ng-template>
           <ng-template pTemplate="body" let-product>
             <tr>
-              <td class="w-1"><img [src]="'http://34.199.239.78:8888/PRODUCT-SERVICE/' + product.images[0].name"
+              <td class="w-1"><img [src]="'http://34.199.239.78:8888/PRODUCT-SERVICE/' + product.images[0]?.name"
                   style="width: 100%" alt="swap shop product image" /></td>
               <td>{{ product.name }}</td>
               <td>{{ product.price }}</td>
