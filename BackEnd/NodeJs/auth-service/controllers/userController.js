@@ -38,7 +38,7 @@ exports.deleteUser = async (req, res) => {
 			},
 		});
 
-		return res.status(200);
+		return res.status(200).end();
 	} catch (err) {
 		return res.status(500).json({ err });
 	}
@@ -85,7 +85,32 @@ exports.updateUser = async (req, res) => {
 			},
 		);
 
-		return res.status(200);
+		return res.status(200).end();
+	} catch (err) {
+		return res.status(500).json({ err });
+	}
+};
+
+exports.getUser = async (req, res) => {
+	let user_id = req.params.id;
+
+	if (user_id == null) {
+		return res.status(400).json({
+			status: 'fail',
+			message: 'user_id is missing',
+		});
+	}
+
+	try {
+		const token = await getAdminToken();
+
+		const response = await axios.get('http://34.199.239.78:8080/admin/realms/SwapShop/users/' + user_id, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
+
+		return res.status(200).json(response.data);
 	} catch (err) {
 		return res.status(500).json({ err });
 	}

@@ -75,6 +75,12 @@ services:
       dockerfile: Dockerfile
     ports:
       - '8085:8085'
+  notification:
+    build:
+      context: ./BackEnd/NodeJs/notification-service
+      dockerfile: Dockerfile
+    ports:
+      - '8097:8097'
   news:
     build:
       context: ./BackEnd/NodeJs/news-service
