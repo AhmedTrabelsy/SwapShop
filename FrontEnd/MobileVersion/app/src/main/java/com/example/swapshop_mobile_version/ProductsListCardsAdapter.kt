@@ -173,12 +173,12 @@ class ProductsListCardsAdapter(private var myDataSet: ArrayList<Products>, priva
         holder.addToWishList.setOnClickListener {
             if (isWished) {
                 requestQueue = Volley.newRequestQueue(context)
-                deleteFromWishlist(1L,myDataSet[position].id)
+                myDataSet[position].id?.let { it1 -> deleteFromWishlist(1L, it1) }
                 holder.addToWishList.setImageResource(R.drawable.ic_no_wished)
                 notifyDataSetChanged()
             } else {
                 requestQueue = Volley.newRequestQueue(context)
-                addToWishlist(1L,myDataSet[position].id)
+                myDataSet[position].id?.let { it1 -> addToWishlist(1L, it1) }
                 holder.addToWishList.setImageResource(R.drawable.ic_wished)
                 notifyDataSetChanged()
             }

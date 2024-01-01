@@ -2,6 +2,8 @@ package com.example.orderservice.controller;
 
 import Requests.setOrderRequest;
 import com.example.orderservice.entity.order;
+import com.example.orderservice.entity.product;
+import com.example.orderservice.repository.ProductServiceClient;
 import com.example.orderservice.repository.orderRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,24 +13,32 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 public class orderController {
     @Autowired
     orderRepository orderRepository;
 
+    @Autowired
+    ProductServiceClient productServiceClient;
+
     @GetMapping("/orders")
     public List<order> getOrder() {
-        return orderRepository.findAll();
+        List<order> orders = orderRepository.findAll();
+        orders.forEach(order -> {
+            order.setProduct(productServiceClient.findProductById(order.getProductId()));
+        });
+        return orders;
     }
 
     @PostMapping("/neworder")
-    public void createOrder(setOrderRequest request) {
+    public void createOrder(@Valid setOrderRequest request) {
         order o=new order();
         o.setUserId(request.getUserId());
-        o.setProductId(request.getProudctId());
+        o.setProductId(request.getProductId());
         o.setBillingAdress(request.getBillingAdress());
         o.setCreatedAt(new Date());
         o.setUpdatedAt(new Date());
@@ -42,8 +52,8 @@ public class orderController {
         if (request.getUserId() != null) {
             o.setUserId(request.getUserId());
         }
-        if (request.getProudctId() != null) {
-           o.setProductId(request.getProudctId());
+        if (request.getProductId() != null) {
+            o.setProductId(request.getProductId());
         }
         if (request.getBillingAdress() != null) {
             o.setBillingAdress(request.getBillingAdress());
@@ -51,5 +61,41 @@ public class orderController {
         o.setUpdatedAt(new Date());
         orderRepository.save(o);
     }
+    @GetMapping("/orderCount")
+    public int getOrderCount(){
+        return orderRepository.getOrderCount();
+    }
 
+    @GetMapping("/orderPerMonth")
+    public List<Double> getOrderPricesSumByMonth() {
+        LocalDate currentDate = LocalDate.now();
+        int year = currentDate.getYear();
+
+        List<order> orders = orderRepository.findByYear(year);
+
+        double[] orderPricesByMonth = new double[12];
+
+        for (order order : orders) {
+            int month = order.getCreatedAt().getMonth()+1;
+            double orderPrice = getProductPrice(order.getProductId());
+
+            orderPricesByMonth[month - 1] += orderPrice;
+        }
+
+        return Arrays.stream(orderPricesByMonth).boxed().collect(Collectors.toList());
+    }
+
+    private double getProductPrice(Long productId) {
+        product product = productServiceClient.findProductById(productId);
+        return (product != null) ? product.getPrice() : 0.0; 
+    }
+
+    @GetMapping("/getLastOrders")
+    public List<order> getLastOrders() {
+        List<order> orders = orderRepository.getLastModifiedOrder();
+        orders.forEach(order -> {
+            order.setProduct(productServiceClient.findProductById(order.getProductId()));
+        });
+        return orders;
+    }
 }

@@ -5,34 +5,16 @@ import { ProductsSearchComponent } from './components/products-search/products-s
 import { CategoriesBannerComponent } from './components/categories-banner/categories-banner.component';
 import { ProductItemComponent } from './components/product-item/product-item.component';
 import { FeaturedProductsComponent } from './components/featured-products/featured-products.component';
-<<<<<<< HEAD
-import {ButtonModule} from 'primeng/button'
-import { BadgeModule } from 'primeng/badge';
-
-@NgModule({
-    declarations: [
-        ProductsComponent,
-        ProductsSearchComponent,
-        CategoriesBannerComponent,
-        ProductItemComponent,
-        FeaturedProductsComponent
-    ],
-    imports: [
-        CommonModule,
-        ButtonModule,
-        BadgeModule,
-    ],
-    exports: [
-        ProductsComponent,
-        ProductsSearchComponent,
-        CategoriesBannerComponent,
-        ProductItemComponent,
-        FeaturedProductsComponent
-    ]
-=======
 import { ButtonModule } from 'primeng/button';
+import { BadgeModule } from 'primeng/badge';
+import { LoginPageComponent } from './components/login-page/login-page.component';
 import { WishlistItemComponent } from './components/wishlist-item/wishlist-item.component';
-
+import { CardModule } from 'primeng/card';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MessagesModule } from 'primeng/messages';
+import { UnothorizedComponent } from './components/unothorized/unothorized.component';
 @NgModule({
 	declarations: [
 		ProductsComponent,
@@ -40,10 +22,12 @@ import { WishlistItemComponent } from './components/wishlist-item/wishlist-item.
 		CategoriesBannerComponent,
 		ProductItemComponent,
 		FeaturedProductsComponent,
-		WishlistItemComponent
+		LoginPageComponent,
+    WishlistItemComponent,
+		UnothorizedComponent,
+		UnothorizedComponent
 	],
-	imports: [CommonModule, ButtonModule],
-	exports: [WishlistItemComponent,ProductsComponent, ProductsSearchComponent, CategoriesBannerComponent, ProductItemComponent, FeaturedProductsComponent]
->>>>>>> 4bd670574288a8f7ab9abbcc04fdd3823939e7bc
+	imports: [MessagesModule, ReactiveFormsModule, FormsModule, CommonModule, ButtonModule, BadgeModule, CardModule, InputTextModule, PasswordModule],
+	exports: [ProductsComponent, ProductsSearchComponent, CategoriesBannerComponent, ProductItemComponent, FeaturedProductsComponent, WishlistItemComponent]
 })
 export class ProductsModule {}

@@ -71,12 +71,10 @@ class WhishlistFragment : Fragment() {
 
         val goingToMap = view.findViewById<FloatingActionButton>(R.id.floatingActionButtonForMap)
         goingToMap.setOnClickListener {
-            /*val fragmentManager = requireActivity().supportFragmentManager
+            val fragmentManager = requireActivity().supportFragmentManager
             fragmentManager.beginTransaction()
-                .replace(R.id.main_fragment, MapsFragment())
-                .commit()*/
-            val intent = Intent(requireContext(), OrdersActivity::class.java)
-            startActivity(intent)
+                .replace(R.id.main_fragment, OrderFragment())
+                .commit()
         }
 
         return view

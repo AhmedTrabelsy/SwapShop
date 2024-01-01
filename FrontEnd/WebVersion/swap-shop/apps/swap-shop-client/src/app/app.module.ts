@@ -14,8 +14,12 @@ import { UiModule } from '@swap-shop/ui';
 import { ProductsModule } from '@swap-shop/products';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoriesService } from 'libs/products/src/lib/services/categories.service';
-<<<<<<< HEAD
 import { BadgeModule } from 'primeng/badge';
+import { ButtonModule } from 'primeng/button';
+import { WishlistService } from 'libs/products/src/lib/services/wishlist.service';
+import { WishListComponent } from './pages/wishlist-page/wish-list.component';
+import { CardModule } from 'primeng/card';
+import { ToolbarModule } from 'primeng/toolbar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,9 +28,10 @@ import { BadgeModule } from 'primeng/badge';
     FooterComponent,
     HeaderComponent,
     NavComponent,
-   
+    WishListComponent,
   ],
   imports: [
+    ToolbarModule,
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     AccordionModule,
@@ -34,38 +39,19 @@ import { BadgeModule } from 'primeng/badge';
     UiModule,
     ProductsModule,
     HttpClientModule,
+    ButtonModule,
     BadgeModule,
+    CardModule
   ],
   providers: [
     CategoriesService,
     {
       provide: DEFAULT_CURRENCY_CODE,
-      useValue: 'TND '
+      useValue: 'TND'
     },
+    WishlistService
   ],
   bootstrap: [AppComponent],
-  exports: [
-    HomePageComponent,
-  ]
-=======
-// import { WishlistService } from 'libs/products/src/lib/services/wishlist.service';
-// import { WishlistItemComponent } from 'libs/products/src/lib/components/wishlist-item/wishlist-item.component';
-import { WishListComponent } from './pages/wishlist-page/wish-list.component';
-import { CardModule } from 'primeng/card';
-
-@NgModule({
-	declarations: [AppComponent, HomePageComponent, ProductListComponent, FooterComponent, HeaderComponent, NavComponent, WishListComponent],
-	imports: [CardModule,BrowserModule, RouterModule.forRoot(appRoutes), AccordionModule, BrowserAnimationsModule, UiModule, ProductsModule, HttpClientModule],
-	providers: [
-		CategoriesService,
-		{
-			provide: DEFAULT_CURRENCY_CODE,
-			useValue: 'TND '
-		}
-		// WishListService,
-	],
-	bootstrap: [AppComponent],
-	exports: [HomePageComponent]
->>>>>>> 4bd670574288a8f7ab9abbcc04fdd3823939e7bc
+  exports: [HomePageComponent]
 })
 export class AppModule {}

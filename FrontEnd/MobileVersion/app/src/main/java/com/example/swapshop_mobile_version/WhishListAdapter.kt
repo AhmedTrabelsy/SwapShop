@@ -70,11 +70,15 @@ class WhishListAdapter(private var myDataSet: ArrayList<WishItems>, private val 
         holder.addToWishList.setOnClickListener {
             val sharePage = Intent(context, PaimantPage::class.java)
             val bundle = Bundle()
-            bundle.putString("price",myDataSet[position].product?.price)
-            bundle.putString("productName",myDataSet[position].product?.productName)
+            bundle.putString("price", myDataSet[position].product?.price)
+            bundle.putString("productName", myDataSet[position].product?.productName)
+            myDataSet[position].product?.id?.let { prodId ->
+                bundle.putLong("prodId", prodId)
+            }
             sharePage.putExtras(bundle)
             context.startActivity(sharePage)
         }
+
         holder.cancelCheckout.setImageResource(R.drawable.ic_cancel)
         holder.cancelCheckout.setOnClickListener {
             requestQueue = Volley.newRequestQueue(context)

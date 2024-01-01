@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-
 import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -228,5 +227,22 @@ public class ProductController {
     private boolean isValidFileExtension(String fileExtension) {
         List<String> allowedExtensions = Arrays.asList("jpg", "jpeg", "png", "gif");
         return allowedExtensions.contains(fileExtension.toLowerCase());
+    }
+
+    @GetMapping("/lastUpdatedProduct")
+    public List<product> getLastUpdatedProduct(){
+        List<product> products = productRepository.findLastThree();
+        products.forEach(product -> {
+            product.setCategory(categoryServiceClient.findCategoryById(product.getCategoryID()));
+        });
+        return products;
+    }
+    @GetMapping("/countProductInMounths")
+    public List<Long> getCountProductInMounth(){
+        return productRepository.getProductsUpdatedCountForEveryMonth();
+    }
+    @GetMapping("/productCount")
+    public int getProductCount(){
+        return productRepository.getProductCount();
     }
 }

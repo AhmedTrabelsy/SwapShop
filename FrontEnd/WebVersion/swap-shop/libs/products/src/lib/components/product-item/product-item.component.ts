@@ -1,33 +1,32 @@
 import { product } from '../../models/product';
 import { Component, Input } from '@angular/core';
 import { formatDistanceToNow } from 'date-fns';
-<<<<<<< HEAD
-import { BadgeModule } from 'primeng/badge';
-=======
 import { WishlistService } from '../../services/wishlist.service';
->>>>>>> 4bd670574288a8f7ab9abbcc04fdd3823939e7bc
-
 @Component({
   selector: 'swap-shop-product-item',
   templateUrl: './product-item.component.html',
 })
 export class ProductItemComponent{
+
   @Input() product?: product
   wishlistProducts?: product[];
-
-<<<<<<< HEAD
+  isAuthenticated = false;
   badgeStatus: 'success' | 'info' | 'warning' | 'danger' | null | undefined ='danger'
   badgeValue="Unsigned"
   sellerName="name"
-=======
 
-  constructor(private wishlistService: WishlistService) { }
+  constructor(private wishlistService: WishlistService) { 
+    const retrievedValue: string | null = sessionStorage.getItem('access_token');
+
+  if (retrievedValue !== null) {
+    this.isAuthenticated = true;
+  } else {
+    console.log('Value not found in session storage');
+  }
+   }
 
   heartClass: string = 'pi pi-heart';
   wishlistText: string = ' Add to Wishlist';
-
-
-
 
   toggleHeart(idString: string|undefined): void {
     const id = parseInt(idString || '0');
@@ -41,7 +40,6 @@ export class ProductItemComponent{
       this.wishlistText = ' Add to Wishlist';
     }
   }
->>>>>>> 4bd670574288a8f7ab9abbcc04fdd3823939e7bc
   getTimeAgo(creationDate?: Date): string {
     if (creationDate) {
       return formatDistanceToNow(new Date(creationDate), { addSuffix: true });

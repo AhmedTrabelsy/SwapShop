@@ -1,6 +1,6 @@
 const express = require('express');
 const { signup, login } = require('./controllers/authController');
-const { getUserData, updateProfile } = require('./controllers/userController');
+const { getUserData, updateProfile,getUserCount,getUserRegistrationsByMonth,getUserIdFromToken  } = require('./controllers/userController');
 const app = express();
 require('express-async-errors');
 
@@ -15,5 +15,8 @@ app.post('/signup', signup);
 app.post('/login', login);
 app.get('/user', getUserData);
 app.put('/update', updateProfile);
+app.get('/getUsersCount', getUserCount);
+app.get('/getUsersPerMonth', getUserRegistrationsByMonth);
+app.get('/getUserId',getUserIdFromToken);
 
 module.exports = app;

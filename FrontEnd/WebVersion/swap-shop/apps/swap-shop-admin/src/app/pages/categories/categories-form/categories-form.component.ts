@@ -10,6 +10,7 @@ import { Subscription, timer } from 'rxjs';
 
 
 
+
 @Component({
   selector: 'swap-shop-categories-form',
   templateUrl: './categories-form.component.html',

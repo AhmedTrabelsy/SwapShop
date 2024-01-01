@@ -8,20 +8,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.swapshop_mobile_version.models.Order
 import com.example.swapshop_mobile_version.models.Products
-
-class MyOrderAdapter(private var myDataSet: ArrayList<Order>, private val context: Context) :
+class MyOrderAdapter(private val listener: OnMapButtonClickListener,private var myDataSet: ArrayList<Order>, private val context: Context) :
     RecyclerView.Adapter<MyOrderAdapter.ViewHolder>() {
-
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
        val orderRef = itemView.findViewById(R.id.orderRef) as TextView
         val productName = itemView.findViewById(R.id.productName) as TextView
         val orderDate = itemView.findViewById(R.id.date) as TextView
         val billingAdress = itemView.findViewById(R.id.billingAdress) as TextView
         val goToMap = itemView.findViewById(R.id.shipping) as ImageButton
+        init {
+            goToMap.setOnClickListener {
+                listener.onMapButtonClicked()
+            }
+        }
+    }
+
+    interface OnMapButtonClickListener {
+        fun onMapButtonClicked()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,12 +47,23 @@ class MyOrderAdapter(private var myDataSet: ArrayList<Order>, private val contex
         holder.orderDate.text = "Order Date: ${myDataSet[position].checkedDate.toString()}"
         holder.billingAdress.text = "Billing adress: ${myDataSet[position].billingAdress.toString()}"
         holder.goToMap.setOnClickListener {
-            val intent = Intent(context, MainActivity::class.java)
+            // Create an instance of the MapsFragment
+            val mapsFragment = MapsFragment()
 
+            // Set arguments if needed
             val bundle = Bundle()
             val yea = "yessForMap"
-            bundle.putString("isCallingToMap",yea)
-            context.startActivity(intent)
+            bundle.putString("isCallingToMap", yea)
+            mapsFragment.arguments = bundle
+
+            // Navigate to the MapsFragment
+            val fragmentManager = (context as AppCompatActivity).supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+
+            // Replace the current fragment with MapsFragment
+           /* fragmentTransaction.replace(R.id.fragment_container, mapsFragment)
+            fragmentTransaction.addToBackStack(null) // If you want to add to back stack
+            fragmentTransaction.commit()*/
         }
     }
 }

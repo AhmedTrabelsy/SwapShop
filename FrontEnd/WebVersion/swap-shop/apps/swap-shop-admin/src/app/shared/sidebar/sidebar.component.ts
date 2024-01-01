@@ -7,7 +7,18 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
 logoutUser() {
-throw new Error('Method not implemented.');
+  sessionStorage.removeItem('access_token');
+  window.location.href = '/login';
+}
+isAuthenticated = false;
+constructor() {
+  const retrievedValue: string | null = sessionStorage.getItem('access_token');
+
+  if (retrievedValue !== null) {
+    this.isAuthenticated = true;
+  } else {
+    console.log('Value not found in session storage');
+  }
 }
 
 }

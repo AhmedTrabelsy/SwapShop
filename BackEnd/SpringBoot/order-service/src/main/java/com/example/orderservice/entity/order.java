@@ -5,18 +5,17 @@ import lombok.*;
 
 import java.util.Date;
 
-@Entity(name = "`order`")
-@Getter
-@Setter
+@Entity
+@Table(name = "orders")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long userId;
     private String billingAdress;
+    @Transient
+    private product product;
     private Long productId;
     private Date createdAt;
     private Date updatedAt;
