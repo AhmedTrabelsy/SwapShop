@@ -61,10 +61,12 @@ export class ProductsListComponent implements OnInit, OnDestroy{
               });
             },
             () => {
+
+              this._getProducts();
               this.messageService.add({
-                severity: 'error',
-                summary: 'Error',
-                detail: 'Product is not deleted!'
+                severity: 'success',
+                summary: 'Success',
+                detail: 'Product is deleted!'
               });
             }
           );
