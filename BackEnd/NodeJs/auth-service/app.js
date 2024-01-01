@@ -8,6 +8,7 @@ const {
 	getUserIdFromToken,
 	getAllUsers,
 	deleteUser,
+	updateUser,
 } = require('./controllers/userController');
 const app = express();
 require('express-async-errors');
@@ -29,5 +30,6 @@ app.get('/getUserId', getUserIdFromToken);
 
 app.get('/users', getAllUsers);
 app.delete('/users/:id', deleteUser);
+app.put('/users/:id', updateUser);
 
 module.exports = app;

@@ -44,6 +44,53 @@ exports.deleteUser = async (req, res) => {
 	}
 };
 
+exports.updateUser = async (req, res) => {
+	let user_id = req.params.id;
+
+	let { username, firstName, lastName, phoneNumber, email } = req.body;
+
+	if (
+		user_id == null ||
+		username == null ||
+		firstName == null ||
+		lastName == null ||
+		phoneNumber == null ||
+		email == null
+	) {
+		return res.status(400).json({
+			status: 'fail',
+			message: 'some fields are missing',
+		});
+	}
+
+	try {
+		const token = await getAdminToken();
+
+		const response = await axios.put(
+			'http://34.199.239.78:8080/admin/realms/SwapShop/users/' + user_id,
+			{
+				username: username,
+				firstName: firstName,
+				lastName: lastName,
+				email: email,
+				enabled: true,
+				attributes: {
+					phone_number: phoneNumber,
+				},
+			},
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			},
+		);
+
+		return res.status(200);
+	} catch (err) {
+		return res.status(500).json({ err });
+	}
+};
+
 exports.getUserData = async (req, res) => {
 	const token = req.headers.authorization;
 
