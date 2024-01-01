@@ -38,7 +38,7 @@ exports.deleteUser = async (req, res) => {
 			},
 		});
 
-		return res.status(200);
+		return res.status(200).end();
 	} catch (err) {
 		return res.status(500).json({ err });
 	}
@@ -85,7 +85,7 @@ exports.updateUser = async (req, res) => {
 			},
 		);
 
-		return res.status(200);
+		return res.status(200).end();
 	} catch (err) {
 		return res.status(500).json({ err });
 	}
