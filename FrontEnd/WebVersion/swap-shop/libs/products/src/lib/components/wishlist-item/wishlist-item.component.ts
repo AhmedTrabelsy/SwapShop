@@ -4,7 +4,6 @@ import { WishlistService } from '../../services/wishlist.service';
 import { SharedService } from '../../services/shared.service';
 import { product } from '../../models/product';
 import { Subscription } from 'rxjs';
-import { environment } from '@env';
 @Component({
 	selector: 'swap-shop-wishlist-item',
 	templateUrl: './wishlist-item.component.html',

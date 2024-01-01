@@ -17,7 +17,6 @@ import { CategoriesService } from 'libs/products/src/lib/services/categories.ser
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { WishlistService } from 'libs/products/src/lib/services/wishlist.service';
-import { WishlistItemComponent } from 'libs/products/src/lib/components/wishlist-item/wishlist-item.component';
 import { WishListComponent } from './pages/wishlist-page/wish-list.component';
 import { CardModule } from 'primeng/card';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -29,8 +28,7 @@ import { ToolbarModule } from 'primeng/toolbar';
     FooterComponent,
     HeaderComponent,
     NavComponent,
-    WishListComponent, 
-    WishlistItemComponent
+    WishListComponent,
   ],
   imports: [
     ToolbarModule,

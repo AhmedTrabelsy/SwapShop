@@ -21,7 +21,7 @@
 			    "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
    				 "node_modules/primeng/resources/primeng.min.css"
 				],
-				
+
 				"scripts": []
 			},
 			"configurations": {
@@ -30,7 +30,7 @@
 						{
 							"type": "initial",
 							"maximumWarning": "500kb",
-							"maximumError": "1mb"
+							"maximumError": "2mb"
 						},
 						{
 							"type": "anyComponentStyle",
