@@ -19,11 +19,13 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@sendgrid/mail": "^8.1.0",
     "axios": "^1.6.1",
     "cors": "^2.8.5",
     "eureka-js-client": "^4.5.0",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.0"
   }
 }

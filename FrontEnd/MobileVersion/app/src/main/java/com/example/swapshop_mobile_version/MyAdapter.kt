@@ -108,7 +108,7 @@ class MyAdapter(private var myDataSet: ArrayList<Products>, private val context:
 
             builder.setPositiveButton("Yes") { dialog, which ->
                 requestQueue = Volley.newRequestQueue(context)
-                deleteProduct(product.id, product)
+                product.id?.let { it1 -> deleteProduct(it1, product) }
                 notifyDataSetChanged()
             }
 

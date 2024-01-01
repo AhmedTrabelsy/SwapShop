@@ -15,5 +15,5 @@ public class setOrderRequest {
     @NotNull
     private String billingAdress;
     @NotNull
-    private Long proudctId;
+    private Long productId;
 }

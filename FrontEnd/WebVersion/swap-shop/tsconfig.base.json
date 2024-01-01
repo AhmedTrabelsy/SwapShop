@@ -15,9 +15,9 @@
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
 		"paths": {
+			"@env": ["environments/environment.ts"],
 			"@swap-shop/products": ["libs/products/src/index.ts"],
-			"@swap-shop/ui": ["libs/ui/src/index.ts"],
-      "@env" : ["environments/environment.ts"]
+			"@swap-shop/ui": ["libs/ui/src/index.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]

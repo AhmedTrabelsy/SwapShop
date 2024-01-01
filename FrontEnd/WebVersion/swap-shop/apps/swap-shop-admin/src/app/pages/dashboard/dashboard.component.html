@@ -1,50 +1,128 @@
 <div class="admin-page">
-  <p-card header="Dashboard" subheader="Latest Updates">
-    <div class="p-grid">
-      <div class="p-col-3">
-        <p-card styleClass="d-orders">
-          <div class="d-item">
-            <div>
-              <i class="pi pi-shopping-cart"></i><br />
-              <span class="name">Orders</span>
-            </div>
-            <span class="number">{{ currentOrders }}</span>
-          </div>
-        </p-card>
-      </div>
-      <div class="p-col-3">
-        <p-card styleClass="d-products">
-          <div class="d-item">
-            <div>
-              <i class="pi pi-briefcase"></i><br />
-              <span class="name">Products</span>
-            </div>
-            <span class="number">{{ productsCount }}</span>
-          </div>
-        </p-card>
-      </div>
-      <div class="p-col-3">
-        <p-card styleClass="d-users">
-          <div class="d-item">
-            <div>
-              <i class="pi pi-users"></i><br />
-              <span class="name">Users</span>
-            </div>
-            <span class="number">{{ registredUsers }}</span>
-          </div>
-        </p-card>
-      </div>
-      <div class="p-col-3">
-        <p-card styleClass="d-totalsales">
-          <div class="d-item">
-            <div>
-              <i class="pi pi-dollar"></i><br />
-              <span class="name">TotalSales</span>
-            </div>
-            <span class="number">{{ totalSales | currency }}</span>
-          </div>
-        </p-card>
-      </div>
+	<h1>
+		<i class="pi pi-chart-line" style="font-size: 2.5rem"
+			><span class="font-bold" style="font-family: Verdana, Geneva, Tahoma, sans-serif"> My Dashboard</span></i
+		>
+	</h1>
+	<div class="grid p-2">
+		<div class="col-12 md:col-6 lg:col-3">
+			<div class="text-center p-3 border-round-sm bg-primary font-bold">
+				<div class="grid">
+					<div class="col">
+						<div class="text-center p-3 border-round-sm bg-primary font-bold">
+							<span class="name">Users</span><br />
+							<span class="number">{{ registredUsers }}</span>
+						</div>
+					</div>
+					<div class="col">
+						<i class="pi pi-user" style="font-size: 2.5rem"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 md:col-6 lg:col-3">
+			<div class="text-center p-3 border-round-sm bg-primary font-bold">
+				<div class="grid">
+					<div class="col">
+						<div class="text-center p-3 border-round-sm bg-primary font-bold">
+							<span class="name">Orders</span><br />
+							<span class="number">{{ currentOrders }}</span>
+						</div>
+					</div>
+					<div class="col">
+						<i class="pi pi-shopping-cart" style="font-size: 2.5rem"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 md:col-6 lg:col-3">
+			<div class="text-center p-3 border-round-sm bg-primary font-bold">
+				<div class="grid">
+					<div class="col">
+						<div class="text-center p-3 border-round-sm bg-primary font-bold">
+							<span class="name">Products</span><br />
+							<span class="number">{{ productsCount }}</span>
+						</div>
+					</div>
+					<div class="col">
+						<i class="pi pi-briefcase" style="font-size: 2.5rem"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 md:col-6 lg:col-3">
+			<div class="text-center p-3 border-round-sm bg-primary font-bold">
+				<div class="grid">
+					<div class="col">
+						<div class="text-center p-3 border-round-sm bg-primary font-bold">
+							<span class="name">Total Scales</span><br />
+							<span class="number">{{ totalSales | currency }}</span>
+						</div>
+					</div>
+					<div class="col">
+						<i class="pi pi-money-bill" style="font-size: 2.5rem"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+  <!-- Another Component For latest Products and Users-->
+  <div class="grid">
+    <div class="col-6">
+      <p-card header="Products" subheader="Latest 3 Updates"> 
+		<p-table [value]="products" styleClass="p-datatable-gridlines">
+		<ng-template pTemplate="header">
+		  <tr>
+		<th>Ref</th>
+		<th>Name</th>
+		<th>Category</th>
+		<th>Added in</th>
+		<th>Updated in</th>
+		  </tr>
+		</ng-template>
+		<ng-template pTemplate="body" let-product>
+		  <tr>
+			  <td>{{ product.id }}</td>
+			  <td>{{ product.name }}</td>
+			  <td>{{ product.category?.name }}</td>
+			  <td>{{ product.created_at | date: 'short' }}</td>
+			  <td>{{ product.updated_at | date: 'short' }}</td>
+		  </tr>
+		</ng-template>
+	</p-table>		  
+      </p-card>
     </div>
-  </p-card>
+    <div class="col-6">
+      <p-card header="Total Scales" subheader="Per Mounth"> 
+        <p-chart type="bar" [data]="chartData"></p-chart>
+      </p-card>
+</div>
+
+    <div class="col-6">
+      <p-card header="Users Evolution" subheader="Sellers And Buyers"> 
+        <p-chart type="bar" [data]="chartDataForUsers"></p-chart>
+      </p-card>
+    </div>
+    <div class="col-6">
+      <p-card header="Orders" subheader="Last 3 Per Client"> 
+        <p-table [value]="orders" styleClass="p-datatable-gridlines">
+			<ng-template pTemplate="header">
+			  <tr>
+			<th>UserRef</th>
+			<th>Product</th>
+			<th>Billing Address</th>
+			<th>Passed in</th>
+			  </tr>
+			</ng-template>
+			<ng-template pTemplate="body" let-order>
+			  <tr>
+				  <td>{{ order.userId }}</td>
+				  <td>{{ order.product.name }}</td>
+				  <td>{{ order.billingAdress }}</td>
+				  <td>{{ order.createdAt | date: 'short' }}</td>
+			  </tr>
+			</ng-template>
+		</p-table>
+      </p-card>
+</div>
 </div>
