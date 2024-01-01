@@ -23,5 +23,7 @@ jobs:
           key_path: id_rsa
           script: |
             cd /home/haythem
+            sudo rm -r FrontEnd
+            sudo rm -r .ftp-deploy-sync-state.json
             sudo docker compose down
             sudo docker compose up --build -d
