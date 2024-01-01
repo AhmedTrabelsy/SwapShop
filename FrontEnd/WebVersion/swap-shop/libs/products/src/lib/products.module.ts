@@ -8,6 +8,7 @@ import { FeaturedProductsComponent } from './components/featured-products/featur
 import { ButtonModule } from 'primeng/button';
 import { BadgeModule } from 'primeng/badge';
 import { LoginPageComponent } from './components/login-page/login-page.component';
+import { WishlistItemComponent } from './components/wishlist-item/wishlist-item.component';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
@@ -22,6 +23,7 @@ import { UnothorizedComponent } from './components/unothorized/unothorized.compo
 		ProductItemComponent,
 		FeaturedProductsComponent,
 		LoginPageComponent,
+    WishlistItemComponent,
 		UnothorizedComponent,
 		UnothorizedComponent
 	],
