@@ -13,7 +13,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessagesModule } from 'primeng/messages';
-import { UnothorizedComponent } from './components/unothorized.component';
 import { UnothorizedComponent } from './components/unothorized/unothorized.component';
 @NgModule({
 	declarations: [
