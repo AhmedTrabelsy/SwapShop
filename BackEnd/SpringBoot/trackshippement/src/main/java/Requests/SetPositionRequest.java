@@ -15,4 +15,6 @@ public class SetPositionRequest {
     private Float longi;
     @NotNull
     private Float lat;
+    @NotNull
+    private Boolean isDelivered;
 }

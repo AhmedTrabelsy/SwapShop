@@ -14,4 +14,6 @@ public class UpdatePositionRequest {
     private Float longi;
 
     private Float lat;
+
+    private Boolean isDelivered;
 }
