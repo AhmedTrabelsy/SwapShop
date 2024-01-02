@@ -25,6 +25,7 @@ public class product {
     private List<Image> images;
     private double price;
     private Long categoryID;
+    private String sellerID;
     private Date created_at;
     private Date updated_at;
     private Date deleted_at;

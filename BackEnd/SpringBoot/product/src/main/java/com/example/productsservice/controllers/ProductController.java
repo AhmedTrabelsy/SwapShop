@@ -89,6 +89,7 @@ public class ProductController {
     public product create(@Valid CreateProductRequest request) {
         product p = new product();
         p.setName(request.getName());
+        p.setSellerID(request.getSellerID());
         p.setDescription(request.getDescription());
 
         List<Image> images = new ArrayList<Image>();
