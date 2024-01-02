@@ -20,4 +20,5 @@ public class ShippementTrack {
     private Long productId;
     private Float lat;
     private Float lon;
+    private Boolean isDelivered;
 }

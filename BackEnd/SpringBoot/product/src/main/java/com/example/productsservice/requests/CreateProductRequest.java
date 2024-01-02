@@ -29,4 +29,8 @@ public class CreateProductRequest {
     @NotNull
     @Min(1)
     private Long categoryID;
+
+    @NotNull
+    @NotBlank
+    private String sellerID;
 }

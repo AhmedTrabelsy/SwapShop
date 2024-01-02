@@ -27,6 +27,7 @@ public class ShipementTrackController {
         shippementTrak.setProductId(request.getProductId());
         shippementTrak.setLon(request.getLongi());
         shippementTrak.setLat(request.getLat());
+        shippementTrak.setIsDelivered(request.getIsDelivered());
         shipementRepository.save(shippementTrak);
     }
     @PutMapping("/positions/{id}")
@@ -43,6 +44,9 @@ public class ShipementTrackController {
         }
         if (request.getLat() != null) {
             shippementTrak.setLat(request.getLat());
+        }
+        if (request.getIsDelivered() != null) {
+            shippementTrak.setIsDelivered(request.getIsDelivered());
         }
         shipementRepository.save(shippementTrak);
     }
