@@ -47,6 +47,33 @@ export class ProductsAddComponent implements OnInit {
   }
 
   onSubmit(){
+    if(this.categoryID == null){
+      this.error = 'Category is required';
+      return;
+    }
+
+    if(this.name == ''){
+      this.error = 'Name is required';
+      return;
+    }
+
+    if(this.description == ''){
+      this.error = 'Description is required';
+      return;
+    }
+
+    if(this.price == ''){
+      this.error = 'Price is required';
+      return;
+    }
+
+    if(this.images.length == 0){
+      this.error = 'Images are required';
+      return;
+    }
+
+
+    this.error = null;
 
     this.formData = new FormData();
 
@@ -60,6 +87,8 @@ export class ProductsAddComponent implements OnInit {
     this.images.forEach((image)=>{
       this.formData.append('images', image);
     })
+
+    this.formData.append('sellerID', sessionStorage.getItem('userId')!);
 
   this.productService.createProduct(this.formData).subscribe((response)=>{
     this.router.navigate(['/products']);

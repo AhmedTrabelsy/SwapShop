@@ -15,6 +15,15 @@
     </div>
     <div class="grid">
       <div class="col-12">
+        <p-messages severity="error" *ngIf="error">
+          <ng-template pTemplate>
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <div class="ml-2">{{ error }}</div>
+          </ng-template>
+        </p-messages>
+
+      </div>
+      <div class="col-12">
         <div class="p-fluid p-formgrid grid">
           <div class="field col-6">
             <span class="p-float-label">
@@ -31,8 +40,9 @@
           </div>
           <div class="field col-12">
             <span class="p-float-label">
-              <input type="file" pInputText id="image" (change)="onFileSelected($event)" #fileUpload />
-              <label htmlFor="image">Image</label>
+              <input type="file" pInputText id="image" (change)="onFileSelected($event)" accept="image/*" multiple
+                #fileUpload />
+              <label htmlFor="image">ImageS</label>
             </span>
           </div>
           <div class="field col-12">
