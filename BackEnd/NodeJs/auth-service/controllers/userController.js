@@ -315,3 +315,38 @@ exports.getUserIdFromToken = async (req, res) => {
 		});
 	}
 };
+
+exports.getUserDataFromId = async (req, res) => {
+    const token = req.headers.authorization;
+    const { userId } = req.params;
+
+    if (token == null) {
+        return res.status(400).json({
+            status: 'fail',
+            message: 'Token is missing',
+        });
+    }
+
+    try {
+        const response = await axios.get(`http://34.199.239.78:8080/admin/realms/SwapShop/users/${userId}`, {
+            headers: {
+                Authorization: token,
+            },
+        });
+
+        if (response.data) {
+            return res.status(200).json(response.data);
+        } else {
+            return res.status(404).json({
+                status: 'fail',
+                message: 'User not found',
+            });
+        }
+    } catch (error) {
+        return res.status(500).json({
+            status: 'error',
+            message: 'Internal server error',
+        });
+    }
+};
+
