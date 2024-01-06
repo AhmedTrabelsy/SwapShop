@@ -32,6 +32,7 @@ import { AuthentificationComponent } from './pages/auth/Authentification.compone
 import { LoginPageComponent } from 'libs/products/src/lib/components/login-page/login-page.component';
 import { PasswordModule } from 'primeng/password';
 import { ProductsAddComponent } from './pages/products/products-add/products-add.component';
+import { ProductEditComponent } from './pages/products/products-edit/products-edit.component';
 @NgModule({
 	declarations: [
 		LoginPageComponent,
@@ -48,6 +49,7 @@ import { ProductsAddComponent } from './pages/products/products-add/products-add
 		UsersFormComponent,
 		AuthentificationComponent,
     ProductsAddComponent,
+    ProductEditComponent,
 	],
 	imports: [
 		PasswordModule,

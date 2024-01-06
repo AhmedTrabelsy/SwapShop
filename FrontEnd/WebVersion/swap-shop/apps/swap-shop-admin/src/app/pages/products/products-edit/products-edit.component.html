@@ -1,0 +1,65 @@
+<p-toast></p-toast>
+<div class="admin-page">
+  <p-card [header]="'Edit Product ' + product?.name ">
+    <div class="grid mb-5">
+      <div class="col-12">
+        <p-toolbar>
+          <div class="p-toolbar-group-left"></div>
+          <div class="p-toolbar-group-right">
+            <p-button styleClass="p-button-primary mr-2" [label]="'Edit'" icon="pi pi-plus"
+              (click)="onSubmit()"></p-button>
+            <p-button styleClass="p-button-secondary" label="Cancel" icon="pi pi-arrow-circle-left"></p-button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col-12">
+        <p-messages severity="error" *ngIf="error">
+          <ng-template pTemplate>
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <div class="ml-2">{{ error }}</div>
+          </ng-template>
+        </p-messages>
+
+      </div>
+      <div class="col-12">
+        <div class="p-fluid p-formgrid grid">
+          <div class="field col-6">
+            <span class="p-float-label">
+              <p-dropdown [options]="categories" optionLabel="name" [(ngModel)]="product.categoryID"
+                [ngModelOptions]="{ standalone: true }" [filter]="true" filterBy="name"
+                (onChange)="onChangeCategory($event)" inputId="float-label"></p-dropdown>
+              <label for="float-label">Category</label>
+            </span>
+          </div>
+          <div class="field col-6">
+            <span class="p-float-label">
+              <input pInputText id="name" [(ngModel)]="product.name" pInputText />
+              <label htmlFor="name">Name</label>
+            </span>
+          </div>
+          <div class="field col-12">
+            <span class="p-float-label">
+              <input type="file" pInputText id="image" (change)="onFileSelected($event)" accept="image/*" multiple
+                #fileUpload />
+              <label htmlFor="image">ImageS</label>
+            </span>
+          </div>
+          <div class="field col-12">
+            <span class="p-float-label">
+              <textarea pInputText id="description" [(ngModel)]="product.description" pInputText></textarea>
+              <label htmlFor="description">Description</label>
+            </span>
+          </div>
+          <div class="field col-12">
+            <span class="p-float-label">
+              <input pInputText id="price" [(ngModel)]="product.price" pInputText />
+              <label htmlFor="price">Price</label>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-card>
+</div>

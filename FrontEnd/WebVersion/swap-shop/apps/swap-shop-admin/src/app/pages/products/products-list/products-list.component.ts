@@ -39,7 +39,7 @@ export class ProductsListComponent implements OnInit, OnDestroy{
   }
 
   updateProduct(productid: string) {
-    this.router.navigateByUrl(`products/form/${productid}`);
+    this.router.navigateByUrl(`products/${productid}/edit`);
   }
 
   deleteProduct(productId: string) {

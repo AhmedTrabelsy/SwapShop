@@ -13,6 +13,7 @@ import { HasRoleGuard } from '../../../../libs/products/src/lib/Auth-Roles-guard
 import { IsLoggedInGuard } from '../../../../libs/products/src/lib/is-logged-in-guard/is-logged-in-guard.guard';
 import { UnothorizedComponent } from 'libs/products/src/lib/components/unothorized/unothorized.component';
 import { ProductsAddComponent } from './pages/products/products-add/products-add.component';
+import { ProductEditComponent } from './pages/products/products-edit/products-edit.component';
 export const appRoutes: Route[] = [
   { path: '', component: DashboardComponent, canActivate: [IsLoggedInGuard,HasRoleGuard], data: {userRole: ['client-admin','client-seller']} },
   { path: 'categories', component: CategoriesListComponent, canActivate: [IsLoggedInGuard,HasRoleGuard], data: {userRole: ['client-admin','client-seller']} },
@@ -20,6 +21,7 @@ export const appRoutes: Route[] = [
   { path: 'categories/form/:id', component: CategoriesFormComponent, canActivate: [IsLoggedInGuard,HasRoleGuard], data: {userRole: ['client-admin']} },
   { path: 'products', component: ProductsListComponent, canActivate: [IsLoggedInGuard,HasRoleGuard], data: {userRole: ['client-admin','client-seller']} },
   { path: 'products/add', component: ProductsAddComponent, canActivate: [IsLoggedInGuard,HasRoleGuard], data: {userRole: ['client-admin','client-seller']} },
+  { path: 'products/:id/edit', component: ProductEditComponent, canActivate: [IsLoggedInGuard,HasRoleGuard], data: {userRole: ['client-admin','client-seller']} },
   // { path: 'products/form', component: ProductsFormComponent, canActivate: [IsLoggedInGuard,HasRoleGuard], data: {userRole: ['client-admin','client-seller']} },
   // { path: 'products/form/:id', component: ProductsFormComponent, canActivate: [IsLoggedInGuard,HasRoleGuard], data: {userRole: ['client-admin','client-seller']} },
   { path: 'users', component: UsersListComponent, canActivate: [IsLoggedInGuard,HasRoleGuard], data: {userRole: ['client-admin']} },
