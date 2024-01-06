@@ -27,11 +27,11 @@ export class ProductService {
     return this.http.post<product>(this.categoriesApiUrl, productData);
   }
 
-  getProduct(productId: string): Observable<product> {
+  getProduct(productId: number): Observable<product> {
     return this.http.get<product>(`${this.categoriesApiUrl}/${productId}`);
   }
 
-  updateProduct(productData: FormData, productid: string): Observable<product> {
+  updateProduct(productid: number,productData: FormData): Observable<product> {
     return this.http.put<product>(`${this.categoriesApiUrl}/${productid}`, productData);
   }
 

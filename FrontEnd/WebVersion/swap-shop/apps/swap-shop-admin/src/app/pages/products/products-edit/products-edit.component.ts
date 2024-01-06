@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from 'libs/products/src/lib/models/category';
+import { product } from 'libs/products/src/lib/models/product';
 import { CategoriesService } from 'libs/products/src/lib/services/categories.service';
 import { ProductService } from 'libs/products/src/lib/services/product.service';
 
 @Component({
   selector: 'swap-shop-products-form',
-  templateUrl: './products-add.component.html',
+  templateUrl: './products-edit.component.html',
   styles: ``
 })
-export class ProductsAddComponent implements OnInit {
+export class ProductEditComponent implements OnInit {
 
+
+  product: product = new product();
   categories : Category[]  = [];
-  name : string = '';
-  categoryID : number | null = null;
-  description : string = '';
-  price: string = '0';
   formData = new FormData();
   error: string | null = null;
   images: File[] = [];
+  productId : number | null = null;
 
 
 
@@ -26,16 +26,28 @@ export class ProductsAddComponent implements OnInit {
     private categoriesService: CategoriesService,
     private productService : ProductService,
     private router: Router,
+    private route: ActivatedRoute,
   ) {
 
   }
 
   ngOnInit(): void {
      this.categoriesService.getCategories().subscribe((res)=>this.categories = res);
+
+
+     this.route.paramMap.subscribe(params=> {
+      this.productId = Number(params.get('id'));
+
+      this.productService.getProduct(this.productId).subscribe((res)=>{
+        this.product = res;
+
+       })
+
+      });
   }
 
   onChangeCategory(event: any) {
-    this.categoryID = event.value.id;
+    this.product.categoryID = event.value.id;
   }
 
 
@@ -47,28 +59,23 @@ export class ProductsAddComponent implements OnInit {
   }
 
   onSubmit(){
-    if(this.categoryID == null){
+    if(this.product.categoryID == null){
       this.error = 'Category is required';
       return;
     }
 
-    if(this.name == ''){
+    if(this.product.name == ''){
       this.error = 'Name is required';
       return;
     }
 
-    if(this.description == ''){
+    if(this.product.description == ''){
       this.error = 'Description is required';
       return;
     }
 
-    if(this.price == ''){
+    if(this.product.price == 0){
       this.error = 'Price is required';
-      return;
-    }
-
-    if(this.images.length == 0){
-      this.error = 'Images are required';
       return;
     }
 
@@ -77,11 +84,11 @@ export class ProductsAddComponent implements OnInit {
 
     this.formData = new FormData();
 
-    this.formData.append('name', this.name);
-    this.formData.append("description", this.description!);
-    this.formData.append("price", this.price!);
-    if(this.categoryID != null){
-      this.formData.append('categoryID', this.categoryID.toString());
+    this.formData.append('name', this.product.name!);
+    this.formData.append("description", this.product.description!);
+    this.formData.append("price", this.product.price!.toString());
+    if(this.product.categoryID != null){
+      this.formData.append('categoryID', this.product.categoryID.toString());
     }
 
     this.images.forEach((image)=>{
@@ -90,12 +97,11 @@ export class ProductsAddComponent implements OnInit {
 
     this.formData.append('sellerID', sessionStorage.getItem('userId')!);
 
-  this.productService.createProduct(this.formData).subscribe((response)=>{
+  this.productService.updateProduct(this.productId!,this.formData).subscribe((response)=>{
     this.router.navigate(['/products']);
   })
 
 
   }
-
 
 }
