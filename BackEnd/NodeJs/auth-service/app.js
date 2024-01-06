@@ -10,6 +10,7 @@ const {
 	deleteUser,
 	updateUser,
 	getUser,
+	getUserDataFromId,
 } = require('./controllers/userController');
 const app = express();
 require('express-async-errors');
@@ -28,6 +29,7 @@ app.put('/update', updateProfile);
 app.get('/getUsersCount', getUserCount);
 app.get('/getUsersPerMonth', getUserRegistrationsByMonth);
 app.get('/getUserId', getUserIdFromToken);
+app.get('/getUserDetailsFromId', getUserDataFromId);
 
 app.get('/users', getAllUsers);
 app.delete('/users/:id', deleteUser);
