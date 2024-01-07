@@ -1,0 +1,7 @@
+node_modules
+dist
+swap-shop-admin-e2e
+swap-shop-client-e2e
+swap-shop-build
+.nx
+.angular

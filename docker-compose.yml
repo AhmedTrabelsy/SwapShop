@@ -70,20 +70,16 @@ services:
     volumes:
       - news_uploads:/app/uploads
 
-  # # angular:
-  # #   build:
-  # #     context: ./FrontEnd/WebVersion
-  # #     dockerfile: Dockerfile
-  # #   ports:
-  # #     - "80:80"
-  # #   depends_on:
-  # #     - product
-  # apk_web_server:
-  #   image: nginx:1.17.1-alpine
-  #   ports:
-  #     - '1000:80'
-  #   volumes:
-  #     - ./APK:/usr/share/nginx/html
+  angular_client:
+    image: haithemdridiweb/angular-client:latest
+    ports:
+      - "80:80"
+
+  angular_admin:
+    image: haithemdridiweb/angular-admin:latest
+    ports:
+      - "81:81"
+
 volumes:
   category_uploads:
   product_uploads:
