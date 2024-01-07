@@ -8,7 +8,7 @@ const createEurekaClient = () => {
 			ipAddr: '127.0.0.1',
 			vipAddress: 'NOTIFICATION-SERVICE',
 			port: {
-				$: 8085,
+				$: 8097,
 				'@enabled': 'true',
 			},
 			dataCenterInfo: {
