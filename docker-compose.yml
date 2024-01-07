@@ -29,16 +29,14 @@ services:
       - category_uploads:/app/uploads
     depends_on:
       - gateway
-  # product:
-  #   build:
-  #     context: ./BackEnd/SpringBoot/product
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - '8082:8082'
-  #   volumes:
-  #     - product_uploads:/app/uploads
-  #   depends_on:
-  #     - category
+  product:
+    image: haithemdridiweb/product-microservice:latest
+    ports:
+      - '8082:8082'
+    volumes:
+      - product_uploads:/app/uploads
+    depends_on:
+      - category
   # order:
   #   build:
   #     context: ./BackEnd/SpringBoot/order-service
