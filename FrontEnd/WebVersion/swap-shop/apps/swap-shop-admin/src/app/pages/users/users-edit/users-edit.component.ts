@@ -11,7 +11,6 @@ import { UserService } from 'libs/products/src/lib/services/user.service';
 export class EditUsersComponent implements OnInit {
 
   user: user = new user('','','','','','',{},'',0);
-  formData = new FormData();
   error: string | null = null;
   phoneNumber: string = '';
   userId : string | null = null;
@@ -38,6 +37,55 @@ export class EditUsersComponent implements OnInit {
     });
   }
 
-  onSubmit(){}
+
+  onSubmit(){
+
+    if(this.user.firstName == ''){
+      this.error = 'FirstName is required';
+      return;
+    }
+
+    if(this.user.lastName == ''){
+      this.error = 'LastName is required';
+      return;
+    }
+
+    if(this.user.email == ''){
+      this.error = 'Email is required';
+      return;
+    }
+
+    if(this.user.email.indexOf('@') == -1){
+      this.error = 'Email is invalid';
+      return;
+    }
+
+    if(this.phoneNumber == ''){
+      this.error = 'PhoneNumber is required';
+      return;
+    }
+
+    if(this.phoneNumber.length != 8 || isNaN(Number(this.phoneNumber)) ){
+      this.error = 'PhoneNumber is invalid';
+      return;
+    }
+
+    this.error = null;
+
+
+    this.userService.update(this.userId!,{
+      username: this.user.username,
+      firstName: this.user.firstName,
+      lastName: this.user.lastName,
+      email: this.user.email,
+      phoneNumber: this.phoneNumber
+    }).subscribe((response)=>{
+      this.router.navigate(['/users']);
+    },(error)=>{
+      this.error = "Email already exists"
+    });
+
+
+  }
 
 }

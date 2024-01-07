@@ -21,6 +21,10 @@ export class UserService {
     return this.http.get<user>(this.categoriesApiUrl+'/'+id);
   }
 
+  update(id: string,data:{ [key: string]: string }): Observable<unknown> {
+    return this.http.put<unknown>(`${this.categoriesApiUrl}/${id}`, data);
+  }
+
 
   delete(id:string): Observable<unknown> {
     return this.http.delete<unknown>(this.categoriesApiUrl+'/'+id);
