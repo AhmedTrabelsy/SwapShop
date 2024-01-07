@@ -78,7 +78,7 @@ services:
   angular_admin:
     image: haithemdridiweb/angular-admin:latest
     ports:
-      - "81:81"
+      - "80:81"
 
 volumes:
   category_uploads:
