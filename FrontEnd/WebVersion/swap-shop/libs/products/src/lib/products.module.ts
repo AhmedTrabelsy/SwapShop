@@ -17,6 +17,7 @@ import { MessagesModule } from 'primeng/messages';
 import { UnothorizedComponent } from './components/unothorized/unothorized.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { DividerModule } from 'primeng/divider';
+import { SignupPageComponent } from './components/signup-page/signup-page.component';
 @NgModule({
 	declarations: [
 		ProductsComponent,
@@ -28,7 +29,8 @@ import { DividerModule } from 'primeng/divider';
 		WishlistItemComponent,
 		UnothorizedComponent,
 		UnothorizedComponent,
-		ProductDetailsComponent
+		ProductDetailsComponent,
+    SignupPageComponent,
 	],
 	imports: [DividerModule,MessagesModule, ReactiveFormsModule, FormsModule, CommonModule, ButtonModule, BadgeModule, CardModule, InputTextModule, PasswordModule],
 	exports: [ProductsComponent, ProductsSearchComponent, CategoriesBannerComponent, ProductItemComponent, FeaturedProductsComponent, WishlistItemComponent]

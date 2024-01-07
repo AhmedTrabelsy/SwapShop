@@ -1,3 +1,4 @@
+import { SignupPageComponent } from './../../../../libs/products/src/lib/components/signup-page/signup-page.component';
 import { Route } from '@angular/router';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { ProductListComponent } from './pages/product-list/product-list.component';
@@ -12,6 +13,7 @@ export const appRoutes: Route[] = [
   { path: 'products', component: ProductListComponent },
   { path: 'wishlist', component: WishListComponent, canActivate: [IsLoggedInGuard] },
   { path: 'login', component: LoginPageComponent },
+  { path: 'signup', component: SignupPageComponent },
   { path: 'contact', component: ContactCreatorsComponent },
   // { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) }
   { path: 'products/:id', component: ProductDetailsComponent},
