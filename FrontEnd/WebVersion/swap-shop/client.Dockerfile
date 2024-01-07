@@ -14,6 +14,4 @@ FROM nginx:1.17.1-alpine
 
 COPY --from=build /usr/src/app/dist/apps/swap-shop-client /usr/share/nginx/html
 
-COPY apps/swap-shop-client/OneSignalSDKWorker.js /usr/share/nginx/html/OneSignalSDKWorker.js
-
 EXPOSE 80
