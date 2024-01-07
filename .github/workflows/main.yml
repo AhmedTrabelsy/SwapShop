@@ -27,7 +27,7 @@ jobs:
       - name: Build and push Discovery Microservice
         uses: docker/build-push-action@v5
         with:
-          context: ./BackEnd/SpringBoot/discovery
+          context: BackEnd/SpringBoot/discovery
           file: Dockerfile
           push: true
           tags: haithemdridiweb/discovery-microservice
