@@ -1,1 +1,51 @@
-<p>users-list works!</p>
+<p-toast></p-toast>
+<div class="admin-page">
+  <p-card header="Users" subheader="List of all Users">
+    <div class="grid">
+      <div class="col-12">
+        <p-toolbar>
+          <div class="p-toolbar-group-left">
+            <p-button styleClass="p-button-success" label="New" icon="pi pi-plus" routerLink="add"></p-button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col-12">
+        <p-table [paginator]="true" [rows]="10" [value]="users" styleClass="p-datatable-gridlines"
+          [globalFilterFields]="['name']">
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="ID">ID <p-sortIcon field="id"></p-sortIcon></th>
+              <th pSortableColumn="username">Username <p-sortIcon field="Username"></p-sortIcon></th>
+              <th pSortableColumn="firstName">FirstName<p-sortIcon field="firstName"></p-sortIcon></th>
+              <th pSortableColumn="lastName">LastName <p-sortIcon field="lastName"></p-sortIcon></th>
+              <th pSortableColumn="email">Email<p-sortIcon field="email"></p-sortIcon></th>
+              <th pSortableColumn="phone_number">Phone Number <p-sortIcon field="phone_number"></p-sortIcon></th>
+              <th pSortableColumn="created_at">Created at <p-sortIcon field="created_at"></p-sortIcon></th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-user>
+            <tr>
+              <td>{{ user.id }}</td>
+              <td>{{ user.username }}</td>
+              <td>{{ user.firstName }}</td>
+              <td>{{ user.lastName }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.attributes ? user.attributes['phone_number'] : '' }}</td>
+              <td>{{ user.createdTimestamp | date: 'short' }}</td>
+
+              <td>
+                <p-button styleClass="p-button-danger mr-2" icon="pi pi-trash"></p-button>
+                <p-button styleClass="p-button-success" icon="pi pi-pencil"></p-button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </p-card>
+</div>
+<p-confirmDialog [style]="{ width: '50vw' }" [baseZIndex]="10000"
+  rejectButtonStyleClass="p-button-text"></p-confirmDialog>

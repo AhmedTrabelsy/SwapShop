@@ -1,9 +1,13 @@
 export class user {
-    id?: string;
-    username?: string;
-    password?: string;
-    email?: string;
-    role!: string;
-    created_at?: Date;
-    updated_at?: Date;
+
+  constructor( public id: string,
+    public username: string,
+    public firstName: string,
+    public lastName: string,
+    public password: string,
+    public email: string,
+    public attributes: { [key: string]: string } | null,
+    public role: string,
+    public createdTimestamp:number,
+    ){}
 }
