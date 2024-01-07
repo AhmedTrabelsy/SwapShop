@@ -43,14 +43,12 @@ services:
       - '8090:8090'
     depends_on:
       - product
-  # trackshippement:
-  #   build:
-  #     context: ./BackEnd/SpringBoot/trackshippement
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - '8089:8089'
-  #   depends_on:
-  #     - order
+  trackshippement:
+    image: haithemdridiweb/trackshippement-microservice:latest
+    ports:
+      - '8089:8089'
+    depends_on:
+      - order
   # wishlist:
   #   build:
   #     context: ./BackEnd/NodeJs/wishlist-service
