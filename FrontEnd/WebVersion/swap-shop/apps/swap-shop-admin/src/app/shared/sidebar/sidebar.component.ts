@@ -13,7 +13,7 @@ logoutUser() {
   window.location.href = '/login';
 }
 isAuthenticated = false;
-constructor( private authService: AuthentificationService) {
+constructor(private authService: AuthentificationService) {
   const retrievedValue: string | null = sessionStorage.getItem('access_token');
   if (retrievedValue !== null) {
     this.isAuthenticated = true;

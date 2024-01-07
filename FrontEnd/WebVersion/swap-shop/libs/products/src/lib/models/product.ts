@@ -8,6 +8,7 @@ export class product{
     description?: string;
     images?: Image[];
     price?:number;
+    sellerID?: string;
     categoryID?: number;
     created_at?: Date;
     updated_at?: Date;

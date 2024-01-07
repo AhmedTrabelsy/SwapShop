@@ -1,12 +1,13 @@
 import { product } from '../../models/product';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { formatDistanceToNow } from 'date-fns';
 import { WishlistService } from '../../services/wishlist.service';
+import { AuthentificationService } from '../../services/authentification.service';
 @Component({
   selector: 'swap-shop-product-item',
   templateUrl: './product-item.component.html',
 })
-export class ProductItemComponent{
+export class ProductItemComponent implements OnInit, OnDestroy {
 
   @Input() product?: product
   wishlistProducts?: product[];
@@ -15,7 +16,7 @@ export class ProductItemComponent{
   badgeValue="Unsigned"
   sellerName="name"
 
-  constructor(private wishlistService: WishlistService) { 
+  constructor(private wishlistService: WishlistService, private authService: AuthentificationService) { 
     const retrievedValue: string | null = sessionStorage.getItem('access_token');
 
   if (retrievedValue !== null) {
@@ -24,7 +25,27 @@ export class ProductItemComponent{
     console.log('Value not found in session storage');
   }
    }
-
+  ngOnInit(): void {
+    const accessToken = sessionStorage.getItem('access_token');
+    const userId = sessionStorage.getItem('userId');
+    if (accessToken && userId) {
+      console.log(this.product?.sellerID);
+      if (this.product?.sellerID) {
+      this.authService.getUserDataFromId(accessToken,this.product?.sellerID).subscribe(
+      (response) => {
+        console.log('User Data:', response.username);
+        this.sellerName = response.username;
+      },
+      (error) => {
+        console.error('Failed to get user count:', error.message);
+      }
+    );
+      }
+}
+}
+  ngOnDestroy(): void {
+    throw new Error('Method not implemented.');
+  }
   heartClass: string = 'pi pi-heart';
   wishlistText: string = ' Add to Wishlist';
 
