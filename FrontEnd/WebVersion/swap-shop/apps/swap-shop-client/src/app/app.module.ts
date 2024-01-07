@@ -20,6 +20,7 @@ import { WishlistService } from 'libs/products/src/lib/services/wishlist.service
 import { WishListComponent } from './pages/wishlist-page/wish-list.component';
 import { CardModule } from 'primeng/card';
 import { ToolbarModule } from 'primeng/toolbar';
+import { DataViewModule } from 'primeng/dataview';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +32,7 @@ import { ToolbarModule } from 'primeng/toolbar';
     WishListComponent,
   ],
   imports: [
+    DataViewModule,
     ToolbarModule,
     BrowserModule,
     RouterModule.forRoot(appRoutes),
