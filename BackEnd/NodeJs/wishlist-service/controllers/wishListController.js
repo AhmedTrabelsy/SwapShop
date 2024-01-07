@@ -68,9 +68,10 @@ exports.create = async (req, res, next) => {
 
 exports.get = async (req, res, next) => {
     try {
-        const user_id = req.params;
+        const user_id = req.params.user_id;
+        console.log(user_id);
         const token = req.headers.authorization;
-
+        console.log(token);
         if (!token) {
             return res.status(401).json({
                 status: 'fail',
