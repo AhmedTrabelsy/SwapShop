@@ -49,14 +49,12 @@ services:
       - '8089:8089'
     depends_on:
       - order
-  # wishlist:
-  #   build:
-  #     context: ./BackEnd/NodeJs/wishlist-service
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - '8084:8084'
-  #   depends_on:
-  #     - product
+  wishlist:
+    image: haithemdridiweb/wishlist-microservice:latest
+    ports:
+      - '8084:8084'
+    depends_on:
+      - product
   # auth:
   #   build:
   #     context: ./BackEnd/NodeJs/auth-service

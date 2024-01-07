@@ -64,13 +64,21 @@ jobs:
           push: true
           tags: haithemdridiweb/order-microservice
 
-      - name: Build and push Order Microservice
+      - name: Build and push Trackshippement Microservice
         uses: docker/build-push-action@v5
         with:
           context: ./BackEnd/SpringBoot/trackshippement
           file: ./BackEnd/SpringBoot/trackshippement/Dockerfile
           push: true
           tags: haithemdridiweb/trackshippement-microservice
+
+      - name: Build and push Wishlist Microservice
+        uses: docker/build-push-action@v5
+        with:
+          context: ./BackEnd/NodeJs/wishlist-service
+          file: ./BackEnd/NodeJs/wishlist-service/Dockerfile
+          push: true
+          tags: haithemdridiweb/wishlist-microservice
 
       - name: Prepare files
         run: |
@@ -100,5 +108,6 @@ jobs:
             sudo docker pull haithemdridiweb/product-microservice:latest
             sudo docker pull haithemdridiweb/order-microservice:latest
             sudo docker pull haithemdridiweb/trackshippement-microservice:latest
+            sudo docker pull haithemdridiweb/wishlist-microservice:latest
             sudo docker compose down
             sudo docker compose up -d
