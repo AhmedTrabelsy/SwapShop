@@ -5,6 +5,17 @@
     </a>
   </div>
   <hr>
+  <div class="user-profile">
+    <div class="avatar">
+      <i class="pi pi-user" style="font-size: 2rem"></i>
+    </div>
+    <p class="username">{{ userData.username }}</p>
+    <p class="role" *ngIf="userRole && userRole.length > 0">
+      <span *ngFor="let role of userRole; let last = last">
+        {{ role }}{{ !last ? ', ' : '' }}
+      </span>
+    </p>
+  </div>
   <div class="links">
     <ul>
       <li>
