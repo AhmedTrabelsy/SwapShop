@@ -32,13 +32,21 @@ jobs:
           push: true
           tags: haithemdridiweb/discovery-microservice
 
-      - name: Build and push Discovery Microservice
+      - name: Build and push Gateway Microservice
         uses: docker/build-push-action@v5
         with:
           context: ./BackEnd/SpringBoot/gateway
           file: ./BackEnd/SpringBoot/gateway/Dockerfile
           push: true
           tags: haithemdridiweb/gateway-microservice
+
+      - name: Build and push Category Microservice
+        uses: docker/build-push-action@v5
+        with:
+          context: ./BackEnd/SpringBoot/category
+          file: ./BackEnd/SpringBoot/category/Dockerfile
+          push: true
+          tags: haithemdridiweb/category-microservice
 
       - name: Prepare files
         run: |
@@ -64,5 +72,6 @@ jobs:
             sudo docker login  -u ${{ env.DOCKERHUB_USERNAME }} -p  ${{ env.DOCKERHUB_TOKEN }}
             sudo docker pull haithemdridiweb/discovery-microservice:latest
             sudo docker pull haithemdridiweb/gateway-microservice:latest
+            sudo docker pull haithemdridiweb/category-microservice:latest
             sudo docker compose down
             sudo docker compose up -d
