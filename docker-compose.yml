@@ -70,9 +70,14 @@ services:
     volumes:
       - news_uploads:/app/uploads
 
+  angular_client:
+    image: haithemdridiweb/angular-client:latest
+    ports:
+      - "80:80"
+
   angular_admin:
-  image: haithemdridiweb/angular-admin:latest
-  ports:
+    image: haithemdridiweb/angular-admin:latest
+    ports:
       - "81:81"
 
 volumes:
