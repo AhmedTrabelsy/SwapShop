@@ -3,6 +3,7 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { formatDistanceToNow } from 'date-fns';
 import { WishlistService } from '../../services/wishlist.service';
 import { AuthentificationService } from '../../services/authentification.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'swap-shop-product-item',
   templateUrl: './product-item.component.html',
@@ -15,7 +16,7 @@ export class ProductItemComponent implements OnInit, OnDestroy {
   badgeStatus: 'success' | 'info' | 'warning' | 'danger' | null | undefined ='danger'
   badgeValue="Unsigned"
   sellerName="name"
-
+  private userDataSubscription?: Subscription;
   constructor(private wishlistService: WishlistService, private authService: AuthentificationService) { 
     const retrievedValue: string | null = sessionStorage.getItem('access_token');
 
@@ -44,7 +45,9 @@ export class ProductItemComponent implements OnInit, OnDestroy {
 }
 }
   ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
+    if (this.userDataSubscription) {
+      this.userDataSubscription.unsubscribe();
+    }
   }
   heartClass: string = 'pi pi-heart';
   wishlistText: string = ' Add to Wishlist';
