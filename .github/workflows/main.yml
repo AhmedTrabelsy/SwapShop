@@ -12,7 +12,7 @@ env:
   SERVER_PASSWORD: haythemdsi31
 
 jobs:
-  Deploy:
+  BuildDiscoveryMicroserviceImage:
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -32,6 +32,18 @@ jobs:
           push: true
           tags: haithemdridiweb/discovery-microservice
 
+  BuildGatewayMicroServiceImage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ env.DOCKERHUB_USERNAME }}
+          password: ${{ env.DOCKERHUB_TOKEN }}
+
       - name: Build and push Gateway Microservice
         uses: docker/build-push-action@v5
         with:
@@ -39,6 +51,18 @@ jobs:
           file: ./BackEnd/SpringBoot/gateway/Dockerfile
           push: true
           tags: haithemdridiweb/gateway-microservice
+
+  BuildCategoryMicroServiceImage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ env.DOCKERHUB_USERNAME }}
+          password: ${{ env.DOCKERHUB_TOKEN }}
 
       - name: Build and push Category Microservice
         uses: docker/build-push-action@v5
@@ -48,6 +72,18 @@ jobs:
           push: true
           tags: haithemdridiweb/category-microservice
 
+  BuildProductMicroServiceImage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ env.DOCKERHUB_USERNAME }}
+          password: ${{ env.DOCKERHUB_TOKEN }}
+
       - name: Build and push Product Microservice
         uses: docker/build-push-action@v5
         with:
@@ -55,6 +91,18 @@ jobs:
           file: ./BackEnd/SpringBoot/product/Dockerfile
           push: true
           tags: haithemdridiweb/product-microservice
+
+  BuildOrderMicroServiceImage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ env.DOCKERHUB_USERNAME }}
+          password: ${{ env.DOCKERHUB_TOKEN }}
 
       - name: Build and push Order Microservice
         uses: docker/build-push-action@v5
@@ -64,6 +112,18 @@ jobs:
           push: true
           tags: haithemdridiweb/order-microservice
 
+  BuildTrackshippementMicroServiceImage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ env.DOCKERHUB_USERNAME }}
+          password: ${{ env.DOCKERHUB_TOKEN }}
+
       - name: Build and push Trackshippement Microservice
         uses: docker/build-push-action@v5
         with:
@@ -71,6 +131,18 @@ jobs:
           file: ./BackEnd/SpringBoot/trackshippement/Dockerfile
           push: true
           tags: haithemdridiweb/trackshippement-microservice
+
+  BuildWishlistMicroServiceImage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ env.DOCKERHUB_USERNAME }}
+          password: ${{ env.DOCKERHUB_TOKEN }}
 
       - name: Build and push Wishlist Microservice
         uses: docker/build-push-action@v5
@@ -80,6 +152,18 @@ jobs:
           push: true
           tags: haithemdridiweb/wishlist-microservice
 
+  BuildAuthMicroServiceImage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ env.DOCKERHUB_USERNAME }}
+          password: ${{ env.DOCKERHUB_TOKEN }}
+
       - name: Build and push Auth Microservice
         uses: docker/build-push-action@v5
         with:
@@ -87,6 +171,18 @@ jobs:
           file: ./BackEnd/NodeJs/auth-service/Dockerfile
           push: true
           tags: haithemdridiweb/auth-microservice
+
+  BuildNewsMicroServiceImage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ env.DOCKERHUB_USERNAME }}
+          password: ${{ env.DOCKERHUB_TOKEN }}
 
       - name: Build and push News Microservice
         uses: docker/build-push-action@v5
@@ -96,6 +192,18 @@ jobs:
           push: true
           tags: haithemdridiweb/news-microservice
 
+  BuildNotificationMicroServiceImage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ env.DOCKERHUB_USERNAME }}
+          password: ${{ env.DOCKERHUB_TOKEN }}
+
       - name: Build and push Notifications Microservice
         uses: docker/build-push-action@v5
         with:
@@ -104,6 +212,22 @@ jobs:
           push: true
           tags: haithemdridiweb/notification-microservice
 
+  SendFilesToServer:
+    runs-on: ubuntu-latest
+    needs:
+      - BuildDiscoveryMicroserviceImage
+      - BuildGatewayMicroServiceImage
+      - BuildCategoryMicroServiceImage
+      - BuildProductMicroServiceImage
+      - BuildOrderMicroServiceImage
+      - BuildTrackshippementMicroServiceImage
+      - BuildWishlistMicroServiceImage
+      - BuildAuthMicroServiceImage
+      - BuildNewsMicroServiceImage
+      - BuildNotificationMicroServiceImage
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
       - name: Prepare files
         run: |
           mkdir server
@@ -118,6 +242,11 @@ jobs:
           password: ${{ env.SERVER_PASSWORD }}
           localDir: 'server'
 
+  DeployOnServer:
+    runs-on: ubuntu-latest
+    needs:
+      - SendFilesToServer
+    steps:
       - name: run ssh commands
         uses: appleboy/ssh-action@master
         with:
