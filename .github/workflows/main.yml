@@ -212,7 +212,7 @@ jobs:
           push: true
           tags: haithemdridiweb/notification-microservice
 
-  BuildAngularImages:
+  BuildAngularClientImage:
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -230,7 +230,19 @@ jobs:
           context: ./FrontEnd/WebVersion/swap-shop
           file: ./FrontEnd/WebVersion/swap-shop/client.Dockerfile
           push: true
-          tags: haithemdridiweb/client-admin
+          tags: haithemdridiweb/angular-client
+
+  BuildAngularAdminImage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ env.DOCKERHUB_USERNAME }}
+          password: ${{ env.DOCKERHUB_TOKEN }}
 
       - name: Build and push Angular Admin
         uses: docker/build-push-action@v5
@@ -253,7 +265,8 @@ jobs:
       - BuildAuthMicroServiceImage
       - BuildNewsMicroServiceImage
       - BuildNotificationMicroServiceImage
-      - BuildAngularImages
+      - BuildAngularClientImage
+      - BuildAngularAdminImage
     steps:
       - name: Get code
         uses: actions/checkout@v3
