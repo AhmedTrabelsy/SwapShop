@@ -1,0 +1,44 @@
+<p-toast></p-toast>
+<div class="admin-page">
+  <p-card [header]="'Send notification To All Users'">
+    <div class="grid mb-5">
+      <div class="col-12">
+        <p-toolbar>
+          <div class="p-toolbar-group-left"></div>
+          <div class="p-toolbar-group-right">
+            <p-button styleClass="p-button-primary mr-2" [label]="'Send'" icon="pi pi-plus"
+              (click)="onSubmit()"></p-button>
+            <p-button styleClass="p-button-secondary" label="Cancel" icon="pi pi-arrow-circle-left"></p-button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col-12">
+        <p-messages severity="error" *ngIf="error">
+          <ng-template pTemplate>
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <div class="ml-2">{{ error }}</div>
+          </ng-template>
+        </p-messages>
+
+      </div>
+      <div class="col-12">
+        <div class="p-fluid p-formgrid grid">
+          <div class="field col-12">
+            <span class="p-float-label">
+              <input pInputText id="title" [(ngModel)]="title" pInputText />
+              <label htmlFor="title">Title</label>
+            </span>
+          </div>
+          <div class="field col-12">
+            <span class="p-float-label">
+              <textarea pInputText id="description" [(ngModel)]="description" pInputText></textarea>
+              <label htmlFor="description">Description</label>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-card>
+</div>

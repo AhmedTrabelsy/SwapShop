@@ -14,6 +14,7 @@ import { UnothorizedComponent } from 'libs/products/src/lib/components/unothoriz
 import { ProductsAddComponent } from './pages/products/products-add/products-add.component';
 import { ProductEditComponent } from './pages/products/products-edit/products-edit.component';
 import { EditUsersComponent } from './pages/users/users-edit/users-edit.component';
+import { NotificationComponent } from './pages/notifications/notification.component';
 export const appRoutes: Route[] = [
   { path: '', component: DashboardComponent, canActivate: [IsLoggedInGuard,HasRoleGuard], data: {userRole: ['client-admin','client-seller']} },
   { path: 'categories', component: CategoriesListComponent, canActivate: [IsLoggedInGuard,HasRoleGuard], data: {userRole: ['client-admin','client-seller']} },
@@ -30,4 +31,5 @@ export const appRoutes: Route[] = [
   { path: 'orders/:id', component: OrdersDetailComponent, canActivate: [IsLoggedInGuard,HasRoleGuard], data: {userRole: ['client-admin','client-seller']} },
   { path: 'login', component: AuthentificationComponent },
   { path: 'unauthorized', component: UnothorizedComponent, canActivate: [IsLoggedInGuard]},
+  { path: 'notifications', component: NotificationComponent, canActivate: [IsLoggedInGuard,HasRoleGuard], data: {userRole: ['client-admin']}},
 ];
