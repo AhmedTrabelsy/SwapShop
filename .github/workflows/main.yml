@@ -80,6 +80,14 @@ jobs:
           push: true
           tags: haithemdridiweb/wishlist-microservice
 
+      - name: Build and push Auth Microservice
+        uses: docker/build-push-action@v5
+        with:
+          context: ./BackEnd/NodeJs/auth-service
+          file: ./BackEnd/NodeJs/auth-service/Dockerfile
+          push: true
+          tags: haithemdridiweb/auth-microservice
+
       - name: Prepare files
         run: |
           mkdir server
@@ -109,5 +117,6 @@ jobs:
             sudo docker pull haithemdridiweb/order-microservice:latest
             sudo docker pull haithemdridiweb/trackshippement-microservice:latest
             sudo docker pull haithemdridiweb/wishlist-microservice:latest
+            sudo docker pull haithemdridiweb/auth-microservice:latest
             sudo docker compose down
             sudo docker compose up -d

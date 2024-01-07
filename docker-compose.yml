@@ -55,12 +55,10 @@ services:
       - '8084:8084'
     depends_on:
       - product
-  # auth:
-  #   build:
-  #     context: ./BackEnd/NodeJs/auth-service
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - '8085:8085'
+  auth:
+    image: haithemdridiweb/auth-microservice:latest
+    ports:
+      - '8085:8085'
   # notification:
   #   build:
   #     context: ./BackEnd/NodeJs/notification-service
