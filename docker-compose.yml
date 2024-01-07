@@ -29,60 +29,46 @@ services:
       - category_uploads:/app/uploads
     depends_on:
       - gateway
-  # product:
-  #   build:
-  #     context: ./BackEnd/SpringBoot/product
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - '8082:8082'
-  #   volumes:
-  #     - product_uploads:/app/uploads
-  #   depends_on:
-  #     - category
-  # order:
-  #   build:
-  #     context: ./BackEnd/SpringBoot/order-service
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - '8090:8090'
-  #   depends_on:
-  #     - product
-  # trackshippement:
-  #   build:
-  #     context: ./BackEnd/SpringBoot/trackshippement
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - '8089:8089'
-  #   depends_on:
-  #     - order
-  # wishlist:
-  #   build:
-  #     context: ./BackEnd/NodeJs/wishlist-service
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - '8084:8084'
-  #   depends_on:
-  #     - product
-  # auth:
-  #   build:
-  #     context: ./BackEnd/NodeJs/auth-service
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - '8085:8085'
-  # notification:
-  #   build:
-  #     context: ./BackEnd/NodeJs/notification-service
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - '8097:8097'
-  # news:
-  #   build:
-  #     context: ./BackEnd/NodeJs/news-service
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - '8086:8086'
-  #   volumes:
-  #     - news_uploads:/app/uploads
+  product:
+    image: haithemdridiweb/product-microservice:latest
+    ports:
+      - '8082:8082'
+    volumes:
+      - product_uploads:/app/uploads
+    depends_on:
+      - category
+  order:
+    image: haithemdridiweb/order-microservice:latest
+    ports:
+      - '8090:8090'
+    depends_on:
+      - product
+  trackshippement:
+    image: haithemdridiweb/trackshippement-microservice:latest
+    ports:
+      - '8089:8089'
+    depends_on:
+      - order
+  wishlist:
+    image: haithemdridiweb/wishlist-microservice:latest
+    ports:
+      - '8084:8084'
+    depends_on:
+      - product
+  auth:
+    image: haithemdridiweb/auth-microservice:latest
+    ports:
+      - '8085:8085'
+  notification:
+    image: haithemdridiweb/notification-microservice:latest
+    ports:
+      - '8097:8097'
+  news:
+    image: haithemdridiweb/news-microservice:latest
+    ports:
+      - '8086:8086'
+    volumes:
+      - news_uploads:/app/uploads
 
   # # angular:
   # #   build:

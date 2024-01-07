@@ -48,6 +48,62 @@ jobs:
           push: true
           tags: haithemdridiweb/category-microservice
 
+      - name: Build and push Product Microservice
+        uses: docker/build-push-action@v5
+        with:
+          context: ./BackEnd/SpringBoot/product
+          file: ./BackEnd/SpringBoot/product/Dockerfile
+          push: true
+          tags: haithemdridiweb/product-microservice
+
+      - name: Build and push Order Microservice
+        uses: docker/build-push-action@v5
+        with:
+          context: ./BackEnd/SpringBoot/order-service
+          file: ./BackEnd/SpringBoot/order-service/Dockerfile
+          push: true
+          tags: haithemdridiweb/order-microservice
+
+      - name: Build and push Trackshippement Microservice
+        uses: docker/build-push-action@v5
+        with:
+          context: ./BackEnd/SpringBoot/trackshippement
+          file: ./BackEnd/SpringBoot/trackshippement/Dockerfile
+          push: true
+          tags: haithemdridiweb/trackshippement-microservice
+
+      - name: Build and push Wishlist Microservice
+        uses: docker/build-push-action@v5
+        with:
+          context: ./BackEnd/NodeJs/wishlist-service
+          file: ./BackEnd/NodeJs/wishlist-service/Dockerfile
+          push: true
+          tags: haithemdridiweb/wishlist-microservice
+
+      - name: Build and push Auth Microservice
+        uses: docker/build-push-action@v5
+        with:
+          context: ./BackEnd/NodeJs/auth-service
+          file: ./BackEnd/NodeJs/auth-service/Dockerfile
+          push: true
+          tags: haithemdridiweb/auth-microservice
+
+      - name: Build and push News Microservice
+        uses: docker/build-push-action@v5
+        with:
+          context: ./BackEnd/NodeJs/news-service
+          file: ./BackEnd/NodeJs/news-service/Dockerfile
+          push: true
+          tags: haithemdridiweb/news-microservice
+
+      - name: Build and push Notifications Microservice
+        uses: docker/build-push-action@v5
+        with:
+          context: ./BackEnd/NodeJs/notification-service
+          file: ./BackEnd/NodeJs/notification-service/Dockerfile
+          push: true
+          tags: haithemdridiweb/notification-microservice
+
       - name: Prepare files
         run: |
           mkdir server
@@ -73,5 +129,12 @@ jobs:
             sudo docker pull haithemdridiweb/discovery-microservice:latest
             sudo docker pull haithemdridiweb/gateway-microservice:latest
             sudo docker pull haithemdridiweb/category-microservice:latest
+            sudo docker pull haithemdridiweb/product-microservice:latest
+            sudo docker pull haithemdridiweb/order-microservice:latest
+            sudo docker pull haithemdridiweb/trackshippement-microservice:latest
+            sudo docker pull haithemdridiweb/wishlist-microservice:latest
+            sudo docker pull haithemdridiweb/auth-microservice:latest
+            sudo docker pull haithemdridiweb/news-microservice:latest
+            sudo docker pull haithemdridiweb/notification-microservice:latest
             sudo docker compose down
             sudo docker compose up -d
