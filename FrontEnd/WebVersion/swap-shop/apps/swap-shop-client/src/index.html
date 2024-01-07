@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<title>swap-shop-client</title>
-		<base href="/" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="icon" type="image/x-icon" href="favicon.ico" />
-	</head>
-	<body>
-		<swap-shop-root></swap-shop-root>
-	</body>
+
+<head>
+  <meta charset="utf-8" />
+  <title>swap-shop-client</title>
+  <base href="/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+  <script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(function (OneSignal) {
+      OneSignal.init({
+        appId: "bc00aad2-c39c-4ffa-a2c3-a33480f770fc",
+      });
+    });
+  </script>
+
+</head>
+
+<body>
+  <swap-shop-root></swap-shop-root>
+</body>
+
 </html>
