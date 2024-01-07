@@ -10,7 +10,6 @@ import { SharedService } from '../../services/shared.service';
   templateUrl: './featured-products.component.html',
 })
 export class FeaturedProductsComponent implements OnInit, OnDestroy {
-
   products: product[] = [];
   private productSubscription?: Subscription;
   constructor(private productService: ProductService, private sharedService: SharedService) { }

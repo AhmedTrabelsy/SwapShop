@@ -36,6 +36,6 @@
         <span class="addToWishlistSpan" (click)="toggleHeart(product.id)">{{ wishlistText }}</span>
       </div>
     </div>
-    <p-button styleClass="mt-3 see-more" label="See more" icon="pi pi-arrow-right" iconPos="right"></p-button>
+    <p-button styleClass="mt-3 see-more" label="See more" (click)="onSeeMoreClick(product.id)" icon="pi pi-arrow-right" iconPos="right"></p-button>
   </div>
 </div>

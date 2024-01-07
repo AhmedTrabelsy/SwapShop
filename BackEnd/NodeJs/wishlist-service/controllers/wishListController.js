@@ -3,84 +3,209 @@ const WishList = require('../models/wishListModel');
 const axios = require('axios');
 
 exports.create = async (req, res, next) => {
-	let { user_id, product_id } = req.body;
+    try {
+        const { user_id, product_id } = req.body;
+        const token = req.headers.authorization;
+        if (!token) {
+            return res.status(401).json({
+                status: 'fail',
+                message: 'Token is missing',
+            });
+        }
+        const user = await validateTokenAndGetUser(token);
 
-	if (user_id == null || product_id == null) {
-		return res.status(400).json({
-			status: 'fail',
-			message: 'user_id and product_id are required',
-		});
-	}
+        if (!user) {
+            return res.status(401).json({
+                status: 'fail',
+                message: 'Invalid token',
+            });
+        }
+        if (!user_id || !product_id) {
+            return res.status(400).json({
+                status: 'fail',
+                message: 'user_id and product_id are required',
+            });
+        }
+        const existingWishList = await WishList.findOne({ user_id });
 
-	const existingWishList = await WishList.findOne({ user_id });
+        if (existingWishList) {
+            if (!existingWishList.products.includes(product_id)) {
+                existingWishList.products.push(product_id);
+                await existingWishList.save();
+            }
+        } else {
+            const newWishList = new WishList({
+                user_id,
+                products: [product_id],
+            });
+            await newWishList.save();
+        }
 
-	if (existingWishList) {
-		if (!existingWishList.products.includes(product_id)) {
-			existingWishList.products.push(product_id);
-			await existingWishList.save();
-		}
-	} else {
-		const newWishList = new WishList({
-			user_id,
-			products: [product_id],
-		});
-		await newWishList.save();
-	}
-
-	return res.status(201).json({
-		status: 'success',
-	});
+        return res.status(201).json({
+            status: 'success',
+        });
+    } catch (error) {
+        console.error('Error:', error);
+        return res.status(500).json({
+            status: 'error',
+            message: 'An error occurred while processing the request',
+        });
+    }
 };
 
 exports.get = async (req, res, next) => {
-	const user_id = req.params.user_id;
+    try {
+        const user_id = req.params.user_id;
+        const token = req.headers.authorization;
+        if (!token) {
+            return res.status(401).json({
+                status: 'fail',
+                message: 'Token is missing',
+            });
+        }
+        const isAuthenticated = await validateTokenAndGetUser(token);
 
-	const wishlist = await WishList.findOne({ user_id });
+        if (!isAuthenticated) {
+            return res.status(401).json({
+                status: 'fail',
+                message: 'Invalid token',
+            });
+        }
+        if (!user_id) {
+            return res.status(400).json({
+                status: 'fail',
+                message: 'Invalid user_id',
+            });
+        }
+        if (user_id !== isAuthenticated.user_id) {
+            return res.status(403).json({
+                status: 'fail',
+                message: 'Access forbidden. User does not have permission to access this resource.',
+            });
+        }
 
-	let responseData = {};
-	if (wishlist) {
-		const productPromises = wishlist.products.map(async (product_id) => {
-			try {
-				const response = await axios.get(`${process.env.GATEWAY_URL}/PRODUCT-SERVICE/products/${product_id}`);
-				return response.data; // Assuming the product data is in the 'data' property of the response
-			} catch (error) {
-				console.error(`Error fetching product ${product_id}:`, error.message);
-				return null; // Or handle the error in a way that makes sense for your application
-			}
-		});
+        const wishlist = await WishList.findOne({ user_id });
 
-		const productData = await Promise.all(productPromises);
+        let responseData = {};
+        if (wishlist) {
+            const productPromises = wishlist.products.map(async (product_id) => {
+                try {
+                    const response = await axios.get(`${process.env.GATEWAY_URL}/PRODUCT-SERVICE/products/${product_id}`);
+                    return response.data;
+                } catch (error) {
+                    console.error(`Error fetching product ${product_id}:`, error.message);
+                    return null;
+                }
+            });
 
-		responseData = {
-			user_id,
-			products: productData,
-		};
-	}
+            const productData = await Promise.all(productPromises);
 
-	return res.status(200).json(responseData);
+            responseData = {
+                user_id,
+                products: productData,
+            };
+        }
+
+        return res.status(200).json(responseData);
+    } catch (error) {
+        console.error('Error:', error);
+        return res.status(500).json({
+            status: 'error',
+            message: 'An error occurred while processing the request',
+        });
+    }
 };
 
 exports.deleteByUserId = async (req, res, next) => {
-	const user_id = req.params.user_id;
+    try {
+        const user_id = req.params.user_id;
+        const token = req.headers.authorization;
+        if (!token) {
+            return res.status(401).json({
+                status: 'fail',
+                message: 'Token is missing',
+            });
+        }
+        const isAuthenticated = await validateTokenAndGetUser(token);
 
-	await WishList.findOneAndDelete({ user_id });
+        if (!isAuthenticated) {
+            return res.status(401).json({
+                status: 'fail',
+                message: 'Invalid token',
+            });
+        }
+        if (!user_id) {
+            return res.status(400).json({
+                status: 'fail',
+                message: 'Invalid user_id',
+            });
+        }
+        if (user_id !== isAuthenticated.user_id) {
+            return res.status(403).json({
+                status: 'fail',
+                message: 'Access forbidden. User does not have permission to perform this action.',
+            });
+        }
+        await WishList.findOneAndDelete({ user_id });
 
-	return res.status(204).json({
-		status: 'success',
-	});
+        return res.status(204).json({
+            status: 'success',
+        });
+    } catch (error) {
+        console.error('Error:', error);
+        return res.status(500).json({
+            status: 'error',
+            message: 'An error occurred while processing the request',
+        });
+    }
 };
 
 exports.deleteProductFromUserWishList = async (req, res, next) => {
-	const user_id = req.params.user_id;
-	const product_id = req.params.product_id;
+    try {
+        const user_id = req.params.user_id;
+        const product_id = req.params.product_id;
+        const token = req.headers.authorization;
+        if (!token) {
+            return res.status(401).json({
+                status: 'fail',
+                message: 'Token is missing',
+            });
+        }
+        const isAuthenticated = await validateTokenAndGetUser(token);
 
-	const result = await WishList.updateOne({ user_id }, { $pull: { products: parseInt(product_id) } });
+        if (!isAuthenticated) {
+            return res.status(401).json({
+                status: 'fail',
+                message: 'Invalid token',
+            });
+        }
+        if (!user_id || !product_id) {
+            return res.status(400).json({
+                status: 'fail',
+                message: 'Invalid user_id or product_id',
+            });
+        }
+        if (user_id !== isAuthenticated.user_id) {
+            return res.status(403).json({
+                status: 'fail',
+                message: 'Access forbidden. User does not have permission to perform this action.',
+            });
+        }
+        const result = await WishList.updateOne({ user_id }, { $pull: { products: parseInt(product_id) } });
 
-	if (result.nModified === 0) {
-		return res.status(404).json({ message: 'Product not found in wishlist' });
-	}
+        if (result.nModified === 0) {
+            return res.status(404).json({ message: 'Product not found in wishlist' });
+        }
 
-	return res.status(204).json({
-		status: 'success',
-	});
+        return res.status(204).json({
+            status: 'success',
+        });
+    } catch (error) {
+        console.error('Error:', error);
+        return res.status(500).json({
+            status: 'error',
+            message: 'An error occurred while processing the request',
+        });
+    }
 };
+

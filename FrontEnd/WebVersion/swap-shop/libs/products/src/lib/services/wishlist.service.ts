@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { wishlist } from '../models/wishlist';
@@ -21,7 +21,10 @@ export class WishlistService {
 
   getWishlist(): Observable<wishlist> {
     console.log("hello");
-    return this.http.get<any>(`http://34.199.239.78:8888/WISHLIST-SERVICE/${sessionStorage.getItem('userId')}`).pipe(
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.getToken()}`
+    });
+    return this.http.get<any>(`http://34.199.239.78:8888/WISHLIST-SERVICE/${sessionStorage.getItem('userId')}`, {headers}).pipe(
       map((data: any) => {
         console.log("data", data);
         const processedWishlist: wishlist = {
@@ -33,14 +36,20 @@ export class WishlistService {
     );
   }
   getProducts(): Observable<product[]> {
-    return this.http.get<any>(`http://34.199.239.78:8888/WISHLIST-SERVICE/${sessionStorage.getItem('userId')}`).pipe(
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.getToken()}`
+    });
+    return this.http.get<any>(`http://34.199.239.78:8888/WISHLIST-SERVICE/${sessionStorage.getItem('userId')}`, {headers}).pipe(
       map((data: any) => data.products.filter((product: any) => product !== null && product !== undefined))
     );
   }
   deleteProduct(productId: number): Promise<void> {
     if ( this.isAuthenticated()){
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${this.getToken()}`
+      });
     return new Promise((resolve, reject) => {
-      this.http.delete(`http://34.199.239.78:8888/WISHLIST-SERVICE/${sessionStorage.getItem('userId')}/${productId}`).subscribe(
+      this.http.delete(`http://34.199.239.78:8888/WISHLIST-SERVICE/${sessionStorage.getItem('userId')}/${productId}`, {headers}).subscribe(
         () => {
           console.log("Deleted Product ID:", productId);
           resolve();
@@ -59,12 +68,15 @@ export class WishlistService {
   
   addToWishlist(productId: number): Observable<any> {
     if ( this.isAuthenticated()){
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${this.getToken()}`
+      });
     const payload = {
       user_id: sessionStorage.getItem('userId'),
       product_id: productId
     };
 
-    return this.http.post<any>("http://34.199.239.78:8888/WISHLIST-SERVICE/", payload);
+    return this.http.post<any>("http://34.199.239.78:8888/WISHLIST-SERVICE/", payload, {headers});
   }  
   else {
     this.router.navigate(['/login']);

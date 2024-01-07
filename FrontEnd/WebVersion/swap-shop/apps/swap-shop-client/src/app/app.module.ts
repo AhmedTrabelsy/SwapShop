@@ -20,38 +20,42 @@ import { WishlistService } from 'libs/products/src/lib/services/wishlist.service
 import { WishListComponent } from './pages/wishlist-page/wish-list.component';
 import { CardModule } from 'primeng/card';
 import { ToolbarModule } from 'primeng/toolbar';
+import { DataViewModule } from 'primeng/dataview';
+import { ContactCreatorsComponent } from './pages/contact-creators/contact-creators.component';
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomePageComponent,
-    ProductListComponent,
-    FooterComponent,
-    HeaderComponent,
-    NavComponent,
-    WishListComponent,
-  ],
-  imports: [
-    ToolbarModule,
-    BrowserModule,
-    RouterModule.forRoot(appRoutes),
-    AccordionModule,
-    BrowserAnimationsModule,
-    UiModule,
-    ProductsModule,
-    HttpClientModule,
-    ButtonModule,
-    BadgeModule,
-    CardModule
-  ],
-  providers: [
-    CategoriesService,
-    {
-      provide: DEFAULT_CURRENCY_CODE,
-      useValue: 'TND'
-    },
-    WishlistService
-  ],
-  bootstrap: [AppComponent],
-  exports: [HomePageComponent]
+	declarations: [
+		AppComponent,
+		HomePageComponent,
+		ProductListComponent,
+		FooterComponent,
+		HeaderComponent,
+		NavComponent,
+		WishListComponent,
+		ContactCreatorsComponent
+	],
+	imports: [
+		DataViewModule,
+		ToolbarModule,
+		BrowserModule,
+		RouterModule.forRoot(appRoutes),
+		AccordionModule,
+		BrowserAnimationsModule,
+		UiModule,
+		ProductsModule,
+		HttpClientModule,
+		ButtonModule,
+		BadgeModule,
+		CardModule
+	],
+	providers: [
+		CategoriesService,
+		{
+			provide: DEFAULT_CURRENCY_CODE,
+			useValue: 'TND'
+		},
+		WishlistService
+	],
+	bootstrap: [AppComponent],
+	exports: [HomePageComponent]
 })
 export class AppModule {}
