@@ -1,6 +1,7 @@
 import { UserService } from './../../../../../../../libs/products/src/lib/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { user } from 'libs/products/src/lib/models/user';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'swap-shop-users-list',
@@ -11,7 +12,11 @@ export class UsersListComponent  implements OnInit{
 
   users : user[] = [];
 
-  constructor(private userService : UserService) {
+  constructor(private userService : UserService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
+
+    ) {
 
   }
 
@@ -27,8 +32,26 @@ export class UsersListComponent  implements OnInit{
   }
 
   deleteUser(id:string){
-    this.userService.delete(id).subscribe((res)=>{
-      this.getAllUsers();
-    });
+
+
+      this.confirmationService.confirm({
+        message: 'Do you want to delete this User?',
+        header: 'Delete User',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+
+          this.userService.delete(id).subscribe((res)=>{
+            this.getAllUsers();
+
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'User is deleted!'
+            });
+          });
+
+        }
+      });
+
   }
 }
