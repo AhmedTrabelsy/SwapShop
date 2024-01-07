@@ -1,0 +1,65 @@
+<div class="signup-page">
+  <p-card header="Signup" [style]="{ width: '400px', 'margin': '25px auto 0 auto' }">
+    <ng-template pTemplate="header">
+      <img alt="Card" src="http://34.199.239.78:81/assets/images/logo.png" />
+    </ng-template>
+    <p [style.color]="'red'" *ngIf="!isAuthenticating">{{ alertMessage }}</p>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+      <div class="flex flex-column gap-2">
+        <label for="username">Username</label>
+        <input pInputText id="username" formControlName="username" aria-describedby="username-help" name="username"
+          required />
+        <small *ngIf="form.get('username')!.hasError('required') && (form.get('username')!.touched || isSubmitted)"
+          class="text-red-600">UserName is required</small>
+      </div>
+      <br />
+      <div class="flex flex-column gap-2">
+        <label for="firstname">First Name</label>
+        <input pInputText id="firstName" formControlName="firstName" aria-describedby="firstName-help" name="firstName"
+          required />
+        <small *ngIf="form.get('firstName')!.hasError('required') && (form.get('firstName')!.touched || isSubmitted)"
+          class="text-red-600">FirstName is required</small>
+      </div>
+      <br />
+
+      <div class="flex flex-column gap-2">
+        <label for="lastName">Last Name</label>
+        <input pInputText id="lastName" formControlName="lastName" aria-describedby="lastname-help" name="lastName"
+          required />
+        <small *ngIf="form.get('lastName')!.hasError('required') && (form.get('lastName')!.touched || isSubmitted)"
+          class="text-red-600">LastName is required</small>
+      </div>
+      <br />
+
+      <div class="flex flex-column gap-2">
+        <label for="email">Email</label>
+        <input pInputText id="email" formControlName="email" aria-describedby="email-help" name="email" required />
+        <small *ngIf="form.get('email')!.hasError('required') && (form.get('email')!.touched || isSubmitted)"
+          class="text-red-600">Email is required</small>
+      </div>
+      <br />
+
+      <div class="flex flex-column gap-2">
+        <label for="phoneNumber">Phone Number</label>
+        <input pInputText id="phoneNumber" formControlName="phoneNumber" aria-describedby="phoneNumber-help"
+          name="phoneNumber" required />
+        <small
+          *ngIf="form.get('phoneNumber')!.hasError('required') && (form.get('phoneNumber')!.touched || isSubmitted)"
+          class="text-red-600">Phone Number is required</small>
+      </div>
+      <br />
+
+      <div class="flex flex-column gap-2">
+        <label for="password">Password</label>
+        <p-password [feedback]="false" formControlName="password" [toggleMask]="true" aria-describedby="password-help"
+          name="password" required />
+        <small *ngIf="form.get('password')!.hasError('required') && (form.get('password')!.touched || isSubmitted)"
+          class="text-red-600">Password is required</small>
+      </div>
+      <br />
+      <p-button label="Register" icon="pi pi-check" type="submit"></p-button>
+      <p-button label="Cancel" type="reset" icon="pi pi-times" styleClass="p-button-secondary"
+        [style]="{ 'margin-left': '.5em' }"></p-button>
+    </form>
+  </p-card>
+</div>

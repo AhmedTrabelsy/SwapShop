@@ -18,6 +18,11 @@ export class AuthentificationService {
   isAuthenticated() {
     return of(this.getToken() !== '');
   }
+
+  register(data:{ [key: string]: string }): Observable<any> {
+    return this.http.post<any>(`${this.BASE_URL_AUTH_SERVICE}/signup`, data);
+  }
+
   login(username: string, password: string): Observable<any> {
     const loginUrl = `${this.BASE_URL_AUTH_SERVICE}/login`;
 
@@ -41,12 +46,12 @@ export class AuthentificationService {
   getUserId(token: string): Observable<any> {
     // this.user = this.getUserInfo(token);
     const getUserIdUrl = `${this.BASE_URL_AUTH_SERVICE}/getUserId`;
-  
+
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
     return this.http.get<any>(getUserIdUrl, { headers: headers });
-  }  
+  }
   getUserDataFromId(token: string, id: string): Observable<any> {
     const getUserDataUrl = `${this.BASE_URL_AUTH_SERVICE}/users/${id}`;
 
