@@ -15,6 +15,14 @@ jobs:
   Deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: echo env
+        run: |
+          echo $DOCKERHUB_USERNAME
+          echo $DOCKERHUB_TOKEN
+          echo $SERVER_IP
+          echo $SERVER_USERNAME
+          echo $SERVER_PASSWORD
+
       - name: Get code
         uses: actions/checkout@v3
 
