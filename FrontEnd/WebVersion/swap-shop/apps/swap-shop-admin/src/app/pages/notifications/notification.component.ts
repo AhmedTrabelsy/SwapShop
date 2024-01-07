@@ -40,7 +40,7 @@ export class NotificationComponent {
     this.error = null;
 
 
-   this.notificationService.create({title:this.title,description:this.description}).subscribe(res => {
+   this.notificationService.create({title:this.title,body:this.description}).subscribe(res => {
 
     this.messageService.add({
       severity: 'success',
