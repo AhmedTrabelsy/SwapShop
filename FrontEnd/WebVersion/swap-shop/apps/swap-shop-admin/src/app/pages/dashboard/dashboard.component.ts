@@ -65,8 +65,8 @@ export class DashboardComponent implements OnInit, OnDestroy  {
             {
               label: 'Total Scales',
               data: this.usersPerMounth,
-              backgroundColor: 'rgba(54, 162, 235, 0.5)',
-              borderColor: 'rgba(54, 162, 235, 1)',
+              backgroundColor: 'rgba(255, 10, 50, 0.5)',
+              borderColor: 'rgba(255, 10, 50, 1)',
               borderWidth: 1
             }
           ]
