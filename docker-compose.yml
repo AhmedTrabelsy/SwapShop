@@ -15,14 +15,12 @@ services:
       - '8761:8761'
     depends_on:
       - keycloak
-  # gateway:
-  #   build:
-  #     context: ./BackEnd/SpringBoot/gateway
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - '8888:8888'
-  #   depends_on:
-  #     - discovery
+  gateway:
+    image: haithemdridiweb/gateway-microservice::latest
+    ports:
+      - '8888:8888'
+    depends_on:
+      - discovery
   # category:
   #   build:
   #     context: ./BackEnd/SpringBoot/category

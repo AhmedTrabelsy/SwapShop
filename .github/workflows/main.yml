@@ -32,6 +32,14 @@ jobs:
           push: true
           tags: haithemdridiweb/discovery-microservice
 
+      - name: Build and push Discovery Microservice
+        uses: docker/build-push-action@v5
+        with:
+          context: ./BackEnd/SpringBoot/gateway
+          file: ./BackEnd/SpringBoot/gateway/Dockerfile
+          push: true
+          tags: haithemdridiweb/gateway-microservice
+
       - name: Prepare files
         run: |
           mkdir server
@@ -55,5 +63,6 @@ jobs:
           script: |
             sudo docker login  -u ${{ env.DOCKERHUB_USERNAME }} -p  ${{ env.DOCKERHUB_TOKEN }}
             sudo docker pull haithemdridiweb/discovery-microservice:latest
-            sudo docker-compose down
-            sudo docker-compose up -d
+            sudo docker pull haithemdridiweb/gateway-microservice:latest
+            sudo docker compose down
+            sudo docker compose up -d
