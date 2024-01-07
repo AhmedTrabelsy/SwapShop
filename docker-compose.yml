@@ -37,14 +37,12 @@ services:
       - product_uploads:/app/uploads
     depends_on:
       - category
-  # order:
-  #   build:
-  #     context: ./BackEnd/SpringBoot/order-service
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - '8090:8090'
-  #   depends_on:
-  #     - product
+  order:
+    image: haithemdridiweb/order-microservice:latest
+    ports:
+      - '8090:8090'
+    depends_on:
+      - product
   # trackshippement:
   #   build:
   #     context: ./BackEnd/SpringBoot/trackshippement

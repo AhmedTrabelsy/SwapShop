@@ -56,6 +56,14 @@ jobs:
           push: true
           tags: haithemdridiweb/product-microservice
 
+      - name: Build and push Order Microservice
+        uses: docker/build-push-action@v5
+        with:
+          context: ./BackEnd/SpringBoot/order-service
+          file: ./BackEnd/SpringBoot/order-service/Dockerfile
+          push: true
+          tags: haithemdridiweb/order-microservice
+
       - name: Prepare files
         run: |
           mkdir server
@@ -82,5 +90,6 @@ jobs:
             sudo docker pull haithemdridiweb/gateway-microservice:latest
             sudo docker pull haithemdridiweb/category-microservice:latest
             sudo docker pull haithemdridiweb/product-microservice:latest
+            sudo docker pull haithemdridiweb/order-microservice:latest
             sudo docker compose down
             sudo docker compose up -d
