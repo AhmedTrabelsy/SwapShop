@@ -96,6 +96,14 @@ jobs:
           push: true
           tags: haithemdridiweb/news-microservice
 
+      - name: Build and push Notifications Microservice
+        uses: docker/build-push-action@v5
+        with:
+          context: ./BackEnd/NodeJs/notification-service
+          file: ./BackEnd/NodeJs/notification-service/Dockerfile
+          push: true
+          tags: haithemdridiweb/notification-microservice
+
       - name: Prepare files
         run: |
           mkdir server
@@ -127,5 +135,6 @@ jobs:
             sudo docker pull haithemdridiweb/wishlist-microservice:latest
             sudo docker pull haithemdridiweb/auth-microservice:latest
             sudo docker pull haithemdridiweb/news-microservice:latest
+            sudo docker pull haithemdridiweb/notification-microservice:latest
             sudo docker compose down
             sudo docker compose up -d
