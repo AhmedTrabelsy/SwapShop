@@ -1,0 +1,17 @@
+FROM node:21.1.0-alpine as build
+WORKDIR /usr/src/app
+
+COPY package.json ./package.json
+COPY package-lock.json ./package-lock.json
+
+RUN npm install
+
+COPY . .
+
+RUN npx nx run swap-shop-admin:build --configuration=production
+
+FROM nginx:1.17.1-alpine
+
+COPY --from=build /usr/src/app/dist/apps/swap-shop-admin /usr/share/nginx/html
+
+EXPOSE 80
