@@ -65,14 +65,12 @@ services:
   #     dockerfile: Dockerfile
   #   ports:
   #     - '8097:8097'
-  # news:
-  #   build:
-  #     context: ./BackEnd/NodeJs/news-service
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - '8086:8086'
-  #   volumes:
-  #     - news_uploads:/app/uploads
+  news:
+    image: haithemdridiweb/news-microservice:latest
+    ports:
+      - '8086:8086'
+    volumes:
+      - news_uploads:/app/uploads
 
   # # angular:
   # #   build:

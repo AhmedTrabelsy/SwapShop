@@ -88,6 +88,14 @@ jobs:
           push: true
           tags: haithemdridiweb/auth-microservice
 
+      - name: Build and push News Microservice
+        uses: docker/build-push-action@v5
+        with:
+          context: ./BackEnd/NodeJs/news-service
+          file: ./BackEnd/NodeJs/news-service/Dockerfile
+          push: true
+          tags: haithemdridiweb/news-microservice
+
       - name: Prepare files
         run: |
           mkdir server
@@ -118,5 +126,6 @@ jobs:
             sudo docker pull haithemdridiweb/trackshippement-microservice:latest
             sudo docker pull haithemdridiweb/wishlist-microservice:latest
             sudo docker pull haithemdridiweb/auth-microservice:latest
+            sudo docker pull haithemdridiweb/news-microservice:latest
             sudo docker compose down
             sudo docker compose up -d
