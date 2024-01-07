@@ -4,7 +4,7 @@ const createEurekaClient = () => {
 	return new Eureka({
 		instance: {
 			app: 'NOTIFICATION-SERVICE',
-			hostName: 'auth',
+			hostName: 'notification',
 			ipAddr: '127.0.0.1',
 			vipAddress: 'NOTIFICATION-SERVICE',
 			port: {

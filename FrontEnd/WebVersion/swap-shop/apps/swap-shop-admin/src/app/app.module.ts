@@ -33,6 +33,7 @@ import { PasswordModule } from 'primeng/password';
 import { ProductsAddComponent } from './pages/products/products-add/products-add.component';
 import { ProductEditComponent } from './pages/products/products-edit/products-edit.component';
 import { EditUsersComponent } from './pages/users/users-edit/users-edit.component';
+import { NotificationComponent } from './pages/notifications/notification.component';
 @NgModule({
 	declarations: [
 		LoginPageComponent,
@@ -50,6 +51,7 @@ import { EditUsersComponent } from './pages/users/users-edit/users-edit.componen
     ProductsAddComponent,
     ProductEditComponent,
     EditUsersComponent,
+    NotificationComponent,
 	],
 	imports: [
 		PasswordModule,
