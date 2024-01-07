@@ -3,25 +3,57 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+
+env:
+  DOCKERHUB_USERNAME: haithemdridiweb
+  DOCKERHUB_TOKEN: dckr_pat_luw2jRJMTYOLursn-YD4Zc0hKWg
+  SERVER_IP: 34.199.239.78
+  SERVER_USERNAME: haythem
+  SERVER_PASSWORD: haythemdsi31
+
 jobs:
   Deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Get code
         uses: actions/checkout@v3
-      - name: Send files to server
-        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
         with:
-          server: 34.199.239.78
-          username: haythem
-          password: haythem
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_TOKEN
+
+      - name: Build and push Discovery Microservice
+        uses: docker/build-push-action@v5
+        with:
+          context: ./BackEnd/SpringBoot/discovery
+          file: Dockerfile
+          push: true
+          tags: haithemdridiweb/discovery-microservice
+
+      - name: Prepare files
+        run: |
+          mkdir server
+          cp docker-compose.yml server/
+          cp keycloak.Dockerfile server/
+
+      - name: Upload prepared files to server
+        uses: genietim/ftp-action@master
+        with:
+          host: $SERVER_IP
+          user: $SERVER_USERNAME
+          password: $SERVER_PASSWORD
+          localDir: 'backend'
+
       - name: run ssh commands
         uses: appleboy/ssh-action@master
         with:
-          host: 34.199.239.78
-          username: ubuntu
-          key_path: id_rsa
+          host: $SERVER_IP
+          username: $SERVER_USERNAME
+          password: $SERVER_PASSWORD
           script: |
-            cd /home/haythem
-            sudo docker compose down
-            sudo docker compose up --build -d
+            sudo docker login  -u $DOCKERHUB_USERNAME -p  $DOCKERHUB_TOKEN
+            sudo docker pull haithemdridiweb/discovery-microservice:latest
+            sudo docker-compose down
+            sudo docker-compose up -d

@@ -10,100 +10,98 @@ services:
       - KEYCLOAK_ADMIN_PASSWORD=dsi31
     command: ['start-dev']
   discovery:
-    build:
-      context: ./BackEnd/SpringBoot/discovery
-      dockerfile: Dockerfile
+    image: haithemdridiweb/discovery-microservice:latest
     ports:
       - '8761:8761'
     depends_on:
       - keycloak
-  gateway:
-    build:
-      context: ./BackEnd/SpringBoot/gateway
-      dockerfile: Dockerfile
-    ports:
-      - '8888:8888'
-    depends_on:
-      - discovery
-  category:
-    build:
-      context: ./BackEnd/SpringBoot/category
-      dockerfile: Dockerfile
-    ports:
-      - '8081:8081'
-    volumes:
-      - category_uploads:/app/uploads
-    depends_on:
-      - gateway
-  product:
-    build:
-      context: ./BackEnd/SpringBoot/product
-      dockerfile: Dockerfile
-    ports:
-      - '8082:8082'
-    volumes:
-      - product_uploads:/app/uploads
-    depends_on:
-      - category
-  order:
-    build:
-      context: ./BackEnd/SpringBoot/order-service
-      dockerfile: Dockerfile
-    ports:
-      - '8090:8090'
-    depends_on:
-      - product
-  trackshippement:
-    build:
-      context: ./BackEnd/SpringBoot/trackshippement
-      dockerfile: Dockerfile
-    ports:
-      - '8089:8089'
-    depends_on:
-      - order
-  wishlist:
-    build:
-      context: ./BackEnd/NodeJs/wishlist-service
-      dockerfile: Dockerfile
-    ports:
-      - '8084:8084'
-    depends_on:
-      - product
-  auth:
-    build:
-      context: ./BackEnd/NodeJs/auth-service
-      dockerfile: Dockerfile
-    ports:
-      - '8085:8085'
-  notification:
-    build:
-      context: ./BackEnd/NodeJs/notification-service
-      dockerfile: Dockerfile
-    ports:
-      - '8097:8097'
-  news:
-    build:
-      context: ./BackEnd/NodeJs/news-service
-      dockerfile: Dockerfile
-    ports:
-      - '8086:8086'
-    volumes:
-      - news_uploads:/app/uploads
-
-  # angular:
+  # gateway:
   #   build:
-  #     context: ./FrontEnd/WebVersion
+  #     context: ./BackEnd/SpringBoot/gateway
   #     dockerfile: Dockerfile
   #   ports:
-  #     - "80:80"
+  #     - '8888:8888'
+  #   depends_on:
+  #     - discovery
+  # category:
+  #   build:
+  #     context: ./BackEnd/SpringBoot/category
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - '8081:8081'
+  #   volumes:
+  #     - category_uploads:/app/uploads
+  #   depends_on:
+  #     - gateway
+  # product:
+  #   build:
+  #     context: ./BackEnd/SpringBoot/product
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - '8082:8082'
+  #   volumes:
+  #     - product_uploads:/app/uploads
+  #   depends_on:
+  #     - category
+  # order:
+  #   build:
+  #     context: ./BackEnd/SpringBoot/order-service
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - '8090:8090'
   #   depends_on:
   #     - product
-  apk_web_server:
-    image: nginx:1.17.1-alpine
-    ports:
-      - '1000:80'
-    volumes:
-      - ./APK:/usr/share/nginx/html
+  # trackshippement:
+  #   build:
+  #     context: ./BackEnd/SpringBoot/trackshippement
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - '8089:8089'
+  #   depends_on:
+  #     - order
+  # wishlist:
+  #   build:
+  #     context: ./BackEnd/NodeJs/wishlist-service
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - '8084:8084'
+  #   depends_on:
+  #     - product
+  # auth:
+  #   build:
+  #     context: ./BackEnd/NodeJs/auth-service
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - '8085:8085'
+  # notification:
+  #   build:
+  #     context: ./BackEnd/NodeJs/notification-service
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - '8097:8097'
+  # news:
+  #   build:
+  #     context: ./BackEnd/NodeJs/news-service
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - '8086:8086'
+  #   volumes:
+  #     - news_uploads:/app/uploads
+
+  # # angular:
+  # #   build:
+  # #     context: ./FrontEnd/WebVersion
+  # #     dockerfile: Dockerfile
+  # #   ports:
+  # #     - "80:80"
+  # #   depends_on:
+  # #     - product
+  # apk_web_server:
+  #   image: nginx:1.17.1-alpine
+  #   ports:
+  #     - '1000:80'
+  #   volumes:
+  #     - ./APK:/usr/share/nginx/html
 volumes:
   category_uploads:
   product_uploads:
