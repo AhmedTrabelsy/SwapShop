@@ -12,7 +12,6 @@ import { CategoriesFormComponent } from './pages/categories/categories-form/cate
 import { OrdersListComponent } from './pages/orders/orders-list/orders-list.component';
 import { OrdersDetailComponent } from './pages/orders/orders-detail/orders-detail.component';
 import { UsersListComponent } from './pages/users/users-list/users-list.component';
-import { UsersFormComponent } from './pages/users/users-form/users-form.component';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
@@ -33,6 +32,7 @@ import { LoginPageComponent } from 'libs/products/src/lib/components/login-page/
 import { PasswordModule } from 'primeng/password';
 import { ProductsAddComponent } from './pages/products/products-add/products-add.component';
 import { ProductEditComponent } from './pages/products/products-edit/products-edit.component';
+import { EditUsersComponent } from './pages/users/users-edit/users-edit.component';
 @NgModule({
 	declarations: [
 		LoginPageComponent,
@@ -46,10 +46,10 @@ import { ProductEditComponent } from './pages/products/products-edit/products-ed
 		OrdersListComponent,
 		OrdersDetailComponent,
 		UsersListComponent,
-		UsersFormComponent,
 		AuthentificationComponent,
     ProductsAddComponent,
     ProductEditComponent,
+    EditUsersComponent,
 	],
 	imports: [
 		PasswordModule,
@@ -83,7 +83,6 @@ import { ProductEditComponent } from './pages/products/products-edit/products-ed
 		OrdersListComponent,
 		OrdersDetailComponent,
 		UsersListComponent,
-		UsersFormComponent,
 	]
 })
 export class AppModule {}

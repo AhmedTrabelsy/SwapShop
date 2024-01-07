@@ -1,5 +1,6 @@
 import { UserService } from './../../../../../../../libs/products/src/lib/services/user.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { user } from 'libs/products/src/lib/models/user';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
@@ -15,6 +16,7 @@ export class UsersListComponent  implements OnInit{
   constructor(private userService : UserService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
+    private router: Router,
 
     ) {
 
@@ -29,6 +31,10 @@ export class UsersListComponent  implements OnInit{
     this.userService.getAll().subscribe((res)=>{
       this.users = res
     });
+  }
+
+  updateUser(id: string) {
+    this.router.navigateByUrl(`users/${id}/edit`);
   }
 
   deleteUser(id:string){

@@ -39,7 +39,7 @@
               <td>
                 <p-button (onClick)="deleteUser(user.id)" styleClass="p-button-danger mr-2"
                   icon="pi pi-trash"></p-button>
-                <p-button styleClass="p-button-success" icon="pi pi-pencil"></p-button>
+                <p-button (onClick)="updateUser(user.id)" styleClass="p-button-success" icon="pi pi-pencil"></p-button>
               </td>
             </tr>
           </ng-template>
