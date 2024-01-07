@@ -16,7 +16,7 @@ services:
     depends_on:
       - keycloak
   gateway:
-    image: haithemdridiweb/gateway-microservice::latest
+    image: haithemdridiweb/gateway-microservice:latest
     ports:
       - '8888:8888'
     depends_on:
