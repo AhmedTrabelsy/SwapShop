@@ -1,0 +1,56 @@
+<p-toast></p-toast>
+<div class="admin-page">
+  <p-card [header]="'Edit User ' + user?.username ">
+    <div class="grid mb-5">
+      <div class="col-12">
+        <p-toolbar>
+          <div class="p-toolbar-group-left"></div>
+          <div class="p-toolbar-group-right">
+            <p-button styleClass="p-button-primary mr-2" [label]="'Edit'" icon="pi pi-plus"
+              (click)="onSubmit()"></p-button>
+            <p-button styleClass="p-button-secondary" label="Cancel" icon="pi pi-arrow-circle-left"></p-button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col-12">
+        <p-messages severity="error" *ngIf="error">
+          <ng-template pTemplate>
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <div class="ml-2">{{ error }}</div>
+          </ng-template>
+        </p-messages>
+
+      </div>
+      <div class="col-12">
+        <div class="p-fluid p-formgrid grid">
+          <div class="field col-6">
+            <span class="p-float-label">
+              <input pInputText id="firstName" [(ngModel)]="user.firstName" pInputText />
+              <label htmlFor="firstName">First Name</label>
+            </span>
+          </div>
+          <div class="field col-6">
+            <span class="p-float-label">
+              <input pInputText id="lastName" [(ngModel)]="user.lastName" pInputText />
+              <label htmlFor="lastName">Last Name</label>
+            </span>
+          </div>
+          <div class="field col-12">
+            <span class="p-float-label">
+              <input pInputText id="phoneNumber" [(ngModel)]="phoneNumber" pInputText />
+              <label htmlFor="phoneNumber">Phone Number</label>
+            </span>
+          </div>
+          <div class="field col-12">
+            <span class="p-float-label">
+              <input pInputText id="email" [(ngModel)]="user.email" pInputText />
+              <label htmlFor="email">Email</label>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-card>
+</div>
