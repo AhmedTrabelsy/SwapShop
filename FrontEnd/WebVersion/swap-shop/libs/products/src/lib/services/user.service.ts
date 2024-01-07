@@ -14,4 +14,8 @@ export class UserService {
   getAll(): Observable<user[]> {
     return this.http.get<user[]>(this.categoriesApiUrl);
   }
+
+  delete(id:string): Observable<unknown> {
+    return this.http.delete<unknown>(this.categoriesApiUrl+'/'+id);
+  }
 }

@@ -1,5 +1,5 @@
 import { UserService } from './../../../../../../../libs/products/src/lib/services/user.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { user } from 'libs/products/src/lib/models/user';
 
 @Component({
@@ -7,16 +7,28 @@ import { user } from 'libs/products/src/lib/models/user';
   templateUrl: './users-list.component.html',
   styles: ``
 })
-export class UsersListComponent {
+export class UsersListComponent  implements OnInit{
 
   users : user[] = [];
 
   constructor(private userService : UserService) {
+
+  }
+
+  ngOnInit(): void {
+    this.getAllUsers();
+  }
+
+
+  getAllUsers(){
     this.userService.getAll().subscribe((res)=>{
       this.users = res
-      console.log('xxx');
-      // alert(this.users[1].attributes!['phone_number']);
+    });
+  }
 
+  deleteUser(id:string){
+    this.userService.delete(id).subscribe((res)=>{
+      this.getAllUsers();
     });
   }
 }
