@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { wishlist } from '../models/wishlist';
@@ -28,6 +28,9 @@ export class WishlistService {
           userId: data.user_id,
           product: data.products.filter((product: any) => product !== null && product !== undefined)
         };
+        const headers = new HttpHeaders({
+          'Authorization': `Bearer ${this.getToken()}`
+        });
         return processedWishlist;
       })
     );
