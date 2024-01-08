@@ -68,7 +68,7 @@ exports.create = async (req, res, next) => {
 
 exports.get = async (req, res, next) => {
     try {
-        const user_id = req.params.userId;
+        const user_id = req.params;
         const token = req.headers.authorization;
 
         if (!token) {
