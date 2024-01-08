@@ -15,6 +15,7 @@ import { PasswordModule } from 'primeng/password';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessagesModule } from 'primeng/messages';
 import { UnothorizedComponent } from './components/unothorized/unothorized.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 @NgModule({
 	declarations: [
 		ProductsComponent,
@@ -23,9 +24,10 @@ import { UnothorizedComponent } from './components/unothorized/unothorized.compo
 		ProductItemComponent,
 		FeaturedProductsComponent,
 		LoginPageComponent,
-    WishlistItemComponent,
+		WishlistItemComponent,
 		UnothorizedComponent,
-		UnothorizedComponent
+		UnothorizedComponent,
+		ProductDetailsComponent
 	],
 	imports: [MessagesModule, ReactiveFormsModule, FormsModule, CommonModule, ButtonModule, BadgeModule, CardModule, InputTextModule, PasswordModule],
 	exports: [ProductsComponent, ProductsSearchComponent, CategoriesBannerComponent, ProductItemComponent, FeaturedProductsComponent, WishlistItemComponent]

@@ -4,6 +4,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { WishlistService } from '../../services/wishlist.service';
 import { AuthentificationService } from '../../services/authentification.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 @Component({
   selector: 'swap-shop-product-item',
   templateUrl: './product-item.component.html',
@@ -17,7 +18,7 @@ export class ProductItemComponent implements OnInit, OnDestroy {
   badgeValue="Unsigned"
   sellerName="name"
   private userDataSubscription?: Subscription;
-  constructor(private wishlistService: WishlistService, private authService: AuthentificationService) { 
+  constructor(private wishlistService: WishlistService, private authService: AuthentificationService,private router: Router) { 
     const retrievedValue: string | null = sessionStorage.getItem('access_token');
 
   if (retrievedValue !== null) {
@@ -43,6 +44,10 @@ export class ProductItemComponent implements OnInit, OnDestroy {
     );
       }
 }
+}
+onSeeMoreClick(productId: string | undefined) {
+  const id=parseInt(productId || '0');
+  this.router.navigate(['/products', id]);
 }
   ngOnDestroy(): void {
     if (this.userDataSubscription) {
