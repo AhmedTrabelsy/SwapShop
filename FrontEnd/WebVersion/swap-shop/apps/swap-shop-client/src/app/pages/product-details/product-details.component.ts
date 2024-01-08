@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Product } from 'libs/products/src/lib/models/product';
 import { ProductService } from '@swap-shop/products';
 
@@ -7,19 +8,25 @@ import { ProductService } from '@swap-shop/products';
   templateUrl: './product-details.component.html',
 })
 export class ProductDetailsComponent implements OnInit {
-  productId!: number;
-  product: Product[] = [];
+  productData: Product | null = null;
 
-  constructor(private productService: ProductService) {}
+  constructor(private activeRoute: ActivatedRoute, private product: ProductService) { }
 
   ngOnInit(): void {
-    this.productService.getProduct(this.productId).subscribe(
-      (product) => {
-        this.product = [product]; // Wrap the single product in an array
-      },
-      (error) => {
-        console.error('Error fetching product:', error);
+    const productIdString = this.activeRoute.snapshot.paramMap.get('productId');
+    console.warn(productIdString);
+
+    if (productIdString) {
+      const productId: number = parseInt(productIdString, 10);
+
+      if (!isNaN(productId)) {
+        this.product.getProduct(productId).subscribe((result) => {
+          this.productData = result;
+          console.warn(result)
+        });
+      } else {
+        console.error('error for feching product-  productId:', productIdString);
       }
-    );
+    }
   }
 }
