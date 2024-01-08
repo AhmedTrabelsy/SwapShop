@@ -15,6 +15,7 @@ import { ProductsAddComponent } from './pages/products/products-add/products-add
 import { ProductEditComponent } from './pages/products/products-edit/products-edit.component';
 import { EditUsersComponent } from './pages/users/users-edit/users-edit.component';
 import { NotificationComponent } from './pages/notifications/notification.component';
+import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 export const appRoutes: Route[] = [
   { path: '', component: DashboardComponent, canActivate: [IsLoggedInGuard,HasRoleGuard], data: {userRole: ['client-admin','client-seller']} },
   { path: 'categories', component: CategoriesListComponent, canActivate: [IsLoggedInGuard,HasRoleGuard], data: {userRole: ['client-admin','client-seller']} },
@@ -32,4 +33,5 @@ export const appRoutes: Route[] = [
   { path: 'login', component: AuthentificationComponent },
   { path: 'unauthorized', component: UnothorizedComponent, canActivate: [IsLoggedInGuard]},
   { path: 'notifications', component: NotificationComponent, canActivate: [IsLoggedInGuard,HasRoleGuard], data: {userRole: ['client-admin']}},
+  { path: 'edit-profile', component: EditProfileComponent, canActivate: [IsLoggedInGuard,HasRoleGuard], data: {userRole: ['client-admin','client-seller']} },
 ];

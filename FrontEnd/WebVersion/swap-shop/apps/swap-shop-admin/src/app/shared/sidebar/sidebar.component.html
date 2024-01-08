@@ -9,7 +9,7 @@
     <div class="avatar">
       <i class="pi pi-user" style="font-size: 2rem"></i>
     </div>
-    <p class="username">{{ userData.username }}</p>
+    <p class="username" routerLink="/edit-profile">{{ userData.username }}</p>
     <p class="role" *ngIf="userRole && userRole.length > 0">
       <span *ngFor="let role of userRole; let last = last">
         {{ role }}{{ !last ? ', ' : '' }}
