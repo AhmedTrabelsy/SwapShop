@@ -1,5 +1,5 @@
 <div class="featured-products">
-  <h2 class="featured-products-title">My Favourite ({{ products.length }})</h2>
+  <h2 class="featured-products-title">My Favourites ({{ products.length }})</h2>
   <hr class="featured-products-ceparator">
   <div class="featured-products-container grid">
     <div class="col-6 sm:col-4 md:col-3 lg:col-2" *ngFor="let item of products">
@@ -27,11 +27,11 @@
           </div>
           <div class="grid">
             <div class="p-2">
-            <p-button styleClass="m-0 mt-3" label="" icon="pi pi-cart-plus" iconPos="right"></p-button>
+              <p-button styleClass="m-0 mt-3" label="" icon="pi pi-cart-plus" iconPos="right"></p-button>
             </div>
             <div class="p-2">
-            <p-button styleClass="m-0 mt-3" label="" icon="pi pi-delete-left" iconPos="right"
-            severity="danger" (click)="deleteFromWishlist(item?.id)"></p-button>
+              <p-button styleClass="m-0 mt-3" label="" icon="pi pi-delete-left" iconPos="right" severity="danger"
+                (click)="deleteFromWishlist(item?.id)"></p-button>
             </div>
           </div>
           <p-button styleClass="mt-3 see-more" label="See more" icon="pi pi-arrow-right" iconPos="right"></p-button>

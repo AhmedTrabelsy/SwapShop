@@ -21,21 +21,21 @@ import { SignupPageComponent } from './components/signup-page/signup-page.compon
 import { GalleryComponent } from './components/gallery/gallery.component';
 
 @NgModule({
-	declarations: [
-		ProductsComponent,
-		ProductsSearchComponent,
-		CategoriesBannerComponent,
-		ProductItemComponent,
-		FeaturedProductsComponent,
-		LoginPageComponent,
-		WishlistItemComponent,
-		UnothorizedComponent,
-		UnothorizedComponent,
-		ProductDetailsComponent,
+  declarations: [
+    ProductsComponent,
+    ProductsSearchComponent,
+    CategoriesBannerComponent,
+    ProductItemComponent,
+    FeaturedProductsComponent,
+    LoginPageComponent,
+    WishlistItemComponent,
+    UnothorizedComponent,
+    UnothorizedComponent,
+    ProductDetailsComponent,
     SignupPageComponent,
     GalleryComponent,
-	],
-	imports: [DividerModule,MessagesModule, ReactiveFormsModule, FormsModule, CommonModule, ButtonModule, BadgeModule, CardModule, InputTextModule, PasswordModule],
-	exports: [ProductsComponent, ProductsSearchComponent, CategoriesBannerComponent, ProductItemComponent, FeaturedProductsComponent, WishlistItemComponent, GalleryComponent]
+  ],
+  imports: [DividerModule, MessagesModule, ReactiveFormsModule, FormsModule, CommonModule, ButtonModule, BadgeModule, CardModule, InputTextModule, PasswordModule],
+  exports: [ProductsComponent, ProductsSearchComponent, CategoriesBannerComponent, ProductItemComponent, FeaturedProductsComponent, WishlistItemComponent, GalleryComponent]
 })
-export class ProductsModule {}
+export class ProductsModule { }

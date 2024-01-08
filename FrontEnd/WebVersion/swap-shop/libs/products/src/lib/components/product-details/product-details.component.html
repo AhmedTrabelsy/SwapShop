@@ -32,9 +32,11 @@
           pButton
           pRipple
           type="button"
-          label="Add to Wishlist"
-          class="p-button-rounded"
-        ></button>
+          class="p-button-rounded addToWishlistSpan"
+          *ngIf="isAuthenticated"
+          (click)="toggleHeart(product.id)"
+        ><i class="addToWishlistIcon mr-2" [ngClass]="heartClass" style="font-size: 1rem"
+        (click)="toggleHeart(product.id)"></i> {{ wishlistText }}</button>
       </div>
     </div>
   </div>
@@ -44,4 +46,3 @@
     </div>
   </div>
 </div>
-
