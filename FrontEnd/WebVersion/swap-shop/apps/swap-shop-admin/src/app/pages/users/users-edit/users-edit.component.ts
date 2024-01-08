@@ -79,9 +79,9 @@ export class EditUsersComponent implements OnInit {
       lastName: this.user.lastName,
       email: this.user.email,
       phoneNumber: this.phoneNumber
-    }).subscribe((response)=>{
+    }).subscribe(()=>{
       this.router.navigate(['/users']);
-    },(error)=>{
+    },()=>{
       this.error = "Email already exists"
     });
 
