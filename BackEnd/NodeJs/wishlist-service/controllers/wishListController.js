@@ -6,26 +6,38 @@ exports.create = async (req, res, next) => {
     try {
         const { user_id, product_id } = req.body;
         const token = req.headers.authorization;
+
         if (!token) {
             return res.status(401).json({
                 status: 'fail',
                 message: 'Token is missing',
             });
         }
-        const user = await validateTokenAndGetUser(token);
 
-        if (!user) {
-            return res.status(401).json({
-                status: 'fail',
-                message: 'Invalid token',
-            });
-        }
         if (!user_id || !product_id) {
             return res.status(400).json({
                 status: 'fail',
                 message: 'user_id and product_id are required',
             });
         }
+
+        const headers = {
+            Authorization: `Bearer ${token}`,
+        };
+
+        const userIdResponse = await axios.get(`${process.env.GATEWAY_URL}/AUTH-SERVICE/getUserId`, {
+            headers,
+        });
+
+        const userId = userIdResponse.data.userId;
+
+        if (user_id !== userId) {
+            return res.status(403).json({
+                status: 'fail',
+                message: 'Access forbidden. User does not have permission to access this resource.',
+            });
+        }
+
         const existingWishList = await WishList.findOne({ user_id });
 
         if (existingWishList) {
@@ -52,6 +64,7 @@ exports.create = async (req, res, next) => {
         });
     }
 };
+
 
 exports.get = async (req, res, next) => {
     try {
