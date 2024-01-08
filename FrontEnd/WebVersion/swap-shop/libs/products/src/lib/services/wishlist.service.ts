@@ -39,7 +39,7 @@ export class WishlistService {
     const token = this.getToken();
 
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
+      authorization: `Bearer ${token}`
     });
 
 
