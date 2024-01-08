@@ -1,7 +1,9 @@
 # SwapShop
 
-<a href="https://ahmedtrabelsy.github.io/SwapShop/">DEMO WEB</a>
-
+<a href="http://34.199.239.78">CLIENT APP</a>
+</br>
+<a href="http://34.199.239.78:81">ADMIN APP</a>
+</br>
 <a href="http://34.199.239.78:1000">DOWNLOAD APK</a>
 
 <a href="https://documenter.getpostman.com/view/5594301/2s9YRFVANr">API documentation</a>
