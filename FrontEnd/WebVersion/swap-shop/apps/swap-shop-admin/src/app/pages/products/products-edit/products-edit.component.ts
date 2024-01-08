@@ -14,17 +14,18 @@ export class ProductEditComponent implements OnInit {
 
 
   product: product = new product();
-  categories : Category[]  = [];
+  categories: Category[] = [];
   formData = new FormData();
   error: string | null = null;
   images: File[] = [];
-  productId : number | null = null;
+  productId: number | null = null;
+  selectedProduct?: product;
 
 
 
   constructor(
     private categoriesService: CategoriesService,
-    private productService : ProductService,
+    private productService: ProductService,
     private router: Router,
     private route: ActivatedRoute,
   ) {
@@ -32,49 +33,51 @@ export class ProductEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-     this.categoriesService.getCategories().subscribe((res)=>this.categories = res);
+    this.categoriesService.getCategories().subscribe((res) => this.categories = res);
 
 
-     this.route.paramMap.subscribe(params=> {
+    this.route.paramMap.subscribe(params => {
       this.productId = Number(params.get('id'));
 
-      this.productService.getProduct(this.productId).subscribe((res)=>{
+      this.productService.getProduct(this.productId).subscribe((res) => {
         this.product = res;
+        this.selectedProduct = res?.category;
 
-       })
+      })
 
-      });
+    });
   }
 
-  onChangeCategory(event: any) {
-    this.product.categoryID = event.value.id;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onChangeCategory(event: any): void {
+    this.selectedProduct = event.value;
   }
 
-
-  onFileSelected(event:any) {
-    const file:File = event.target.files[0];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onFileSelected(event: any): void {
+    const file: File = event.target.files[0];
     if (file) {
       this.images.push(file);
     }
   }
 
-  onSubmit(){
-    if(this.product.categoryID == null){
+  onSubmit() {
+    if (this.product.categoryID == null) {
       this.error = 'Category is required';
       return;
     }
 
-    if(this.product.name == ''){
+    if (this.product.name == '') {
       this.error = 'Name is required';
       return;
     }
 
-    if(this.product.description == ''){
+    if (this.product.description == '') {
       this.error = 'Description is required';
       return;
     }
 
-    if(this.product.price == 0){
+    if (this.product.price == 0) {
       this.error = 'Price is required';
       return;
     }
@@ -87,19 +90,19 @@ export class ProductEditComponent implements OnInit {
     this.formData.append('name', this.product.name!);
     this.formData.append("description", this.product.description!);
     this.formData.append("price", this.product.price!.toString());
-    if(this.product.categoryID != null){
+    if (this.product.categoryID != null) {
       this.formData.append('categoryID', this.product.categoryID.toString());
     }
 
-    this.images.forEach((image)=>{
+    this.images.forEach((image) => {
       this.formData.append('images', image);
     })
 
     this.formData.append('sellerID', sessionStorage.getItem('userId')!);
 
-  this.productService.updateProduct(this.productId!,this.formData).subscribe((response)=>{
-    this.router.navigate(['/products']);
-  })
+    this.productService.updateProduct(this.productId!, this.formData).subscribe(() => {
+      this.router.navigate(['/products']);
+    })
 
 
   }
