@@ -1,1 +1,8 @@
-<p>product-details works!</p>
+<div class="product-details">
+    <h2 class="product-name">{{ product?.name }}</h2>
+    <img *ngIf="product && product.images && product.images[0]?.name" src="http://34.199.239.78:8888/PRODUCT-SERVICE/{{ product.images[0]?.name }}" alt="{{ product.name }}" class="product-image" />
+    <p class="product-description">{{ product?.description }}</p>
+    <p class="product-price">{{ product?.price | currency }}</p>
+  </div>
+  
+  

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { product } from '../../models/product';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'swap-shop-product-details',
@@ -9,9 +10,18 @@ import { product } from '../../models/product';
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy{
 	product: product | undefined;
-	constructor(private productService: ProductService) {}
+	productId: number | undefined;
+	constructor(private productService: ProductService, private route: ActivatedRoute) {}
 	ngOnInit(): void {
-		throw new Error('Method not implemented.');
+		this.route.params.subscribe(params => {
+			this.productId = +params['id'];
+		});
+		if (this.productId) {
+			this.productService.getProduct(this.productId).subscribe(product => {
+				this.product = product;
+				console.log(this.product);
+			});
+		}
 	}
 	ngOnDestroy(): void {
 		throw new Error('Method not implemented.');
