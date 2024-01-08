@@ -34,6 +34,7 @@ import { ProductsAddComponent } from './pages/products/products-add/products-add
 import { ProductEditComponent } from './pages/products/products-edit/products-edit.component';
 import { EditUsersComponent } from './pages/users/users-edit/users-edit.component';
 import { NotificationComponent } from './pages/notifications/notification.component';
+import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 @NgModule({
 	declarations: [
 		LoginPageComponent,
@@ -52,6 +53,7 @@ import { NotificationComponent } from './pages/notifications/notification.compon
     ProductEditComponent,
     EditUsersComponent,
     NotificationComponent,
+    EditProfileComponent,
 	],
 	imports: [
 		PasswordModule,
