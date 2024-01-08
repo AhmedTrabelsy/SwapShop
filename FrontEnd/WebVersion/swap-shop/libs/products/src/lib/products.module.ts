@@ -18,7 +18,7 @@ import { UnothorizedComponent } from './components/unothorized/unothorized.compo
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { DividerModule } from 'primeng/divider';
 import { SignupPageComponent } from './components/signup-page/signup-page.component';
-import { UiModule } from '@swap-shop/ui';
+import { GalleryComponent } from './components/gallery/gallery.component';
 
 @NgModule({
 	declarations: [
@@ -33,8 +33,9 @@ import { UiModule } from '@swap-shop/ui';
 		UnothorizedComponent,
 		ProductDetailsComponent,
     SignupPageComponent,
+    GalleryComponent,
 	],
-	imports: [UiModule, DividerModule,MessagesModule, ReactiveFormsModule, FormsModule, CommonModule, ButtonModule, BadgeModule, CardModule, InputTextModule, PasswordModule],
-	exports: [ProductsComponent, ProductsSearchComponent, CategoriesBannerComponent, ProductItemComponent, FeaturedProductsComponent, WishlistItemComponent]
+	imports: [DividerModule,MessagesModule, ReactiveFormsModule, FormsModule, CommonModule, ButtonModule, BadgeModule, CardModule, InputTextModule, PasswordModule],
+	exports: [ProductsComponent, ProductsSearchComponent, CategoriesBannerComponent, ProductItemComponent, FeaturedProductsComponent, WishlistItemComponent, GalleryComponent]
 })
 export class ProductsModule {}
