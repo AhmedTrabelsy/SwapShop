@@ -1,1 +1,41 @@
-<p>orders-list works!</p>
+<p-toast></p-toast>
+<div class="admin-page">
+  <p-card header="Orders" subheader="List of all Orders">
+    <div class="grid">
+      <div class="col-12">
+        <p-table [paginator]="true" [rows]="10" [value]="orders" styleClass="p-datatable-gridlines"
+          [globalFilterFields]="['name']">
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="#">#<p-sortIcon field="#"></p-sortIcon></th>
+              <th pSortableColumn="UserId">User Id <p-sortIcon field="UserId"></p-sortIcon></th>
+              <th pSortableColumn="ProductId">Product Id <p-sortIcon field="ProductId"></p-sortIcon></th>
+              <th pSortableColumn="BillingAddress">Billing Address <p-sortIcon field="BillingAddress"></p-sortIcon></th>
+
+              <th pSortableColumn="created_at">Created at <p-sortIcon field="created_at"></p-sortIcon></th>
+              <th pSortableColumn="updated_at">Updated at <p-sortIcon field="updated_at"></p-sortIcon></th>
+              <th >Action</th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-order>
+            <tr>
+              <td>{{ order.id }}</td>
+              <td>{{ order.userId }}</td>
+              <td>{{ order.productId }}</td>
+              <td>{{ order.billingAdress }}</td>
+              <td>{{ order.createdAt | date: 'short' }}</td>
+              <td>{{ order.updatedAt | date: 'short' }}</td>
+              <td>
+                <p-button (click)="deleteOrder(order.id)" styleClass="p-button-danger mr-2"
+                  icon="pi pi-trash"></p-button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </p-card>
+</div>
+<p-confirmDialog [style]="{ width: '50vw' }" [baseZIndex]="10000"
+  rejectButtonStyleClass="p-button-text"></p-confirmDialog>
