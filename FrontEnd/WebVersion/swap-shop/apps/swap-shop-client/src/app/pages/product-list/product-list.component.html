@@ -1,1 +1,57 @@
-  <p>product-list works!</p>
+<div class="container">
+  <div class="categories col-1">
+    <h2>Categories</h2>
+    <div class="grid">
+      <div *ngFor="let category of categories" class="card col-12">
+        <input type="checkbox" [id]="category.id ? category.id : ''" (change)="onCategoryCheckboxChange(category.id!)" />
+        <div class="card-content">
+          <div class="text-1xl text-500">{{ category.name }}</div>
+          <i class="pi pi-tag"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="products col-2">
+    <h2>Products</h2>
+    <div class="grid" >
+      <div *ngFor="let product of getFilteredProducts(); let i = index" class="card col-4">
+        <swap-shop-product-item routerLink="/product-details" [product]="product" ></swap-shop-product-item>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<style>.container {
+  display: flex;
+}
+
+.categories {
+  flex: 30%;
+}
+
+.products {
+  flex: 70%; 
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.card {
+  border: 2px solid #ccc;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.col-12 {
+  flex: 100%;
+}
+
+.col-4 {
+  flex: 33.33%; 
+}
+</style>
