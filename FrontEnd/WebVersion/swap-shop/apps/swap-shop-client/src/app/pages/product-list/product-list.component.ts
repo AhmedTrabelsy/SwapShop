@@ -9,10 +9,17 @@ import { Subscription } from 'rxjs';
   templateUrl: './product-list.component.html',
 })
 export class ProductListComponent implements OnInit, OnDestroy {
-
+  isAuthenticated = false;
   products: product[] = [];
   private productSubscription?: Subscription;
   constructor(private productService: ProductService,private wishlistService: WishlistService) { 
+    const retrievedValue: string | null = sessionStorage.getItem('access_token');
+
+    if (retrievedValue !== null) {
+      this.isAuthenticated = true;
+    } else {
+      console.log('Value not found in session storage');
+    }
   }
   icons: string[] = [];
   onClick(event: MouseEvent, index: number, idString: string|undefined) {
