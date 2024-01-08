@@ -9,11 +9,13 @@ import { ContactCreatorsComponent } from './pages/contact-creators/contact-creat
 import { ProductDetailsComponent } from '../../../../libs/products/src/lib/components/product-details/product-details.component';
 import { CheckoutComponent } from 'libs/products/src/lib/components/checkout/checkout.component';
 import { SuccessComponent } from 'libs/products/src/lib/components/success/success.component';
+import { OrdersListComponent } from './pages/orders/orders-list.component';
 
 export const appRoutes: Route[] = [
   { path: '', component: HomePageComponent },
   { path: 'products', component: ProductListComponent },
   { path: 'wishlist', component: WishListComponent, canActivate: [IsLoggedInGuard] },
+  { path: 'orders', component: OrdersListComponent, canActivate: [IsLoggedInGuard] },
   { path: 'login', component: LoginPageComponent },
   { path: 'signup', component: SignupPageComponent },
   { path: 'contact', component: ContactCreatorsComponent },

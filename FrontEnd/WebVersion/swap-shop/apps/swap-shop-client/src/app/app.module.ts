@@ -22,6 +22,8 @@ import { CardModule } from 'primeng/card';
 import { ToolbarModule } from 'primeng/toolbar';
 import { DataViewModule } from 'primeng/dataview';
 import { ContactCreatorsComponent } from './pages/contact-creators/contact-creators.component';
+import { OrdersListComponent } from './pages/orders/orders-list.component';
+import { InputTextModule } from 'primeng/inputtext';
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -31,9 +33,11 @@ import { ContactCreatorsComponent } from './pages/contact-creators/contact-creat
 		HeaderComponent,
 		NavComponent,
 		WishListComponent,
-		ContactCreatorsComponent
+		ContactCreatorsComponent,
+    OrdersListComponent,
 	],
 	imports: [
+    InputTextModule,
 		DataViewModule,
 		ToolbarModule,
 		BrowserModule,
