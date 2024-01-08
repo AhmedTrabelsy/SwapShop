@@ -7,11 +7,13 @@ import { LoginPageComponent } from 'libs/products/src/lib/components/login-page/
 import { IsLoggedInGuard } from '../../../../libs/products/src/lib/is-logged-in-guard/is-logged-in-guard.guard';
 import { ContactCreatorsComponent } from './pages/contact-creators/contact-creators.component';
 import { ProductDetailsComponent } from '../../../../libs/products/src/lib/components/product-details/product-details.component';
+import { OrdersListComponent } from './pages/orders/orders-list.component';
 
 export const appRoutes: Route[] = [
   { path: '', component: HomePageComponent },
   { path: 'products', component: ProductListComponent },
   { path: 'wishlist', component: WishListComponent, canActivate: [IsLoggedInGuard] },
+  { path: 'orders', component: OrdersListComponent, canActivate: [IsLoggedInGuard] },
   { path: 'login', component: LoginPageComponent },
   { path: 'signup', component: SignupPageComponent },
   { path: 'contact', component: ContactCreatorsComponent },

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { wishlist } from 'libs/products/src/lib/models/wishlist';
 import { SharedService } from 'libs/products/src/lib/services/shared.service';
 import { formatDistanceToNow } from 'date-fns';
+import { OrderService } from 'libs/products/src/lib/services/order.service';
 
 @Component({
   selector: 'swap-shop-wish-list',
@@ -10,9 +11,14 @@ import { formatDistanceToNow } from 'date-fns';
 })
 export class WishListComponent {
   wishlists: wishlist[] = [];
+  count: number = 0;
 
-
-  constructor(private sharedService: SharedService) { }
+  constructor(private sharedService: SharedService,private orderService: OrderService) {
+    this.orderService.getOrderCount().subscribe(count => {
+      console.log(count);
+      this.count = count;
+    });
+  }
 
   calculateAnimationDelay(index?: number): string {
     return this.sharedService.calculateAnimationDelay(index);
