@@ -36,13 +36,23 @@ export class WishlistService {
     );
   }
   getProducts(): Observable<product[]> {
+    const token = this.getToken();
+
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.getToken()}`
+      Authorization: `Bearer ${token}`
     });
-    return this.http.get<any>(`http://34.199.239.78:8888/WISHLIST-SERVICE/${sessionStorage.getItem('userId')}`, {headers}).pipe(
+
+
+    const userId = sessionStorage.getItem('userId');
+    if (!userId) {
+      return new Observable<product[]>();
+    }
+
+    return this.http.get<any>(`http://34.199.239.78:8888/WISHLIST-SERVICE/${userId}`, { headers:headers }).pipe(
       map((data: any) => data.products.filter((product: any) => product !== null && product !== undefined))
     );
   }
+
   deleteProduct(productId: number): Promise<void> {
     if ( this.isAuthenticated()){
       const headers = new HttpHeaders({

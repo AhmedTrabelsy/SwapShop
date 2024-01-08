@@ -55,29 +55,33 @@ exports.create = async (req, res, next) => {
 
 exports.get = async (req, res, next) => {
     try {
-        const user_id = req.params.user_id;
+        const user_id = req.params.userId;
         const token = req.headers.authorization;
+
         if (!token) {
             return res.status(401).json({
                 status: 'fail',
                 message: 'Token is missing',
             });
         }
-        const isAuthenticated = await validateTokenAndGetUser(token);
 
-        if (!isAuthenticated) {
-            return res.status(401).json({
-                status: 'fail',
-                message: 'Invalid token',
-            });
-        }
         if (!user_id) {
             return res.status(400).json({
                 status: 'fail',
                 message: 'Invalid user_id',
             });
         }
-        if (user_id !== isAuthenticated.user_id) {
+
+        const headers = {
+            Authorization: `Bearer ${token}`,
+        };
+        const userIdResponse = await axios.get(`${process.env.GATEWAY_URL}/AUTH-SERVICE/getUserId`, {
+            headers,
+        });
+        console.log(userIdResponse);
+        const userId = userIdResponse.data.userId;
+
+        if (user_id !== userId) {
             return res.status(403).json({
                 status: 'fail',
                 message: 'Access forbidden. User does not have permission to access this resource.',
@@ -87,6 +91,7 @@ exports.get = async (req, res, next) => {
         const wishlist = await WishList.findOne({ user_id });
 
         let responseData = {};
+
         if (wishlist) {
             const productPromises = wishlist.products.map(async (product_id) => {
                 try {
@@ -115,6 +120,7 @@ exports.get = async (req, res, next) => {
         });
     }
 };
+
 
 exports.deleteByUserId = async (req, res, next) => {
     try {
