@@ -18,6 +18,8 @@ import { UnothorizedComponent } from './components/unothorized/unothorized.compo
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { DividerModule } from 'primeng/divider';
 import { SignupPageComponent } from './components/signup-page/signup-page.component';
+import { UiModule } from '@swap-shop/ui';
+
 @NgModule({
 	declarations: [
 		ProductsComponent,
@@ -32,7 +34,7 @@ import { SignupPageComponent } from './components/signup-page/signup-page.compon
 		ProductDetailsComponent,
     SignupPageComponent,
 	],
-	imports: [DividerModule,MessagesModule, ReactiveFormsModule, FormsModule, CommonModule, ButtonModule, BadgeModule, CardModule, InputTextModule, PasswordModule],
+	imports: [UiModule, DividerModule,MessagesModule, ReactiveFormsModule, FormsModule, CommonModule, ButtonModule, BadgeModule, CardModule, InputTextModule, PasswordModule],
 	exports: [ProductsComponent, ProductsSearchComponent, CategoriesBannerComponent, ProductItemComponent, FeaturedProductsComponent, WishlistItemComponent]
 })
 export class ProductsModule {}

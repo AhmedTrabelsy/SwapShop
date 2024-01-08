@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { BannerComponent } from './components/banner/banner.component';
 import { ButtonModule } from 'primeng/button';
 import { LottieModule } from 'ngx-lottie';
+import { GalleryComponent } from './components/gallery/gallery.component';
 
 
 
 @NgModule({
   declarations: [
-    BannerComponent
+    BannerComponent,
+    GalleryComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +18,8 @@ import { LottieModule } from 'ngx-lottie';
     LottieModule.forRoot({ player: playerFactory}),
   ],
   exports: [
-    BannerComponent
+    BannerComponent,
+    GalleryComponent
   ]
 })
 export class UiModule { }

@@ -1,0 +1,14 @@
+<div class="gallery" *ngIf="hasImages">
+  <div class="main-image">
+    <img [src]="selectedImageUrl" alt="" />
+  </div>
+  <div class="images">
+    <ul>
+      <li
+        *ngFor="let image of images"
+        (click)="changeSelectedImage('http://34.199.239.78:8888/PRODUCT-SERVICE/' + image.name)"
+        [ngStyle]="{ 'background-image': 'url(http://34.199.239.78:8888/PRODUCT-SERVICE/' + image.name + ')' }"
+      ></li>
+    </ul>
+  </div>
+</div>

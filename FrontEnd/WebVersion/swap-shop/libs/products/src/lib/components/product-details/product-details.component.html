@@ -1,7 +1,47 @@
-<div class="product-details">
+<!-- <div class="product-details">
     <h2 class="product-name">{{ product?.name }}</h2>
     <img *ngIf="product && product.images && product.images[0]?.name" src="http://34.199.239.78:8888/PRODUCT-SERVICE/{{ product.images[0].name }}" alt="{{ product.name }}" class="product-image" />
     <p class="product-description">{{ product?.description }}</p>
     <p class="product-price">{{ product?.price | currency }}</p>
+</div> -->
+
+
+<div class="product-page" *ngIf="product">
+  <div class="p-grid">
+    <div class="p-col-6">
+      <swap-shop-gallery [images]="product.images"></swap-shop-gallery>
+    </div>
+    <div class="p-col-6 product">
+      <h2 class="product-name">{{ product.name }}</h2>
+      <p class="product-desc">
+        {{ product.description }}
+      </p>
+      <div *ngIf="product.price" class="product-price">
+        {{ product.price | currency }}
+        <span class="price-before">{{ (product.price + 18) | currency }}</span>
+      </div>
+      <div class="product-actions">
+        <button
+          pButton
+          pRipple
+          type="button"
+          label="Buy Now"
+          class="p-button-rounded p-mr-2"
+        ></button>
+        <button
+          pButton
+          pRipple
+          type="button"
+          label="Add to Wishlist"
+          class="p-button-rounded"
+        ></button>
+      </div>
+    </div>
   </div>
+  <!-- <div class="p-grid product-rich-desc">
+    <div class="p-col-12">
+      <div [innerHTML]="product.description"></div>
+    </div>
+  </div> -->
+</div>
 

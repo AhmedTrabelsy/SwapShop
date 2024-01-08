@@ -6,11 +6,12 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
 	selector: 'swap-shop-product-details',
 	templateUrl: './product-details.component.html',
-	styles: []
+	styleUrl: './product-details.scss'
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy{
-	product: product | undefined;
-	productId: number | undefined;
+	product?: product;
+	productId?: number;
+
 	constructor(private productService: ProductService, private route: ActivatedRoute) {}
 	ngOnInit(): void {
 		this.route.params.subscribe(params => {
@@ -26,5 +27,5 @@ export class ProductDetailsComponent implements OnInit, OnDestroy{
 	ngOnDestroy(): void {
 		throw new Error('Method not implemented.');
 	}
-	
+
 }
