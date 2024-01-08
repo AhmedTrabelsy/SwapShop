@@ -7,6 +7,8 @@ import { LoginPageComponent } from 'libs/products/src/lib/components/login-page/
 import { IsLoggedInGuard } from '../../../../libs/products/src/lib/is-logged-in-guard/is-logged-in-guard.guard';
 import { ContactCreatorsComponent } from './pages/contact-creators/contact-creators.component';
 import { ProductDetailsComponent } from '../../../../libs/products/src/lib/components/product-details/product-details.component';
+import { CheckoutComponent } from 'libs/products/src/lib/components/checkout/checkout.component';
+import { SuccessComponent } from 'libs/products/src/lib/components/success/success.component';
 
 export const appRoutes: Route[] = [
   { path: '', component: HomePageComponent },
@@ -15,6 +17,9 @@ export const appRoutes: Route[] = [
   { path: 'login', component: LoginPageComponent },
   { path: 'signup', component: SignupPageComponent },
   { path: 'contact', component: ContactCreatorsComponent },
+  { path: 'checkout/:id', component: CheckoutComponent, canActivate: [IsLoggedInGuard]},
+  { path: 'success', component: SuccessComponent, canActivate: [IsLoggedInGuard]},
+
   // { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) }
   { path: 'products/:id', component: ProductDetailsComponent},
 ];

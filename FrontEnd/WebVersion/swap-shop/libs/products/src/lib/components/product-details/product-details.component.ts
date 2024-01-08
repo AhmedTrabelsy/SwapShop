@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { product } from '../../models/product';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthentificationService } from '../../services/authentification.service';
 import { Subscription } from 'rxjs';
 import { WishlistService } from '../../services/wishlist.service';
@@ -20,9 +20,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   heartClass: string = 'pi pi-heart';
   wishlistText: string = ' Add to Wishlist';
 
-
-
-  constructor(private productService: ProductService, private wishlistService: WishlistService, private route: ActivatedRoute, private authService: AuthentificationService) {
+  constructor(private router: Router, private productService: ProductService, private wishlistService: WishlistService, private route: ActivatedRoute, private authService: AuthentificationService) {
     const retrievedValue: string | null = sessionStorage.getItem('access_token');
 
     if (retrievedValue !== null) {
@@ -82,6 +80,12 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-
+  buyProduct(productId?: string) {
+    if (this.isAuthenticated) {
+      this.router.navigateByUrl(`checkout/${productId}`);
+    } else {
+      this.router.navigate(['/login']);
+    }
+  }
 
 }

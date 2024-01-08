@@ -19,6 +19,8 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { DividerModule } from 'primeng/divider';
 import { SignupPageComponent } from './components/signup-page/signup-page.component';
 import { GalleryComponent } from './components/gallery/gallery.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { SuccessComponent } from './components/success/success.component';
 
 @NgModule({
   declarations: [
@@ -34,8 +36,10 @@ import { GalleryComponent } from './components/gallery/gallery.component';
     ProductDetailsComponent,
     SignupPageComponent,
     GalleryComponent,
+    CheckoutComponent,
+    SuccessComponent,
   ],
   imports: [DividerModule, MessagesModule, ReactiveFormsModule, FormsModule, CommonModule, ButtonModule, BadgeModule, CardModule, InputTextModule, PasswordModule],
-  exports: [ProductsComponent, ProductsSearchComponent, CategoriesBannerComponent, ProductItemComponent, FeaturedProductsComponent, WishlistItemComponent, GalleryComponent]
+  exports: [CheckoutComponent, ProductsComponent, ProductsSearchComponent, CategoriesBannerComponent, ProductItemComponent, FeaturedProductsComponent, WishlistItemComponent, GalleryComponent, CheckoutComponent, SuccessComponent]
 })
-export class ProductsModule { }
+export class ProductsModule {}
